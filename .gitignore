@@ -50,3 +50,20 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+
+build/
+/bin/
+*.iml
+.idea/
+
+!gradle/wrapper/gradle-wrapper.jar
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.AppleDouble
+.LSOverride
+.Trashes
+ehthumbs.db
+Thumbs.db
