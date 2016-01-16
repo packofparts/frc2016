@@ -1,12 +1,11 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team1294.robot.subsystems.DriveSystem;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -15,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * at the specified times.
  */
 public class Robot extends IterativeRobot {
-    public static final Subsystem EXAMPLE_SUBSYSTEM = new ExampleSubsystem();
+	public static final DriveSystem driveTrain = new DriveSystem();
 
     public static OI oi;
 
