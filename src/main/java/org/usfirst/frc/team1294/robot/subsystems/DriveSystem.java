@@ -28,6 +28,8 @@ public class DriveSystem extends Subsystem {
     	rightFrontTalon = new CANTalon(2);
     	rightFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	rightBackTalon = new CANTalon(4);
+    	leftFrontTalon.setInverted(true);
+    	rightFrontTalon.setInverted(true);
     	//set left back talon to slave mode
     	leftBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
     	leftBackTalon.set(leftFrontTalon.getDeviceID());
