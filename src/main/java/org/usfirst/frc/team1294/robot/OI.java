@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1294.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 
 /**
  * Things relating to the driver station should be defined here,
@@ -11,5 +13,6 @@ package org.usfirst.frc.team1294.robot;
  * they are accessible from elsewhere in Commands and such. Buttons can be {@code private static final}.
  */
 public class OI {
-
+	public static Joystick leftJoystick = new Joystick(0);
+	public static Joystick rightJoystick = new Joystick(1);
 }
