@@ -37,7 +37,8 @@ public class SinBreakInCommand extends Command {
      */
     @Override
     protected void execute() {
-    	Robot.Drive_System.drive.arcadeDrive(Math.sin(0.32 * timer.get()), 0);
+    	// https://www.desmos.com/calculator/wx1lpnt1a7
+    	Robot.Drive_System.drive.arcadeDrive(Math.sin(0.31415 * timer.get()), 0);
     }
 
     /**
