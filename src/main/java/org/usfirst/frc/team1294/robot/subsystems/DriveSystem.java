@@ -22,13 +22,14 @@ public class DriveSystem extends Subsystem {
     public DriveSystem() {
         // Set left feedback device and talon numbers
     	leftFrontTalon = new CANTalon(1);
-    	leftFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	//leftFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	leftBackTalon = new CANTalon(3);
     	// Set right feedback device and talon numbers
     	rightFrontTalon = new CANTalon(2);
-    	rightFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	rightBackTalon = new CANTalon(4);
+    	//rightFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	//rightBackTalon = new CANTalon(4);
     	leftFrontTalon.setInverted(true);
+    	//leftBackTalon.reverseOutput(true);
     	rightFrontTalon.setInverted(true);
     	//set left back talon to slave mode
     	leftBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
@@ -44,6 +45,7 @@ public class DriveSystem extends Subsystem {
     protected void initDefaultCommand() {
         setDefaultCommand(new TankDriveWithJoystick());
     }
+    
     public void tankDrive(Joystick left, Joystick right) {
 		drive.tankDrive(left, right);
 	}

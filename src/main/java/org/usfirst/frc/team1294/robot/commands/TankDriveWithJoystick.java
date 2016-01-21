@@ -3,7 +3,6 @@ package org.usfirst.frc.team1294.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team1294.robot.Robot;
-import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Have the robot drive tank style using the PS3 Joystick until interrupted.
