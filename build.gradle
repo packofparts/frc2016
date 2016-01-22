@@ -15,7 +15,6 @@ buildscript {
 }
 
 plugins {
-    // id "com.jfrog.bintray" version "1.4"
     id 'org.ajoberstar.grgit' version '1.3.2'
     id 'org.ajoberstar.release-opinion' version '1.3.2'
 }
@@ -26,41 +25,39 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'GradleRIO'
 apply plugin: 'org.ajoberstar.release-opinion'
-// apply plugin: 'maven-publish'
+apply plugin: 'maven-publish'
 
 gradlerio.robotClass = "org.usfirst.frc.team1294.robot.Robot"   //The class for the main Robot Class. Used in manifest
 gradlerio.team = "1294"                                   //Your FRC team number (e.g. 5333 for team 'Can't C#', or 47 for Chief Delphi)
 //gradlerio.rioIP = "10.53.33.20"                         //Uncomment to specify the IP address of the RIO
 
-/*
 publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            from components.java
-            groupId 'org.usfirst.frc.team1294'
-            artifactId 'CiDemo'
-            version project.version.toString()
-        }
-    }
+	publications {
+		MyPublication(MavenPublication) {
+			from components.java
+			groupId 'org.usfirst.frc.team1294'
+			artifactId 'CiDemo'
+			version project.version.toString()
+		}
+	}
 }
 
-bintray {
-	user = project.hasProperty('BINTRAY_USER') ? project.getProperty('BINTRAY_USER') : System.getenv('BINTRAY_USER')
-	key = project.hasProperty('BINTRAY_KEY') ? project.getProperty('BINTRAY_KEY') : System.getenv('BINTRAY_KEY')
-    publications = ['MyPublication']
-    publish = true
-    pkg {
-        repo = 'FRC-1294'
-        name = 'CiDemo'
-        userOrg = 'johnrudolflewis'
-        licenses = ['MIT']
-        vcsUrl = 'https://github.com/FRC-1294/CiDemo.git'
-        version {
-        	name = project.version.toString()
-        }
-    }
+model {
+	tasks.generatePomFileForMyPublicationPublication {
+		destination = file("$buildDir/CiDemo-${project.version.toString()}.pom")
+	}
 }
-*/
+
+task generateBintrayFile(type: Copy) {
+	from(projectDir) {
+		include 'bintray.json'
+	}
+	expand(
+		version: project.version.toString(),
+		date: new Date().format('MM-dd-yyyy')
+	)
+	into 'build'
+}
 
 jar { 
   manifest {
@@ -102,7 +99,7 @@ import groovyx.net.http.ContentType;
 import org.apache.commons.io.FilenameUtils;
 
 String[] getVersionsFromBintray() {
-	def http = new HTTPBuilder("https://bintray.com/api/v1/packages/johnrudolflewis/FRC-1294/CiDemo")
+	def http = new HTTPBuilder("https://bintray.com/api/v1/packages/frc-1294/Robot-Code/frc2016")
 	http.request(Method.GET, ContentType.TEXT ) { req ->
 		headers.'Accept' = 'application/json'
 	    response.success = { resp, reader ->
@@ -114,7 +111,7 @@ String[] getVersionsFromBintray() {
 
 String getVersionJarFileDownloadPath(version) {
 	
-	def http = new HTTPBuilder("https://bintray.com/api/v1/packages/johnrudolflewis/FRC-1294/CiDemo/versions/" + version + "/files")
+	def http = new HTTPBuilder("https://bintray.com/api/v1/packages/frc-1294/Robot-Code/frc2016/versions/" + version + "/files")
 	http.request(Method.GET, ContentType.TEXT ) { req ->
 		headers.'Accept' = 'application/json'
 	    response.success = { resp, reader ->

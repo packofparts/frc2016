@@ -1,0 +1,22 @@
+{
+  "package": {
+    "name": "Robot-Code",
+    "repo": "frc2016",
+    "subject": "frc-1294"
+  },
+
+  "version": {
+    "name": "${version}",
+    "desc": "Build ${version} of team 1294's robot code.",
+    "released": "${date}",
+    "vcs_tag": "${version}",
+    "gpgSign": false
+  },
+
+  "files":
+  [
+    {"includePattern": "build/libs/(.*\\.jar)"},
+    {"includePattern": "(.*\\.pom)", "uploadPattern": ""}
+  ],
+  "publish": true
+}

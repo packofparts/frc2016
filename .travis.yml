@@ -1,6 +1,14 @@
 sudo: false
 language: java
+jdk: oraclejdk8
 install: true
 script: ./gradlew build
-# after_success: ./gradlew bintrayUpload
-jdk: oraclejdk8
+before_deploy: ./gradlew generatePomFileForMyPublicationPublication generateBintrayFile
+deploy:
+  provider: bintray
+  file: ""
+  user: "frc-1294"
+  key: ""
+  dry-run: true
+  on:
+    all_branches: true
