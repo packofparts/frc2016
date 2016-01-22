@@ -54,7 +54,7 @@ task generateBintrayFile(type: Copy) {
 	}
 	expand(
 		version: project.version.toString(),
-		date: new Date().format('MM-dd-yyyy')
+		date: new Date().format('yyyy-MM-dd')
 	)
 	into 'build'
 }
