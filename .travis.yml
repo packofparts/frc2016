@@ -5,8 +5,9 @@ install: true
 script: ./gradlew build
 before_deploy: ./gradlew generatePomFileForMyPublicationPublication generateBintrayFile
 deploy:
+  skip_cleanup: true
   provider: bintray
-  file: ""
+  file: "build/bintray.json"
   user: "frc-1294"
   key: ""
   dry-run: true
