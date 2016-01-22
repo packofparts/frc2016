@@ -10,6 +10,6 @@ deploy:
   file: "build/bintray.json"
   user: "frc-1294"
   key: "2PEAfnGpHFqYq1dyPCDaBA8bM1i0pnZn+aNkQlVaoBY9LglRH4d2GaA667LWQJ2/DBg9PYyRx3doCRUn0Wsxb7yKiPbvTTMbJVcA1hcM0j1AacBQS5eNkggiGuxUaZd4TaIwksZjNIqWIi3txAn45fI5PdRkr8CKCz5x9HuJ70aoXBfxJEQ4DYFsj1PSiS4fR6dW7RAJ+Bu76LA1Jrj5MBdKb2Qt4w1EQ+PgQMR8tYOfA9U/e23cacFOii66e/rmX10HrO+mLkGUkPOSQr9/9AI6JkusX2zY8UKEONdvW1xY/6YMMOQqcgGy41/wVFWUnJY+WrIJQchuargUqYm16RI1qMXTxP8nyDIdnkU+JzMthtmqwHLhH8pXl4AnXQBbPJC6V/I9owkg2BTUwmGJC8SEj4Fng9OfsErADe9UAsi8iBv1paWBOUHh9ltsyiMyOEkORiqqLGc9Ep7lpb82kJ0/qu/BEVralNKQAyES6JfAno3FaWo4PyBMQtfcqC5BzdskRugEeGSHV3lj53JchOaCYkjy47cNztN6eaVKSl3SoQAONV+zCRDt+A2tjgFcwREF6PxC76uU90PlbwiXUocOW4mtuZwDCEtmq7bscmadw6+1gcBLzkLB/XcMByKGls2ZRUM28WLqPsA0DpAUJQUqYqV0MZffbEx3UBXFOGw="
-  dry-run: true
+  dry-run: false
   on:
     all_branches: true
