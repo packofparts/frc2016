@@ -44,7 +44,7 @@ publishing {
 
 model {
 	tasks.generatePomFileForMyPublicationPublication {
-		destination = file("$buildDir/CiDemo-${project.version.toString()}.pom")
+		destination = file("$buildDir/frc2016-${project.version.toString()}.pom")
 	}
 }
 
