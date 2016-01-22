@@ -36,7 +36,7 @@ publishing {
 		MyPublication(MavenPublication) {
 			from components.java
 			groupId 'org.usfirst.frc.team1294'
-			artifactId 'CiDemo'
+			artifactId 'frc2016'
 			version project.version.toString()
 		}
 	}
