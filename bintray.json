@@ -15,8 +15,8 @@
 
   "files":
   [
-    {"includePattern": "build/libs/(.*\\.jar)"},
-    {"includePattern": "build/(.*\\.pom)"}
+    {"includePattern": "build/libs/(.*\\.jar)", "uploadPattern": ""},
+    {"includePattern": "build/(.*\\.pom)", "uploadPattern": ""}
   ],
   "publish": true
 }
