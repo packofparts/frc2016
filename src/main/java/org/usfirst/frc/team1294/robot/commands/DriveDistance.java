@@ -16,10 +16,12 @@ public class DriveDistance extends Command{
 	protected void initialize() {
 		Robot.driveTrain.setToEncoders();
 		startDistance = Robot.driveTrain.leftFrontTalon.getPosition();
+		Robot.driveTrain.getGyro().reset();
 	}
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.arcadeDrive(-this.desiredSpeed, 0);
+    	double angle = Robot.driveTrain.getGyro().getAngle();
+    	Robot.driveTrain.arcadeDrive(-this.desiredSpeed, -angle*0.03);
     }
 
     // Make this return true when this Command no longer needs to run execute()

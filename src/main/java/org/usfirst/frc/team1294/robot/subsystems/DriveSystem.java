@@ -48,6 +48,10 @@ public class DriveSystem extends Subsystem {
     	gyro = new AnalogGyro(0);
     	
     	LiveWindow.addSensor("Drive Sensor", "Gyro", gyro);
+    	LiveWindow.addActuator("Drive", "Left Front", leftFrontTalon);
+    	LiveWindow.addActuator("Drive", "Left Rear", leftBackTalon);
+    	LiveWindow.addActuator("Drive", "Right Front", rightFrontTalon);
+    	LiveWindow.addActuator("Drive", "Right Rear", rightBackTalon);
     }
 
     @Override
@@ -71,5 +75,8 @@ public class DriveSystem extends Subsystem {
 	
 	public void stop() {
 		drive.drive(0,0);
+	}
+	public AnalogGyro getGyro(){
+		return gyro;
 	}
 }
