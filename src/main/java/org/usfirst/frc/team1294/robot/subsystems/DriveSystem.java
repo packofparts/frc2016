@@ -61,7 +61,6 @@ public class DriveSystem extends Subsystem {
     	leftFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	rightBackTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
     	leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
-    	
     }
 	
 	public void stop() {

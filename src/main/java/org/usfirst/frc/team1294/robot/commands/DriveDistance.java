@@ -7,19 +7,17 @@ import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveDistance extends Command{
-	private double startDistance;
-	private double desiredDistance;
 	private double desiredSpeed;
 	public DriveDistance(double distance, double speed) {
 		requires (Robot.driveTrain);
 		this.desiredDistance = distance;
 		this.desiredSpeed = speed;
 	}
-	protected void initialize() {}
-
+	protected void initialize() {
+		Robot.driveTrain.setToEncoders();
+	}
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.setToEncoders();
     	Robot.driveTrain.arcadeDrive(-this.desiredSpeed, 0);
     }
 
