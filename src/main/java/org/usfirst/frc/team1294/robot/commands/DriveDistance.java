@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveDistance extends Command{
+	private double desiredDistance;
 	private double desiredSpeed;
 	public DriveDistance(double distance, double speed) {
 		requires (Robot.driveTrain);
