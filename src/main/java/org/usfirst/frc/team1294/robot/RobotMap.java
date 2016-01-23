@@ -14,4 +14,5 @@ public class RobotMap {
 	public static double p = 20;
 	public static double i = 0;
 	public static double d = 0;
+	public static double distanceScaler = 4801.18;
 }

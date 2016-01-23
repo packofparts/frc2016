@@ -79,4 +79,14 @@ public class DriveSystem extends Subsystem {
 	public AnalogGyro getGyro(){
 		return gyro;
 	}
+
+	public void tankDrive(double d, double e) {
+		// TODO Auto-generated method stub
+		drive.tankDrive(d, e);
+	}
+
+	public void resetGyro() {
+		// TODO Auto-generated method stub
+		gyro.reset();
+	}
 }

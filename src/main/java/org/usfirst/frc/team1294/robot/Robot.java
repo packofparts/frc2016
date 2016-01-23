@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.ResetGyro;
+import org.usfirst.frc.team1294.robot.commands.TurnToHeading;
 import org.usfirst.frc.team1294.robot.subsystems.DriveSystem;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
@@ -33,6 +35,12 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putString("Version", vi.getVersion());
         SmartDashboard.putString("Git-Author", vi.getAuthor());
         SmartDashboard.putData(Scheduler.getInstance());
+        SmartDashboard.putData(new TurnToHeading(0));
+        SmartDashboard.putData(new TurnToHeading(90));
+        SmartDashboard.putData(new TurnToHeading(180));
+        SmartDashboard.putData(new TurnToHeading(270));
+        SmartDashboard.putData(new TurnToHeading(600));
+        SmartDashboard.putData(new ResetGyro());
     }
 
     /**

@@ -1,7 +1,9 @@
 package org.usfirst.frc.team1294.robot;
 
 
-import org.usfirst.frc.team1294.robot.commands.DriveDistance;
+import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
+import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
+import org.usfirst.frc.team1294.robot.commands.TurnCommand;
 import org.usfirst.frc.team1294.robot.subsystems.DriveSystem;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -15,6 +17,8 @@ public class OI {
     // number it is.
 	Joystick stickLeft = new Joystick(0);
 	Button leftButton1 = new JoystickButton(stickLeft, 7);
+	Button leftButton6 = new JoystickButton(stickLeft, 6);
+	Button leftButton10 = new JoystickButton(stickLeft, 10);
 	Joystick stickRight = new Joystick(1);
 	
     // Button button = new JoystickButton(stick, buttonNumber);
@@ -23,7 +27,9 @@ public class OI {
     // by subclassing Button you can create custom triggers and bind those to
     // commands the same as any other Button.
     public OI (){
-    	leftButton1.toggleWhenPressed(new DriveDistance(100000, 0.5));
+    	leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
+    	leftButton6.toggleWhenPressed(new TurnCommand(90));
+    	leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
     	//stickLeft.
     }
     //// TRIGGERING COMMANDS WITH BUTTONS
