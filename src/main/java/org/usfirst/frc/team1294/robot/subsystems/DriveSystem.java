@@ -32,7 +32,7 @@ public class DriveSystem extends Subsystem {
     	//rightBackTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	leftFrontTalon.setInverted(true);
     	leftBackTalon.reverseOutput(true);
-    	rightFrontTalon.setInverted(true);
+    	rightBackTalon.setInverted(true);
     	//set left back talon to slave mode
     	leftBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
     	leftBackTalon.set(leftFrontTalon.getDeviceID());
@@ -41,7 +41,7 @@ public class DriveSystem extends Subsystem {
     	rightFrontTalon.set(rightBackTalon.getDeviceID());
     	//set control mode for encoder talons
     	
-    	drive = new RobotDrive(leftFrontTalon, rightFrontTalon);
+    	drive = new RobotDrive(leftFrontTalon, rightBackTalon);
     	
     }
 
