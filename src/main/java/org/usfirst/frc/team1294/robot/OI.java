@@ -1,7 +1,12 @@
 package org.usfirst.frc.team1294.robot;
 
 
+import org.usfirst.frc.team1294.robot.commands.DriveDistance;
+import org.usfirst.frc.team1294.robot.subsystems.DriveSystem;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
     //// CREATING BUTTONS
@@ -9,7 +14,7 @@ public class OI {
     // You create one by telling it which joystick it's on and which button
     // number it is.
     Joystick stickLeft = new Joystick(0);
-    
+	Button leftButton1 = new JoystickButton(stickLeft, 1);
 	Joystick stickRight = new Joystick(1);
 	
 	
@@ -19,7 +24,7 @@ public class OI {
     // by subclassing Button you can create custom triggers and bind those to
     // commands the same as any other Button.
     public OI (){
-    	
+    	leftButton1.whileHeld(new DriveDistance(10000, 0.5));
     	//stickLeft.
     }
     //// TRIGGERING COMMANDS WITH BUTTONS
