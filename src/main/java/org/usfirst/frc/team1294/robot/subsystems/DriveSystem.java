@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj.CANTalon;
 import org.usfirst.frc.team1294.robot.RobotMap;
 import org.usfirst.frc.team1294.robot.commands.TankDriveWithJoystick;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * An example subsystem.
@@ -19,6 +21,7 @@ public class DriveSystem extends Subsystem {
 	public CANTalon leftBackTalon;
 	public CANTalon rightBackTalon;
 	public RobotDrive drive;
+	private AnalogGyro gyro;
 	
     public DriveSystem() {
     	//encoders are on talon one and four
@@ -42,7 +45,9 @@ public class DriveSystem extends Subsystem {
     	//set control mode for encoder talons
     	
     	drive = new RobotDrive(leftFrontTalon, rightBackTalon);
+    	gyro = new AnalogGyro(0);
     	
+    	LiveWindow.addSensor("Drive Sensor", "Gyro", gyro);
     }
 
     @Override
