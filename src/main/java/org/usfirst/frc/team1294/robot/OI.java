@@ -13,10 +13,9 @@ public class OI {
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
     // number it is.
-    Joystick stickLeft = new Joystick(0);
-	Button leftButton1 = new JoystickButton(stickLeft, 1);
+	Joystick stickLeft = new Joystick(0);
+	Button leftButton1 = new JoystickButton(stickLeft, 7);
 	Joystick stickRight = new Joystick(1);
-	
 	
     // Button button = new JoystickButton(stick, buttonNumber);
     
@@ -24,7 +23,7 @@ public class OI {
     // by subclassing Button you can create custom triggers and bind those to
     // commands the same as any other Button.
     public OI (){
-    	leftButton1.whileHeld(new DriveDistance(10000, 0.5));
+    	leftButton1.toggleWhenPressed(new DriveDistance(100000, 0.5));
     	//stickLeft.
     }
     //// TRIGGERING COMMANDS WITH BUTTONS

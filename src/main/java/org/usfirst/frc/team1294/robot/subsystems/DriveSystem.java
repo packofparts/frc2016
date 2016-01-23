@@ -59,13 +59,14 @@ public class DriveSystem extends Subsystem {
 		drive.tankDrive(left, right);
 	}
     public void arcadeDrive(double y, double d){
-    	drive.tankDrive(y, d);
+    	drive.arcadeDrive(y, d);
     }
     public void setToEncoders(){
     	rightBackTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	leftFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	rightBackTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
     	leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
+    	drive.setMaxOutput(2048);
     }
 	
 	public void stop() {

@@ -32,6 +32,7 @@ public class Robot extends IterativeRobot {
         VersionInformation vi = new VersionInformation();
         SmartDashboard.putString("Version", vi.getVersion());
         SmartDashboard.putString("Git-Author", vi.getAuthor());
+        SmartDashboard.putData(Scheduler.getInstance());
     }
 
     /**
