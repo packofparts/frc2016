@@ -9,7 +9,7 @@
     "name": "${version}",
     "desc": "Build ${version} of team 1294's robot code.",
     "released": "${date}",
-    "vcs_tag": "${version}",
+    "vcs_tag": "${vcs_tag}",
     "gpgSign": false
   },
 
