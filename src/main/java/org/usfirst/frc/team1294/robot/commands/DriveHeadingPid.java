@@ -4,6 +4,7 @@ import org.usfirst.frc.team1294.robot.Robot;
 import org.usfirst.frc.team1294.robot.subsystems.DriveSystem;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveHeadingPid extends PIDCommand {
@@ -22,6 +23,7 @@ public class DriveHeadingPid extends PIDCommand {
 		this.getPIDController().setContinuous();
 		
 		this.setSetpoint(heading);
+		LiveWindow.addActuator("DriveSystem", "DriveHeadingPid", this.getPIDController());
 	}
 
 	@Override
