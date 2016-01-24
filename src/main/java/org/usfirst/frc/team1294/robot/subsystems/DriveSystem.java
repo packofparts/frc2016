@@ -23,6 +23,8 @@ public class DriveSystem extends Subsystem {
 	public RobotDrive drive;
 	private AnalogGyro gyro;
 	
+	
+	
     public DriveSystem() {
     	//encoders are on talon one and four
         // Set left feedback device and talon numbers
@@ -76,17 +78,25 @@ public class DriveSystem extends Subsystem {
 	public void stop() {
 		drive.drive(0,0);
 	}
+	
+
+	public void tankDrive(double leftSpeed, double rightSpeed) {
+		drive.tankDrive(leftSpeed, rightSpeed);
+	}
+
 	public AnalogGyro getGyro(){
 		return gyro;
 	}
-
-	public void tankDrive(double d, double e) {
-		// TODO Auto-generated method stub
-		drive.tankDrive(d, e);
+	
+	public double getRawAngle() {
+		return gyro.getAngle();
 	}
-
+	
+	public double getNormalizedAngle() {
+		return gyro.getAngle() % 360;
+	}
+	
 	public void resetGyro() {
-		// TODO Auto-generated method stub
 		gyro.reset();
 	}
 }
