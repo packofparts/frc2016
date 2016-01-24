@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1294.robot;
 
 import org.usfirst.frc.team1294.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team1294.robot.subsystems.Vision;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
     public static final Subsystem EXAMPLE_SUBSYSTEM = new ExampleSubsystem();
+    public static final Vision vision = new Vision();
 
     public static OI oi;
 
@@ -33,6 +35,8 @@ public class Robot extends IterativeRobot {
         VersionInformation vi = new VersionInformation();
         SmartDashboard.putString("Version", vi.getVersion());
         SmartDashboard.putString("Git-Author", vi.getAuthor());
+        
+        LiveWindow.addSensor(Vision.class.getSimpleName(), Vision.class.getSimpleName(), vision);
     }
 
     /**
