@@ -2,14 +2,17 @@ package org.usfirst.frc.team1294.robot.commands;
 
 import org.usfirst.frc.team1294.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * An example command.
  */
-public class ExampleCommand extends Command {
-    public ExampleCommand() {
-    	super("drive for 1800 seconds");
+public class SinBreakInCommand extends Command {
+	Timer timer;
+	
+    public SinBreakInCommand() {
+    	super("Sin Wave break in");
        requires(Robot.Drive_System);
        
        
@@ -24,17 +27,19 @@ public class ExampleCommand extends Command {
      */
     @Override
     protected void initialize() {
-    	Robot.Drive_System.drive.setSafetyEnabled(false);
     	Robot.Drive_System.drive.arcadeDrive(1,0);
-    	setTimeout(1800);
-    	
+    	timer = new Timer();
+    	timer.start();
     }
 
     /**
      * Called periodically while {@link #isFinished()} returns {@code false}.
      */
     @Override
-    protected void execute() {}
+    protected void execute() {
+    	// https://www.desmos.com/calculator/wx1lpnt1a7
+    	Robot.Drive_System.drive.arcadeDrive(Math.sin(0.31415 * timer.get()), 0);
+    }
 
     /**
      * Returns true if the command is ready to end.
@@ -44,7 +49,7 @@ public class ExampleCommand extends Command {
     
     @Override
     protected boolean isFinished() {
-       return isTimedOut();
+       return false;
     }
 
     /**
@@ -53,7 +58,6 @@ public class ExampleCommand extends Command {
      */
     @Override
     protected void end() {
-    	Robot.Drive_System.drive.arcadeDrive(0, 0);
     	Robot.Drive_System.drive.setSafetyEnabled(true);
     }
 

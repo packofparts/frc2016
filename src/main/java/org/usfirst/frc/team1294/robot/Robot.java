@@ -1,12 +1,13 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team1294.robot.commands.ExampleCommand;
+import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
+import org.usfirst.frc.team1294.robot.subsystems.DriveSystem;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -15,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * at the specified times.
  */
 public class Robot extends IterativeRobot {
-    public static final Subsystem EXAMPLE_SUBSYSTEM = new ExampleSubsystem();
+    public static DriveSystem Drive_System = new DriveSystem();
 
     public static OI oi;
 
@@ -33,6 +34,8 @@ public class Robot extends IterativeRobot {
         VersionInformation vi = new VersionInformation();
         SmartDashboard.putString("Version", vi.getVersion());
         SmartDashboard.putString("Git-Author", vi.getAuthor());
+        SmartDashboard.putData(new ExampleCommand());
+        SmartDashboard.putData(new SinBreakInCommand());
     }
 
     /**
