@@ -52,7 +52,7 @@ task generateBintrayFile(type: Copy) {
 	def vcs_tag = project.version.toString() // default to version
 	grgit = org.ajoberstar.grgit.Grgit.open(project.file('.')) 
 	try {
-		vcs_tag = grgit.log(maxCommits: 1)
+		vcs_tag = grgit.log(maxCommits: 1).get(0).id
 	} catch(all) {}
 
 	from(projectDir) {
