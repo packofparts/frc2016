@@ -4,7 +4,7 @@ package org.usfirst.frc.team1294.robot;
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
 import org.usfirst.frc.team1294.robot.commands.TurnCommand;
-import org.usfirst.frc.team1294.robot.subsystems.DriveSystem;
+import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;

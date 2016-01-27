@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 /**
  * An example subsystem.
  */
-public class DriveSystem extends Subsystem {
+public class DriveBase extends Subsystem {
 	public CANTalon leftFrontTalon;
 	public CANTalon rightFrontTalon;
 	public CANTalon leftBackTalon;
@@ -25,7 +25,7 @@ public class DriveSystem extends Subsystem {
 	
 	
 	
-    public DriveSystem() {
+    public DriveBase() {
     	//encoders are on talon one and four
         // Set left feedback device and talon numbers
     	leftFrontTalon = new CANTalon(RobotMap.leftFrontTalon);
@@ -98,5 +98,13 @@ public class DriveSystem extends Subsystem {
 	
 	public void resetGyro() {
 		gyro.reset();
+	}
+	
+	public double getLeftPosition() {
+		return leftFrontTalon.getPosition();
+	}
+	
+	public double getRightPosition() {
+		return rightBackTalon.getPosition();
 	}
 }

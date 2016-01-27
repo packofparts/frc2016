@@ -1,10 +1,9 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.commands.DriveCurrentHeadingPid;
-import org.usfirst.frc.team1294.robot.commands.DriveHeadingPid;
+import org.usfirst.frc.team1294.robot.commands.DrivePid;
 import org.usfirst.frc.team1294.robot.commands.ResetGyro;
-import org.usfirst.frc.team1294.robot.commands.TurnToHeadingPid;
-import org.usfirst.frc.team1294.robot.subsystems.DriveSystem;
+import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
+import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -18,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * at the specified times.
  */
 public class Robot extends IterativeRobot {
-	public static final DriveSystem driveTrain = new DriveSystem();
+	public static final DriveBase driveTrain = new DriveBase();
 
     public static OI oi;
 
@@ -37,21 +36,25 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putString("Version", vi.getVersion());
         SmartDashboard.putString("Git-Author", vi.getAuthor());
         SmartDashboard.putData(Scheduler.getInstance());
-        SmartDashboard.putData(new TurnToHeadingPid(0));
-        SmartDashboard.putData(new TurnToHeadingPid(90));
-        SmartDashboard.putData(new TurnToHeadingPid(180));
-        SmartDashboard.putData(new TurnToHeadingPid(270));
-        SmartDashboard.putData(new TurnToHeadingPid(-90));
-        SmartDashboard.putData(new TurnToHeadingPid(450));
         
-        SmartDashboard.putData(new DriveHeadingPid(0, 0.33));
-        SmartDashboard.putData(new DriveHeadingPid(90, 0.33));
-        SmartDashboard.putData(new DriveHeadingPid(180, 0.33));
-        SmartDashboard.putData(new DriveHeadingPid(270, 0.33));
+        // turn to heading in place
+        SmartDashboard.putData(new DrivePid(0, 0.5, 0));
+        SmartDashboard.putData(new DrivePid(90, 0.5, 0));
+        SmartDashboard.putData(new DrivePid(180, 0.5, 0));
+        SmartDashboard.putData(new DrivePid(270, 0.5, 0));
         
-        SmartDashboard.putData(new DriveCurrentHeadingPid(0.33));
+        // turn to heading while driving one meter
+        SmartDashboard.putData(new DrivePid(0, 0.5, 1));
+        SmartDashboard.putData(new DrivePid(90, 0.5, 1));
+        SmartDashboard.putData(new DrivePid(180, 0.5, 1));
+        SmartDashboard.putData(new DrivePid(270, 0.5, 1));
+        
+        // drive current heading for one meter
+        SmartDashboard.putData(new DrivePid(-1, 1, 1));
         
         SmartDashboard.putData(new ResetGyro());
+        
+        this.autoCommand = new SquareAutonomousCommand();
     }
 
     /**
