@@ -13,7 +13,7 @@ public class SinBreakInCommand extends Command {
 	
     public SinBreakInCommand() {
     	super("Sin Wave break in");
-       requires(Robot.Drive_System);
+       requires(Robot.driveTrain);
        
        
        
@@ -27,7 +27,6 @@ public class SinBreakInCommand extends Command {
      */
     @Override
     protected void initialize() {
-    	Robot.Drive_System.drive.arcadeDrive(1,0);
     	timer = new Timer();
     	timer.start();
     }
@@ -38,7 +37,7 @@ public class SinBreakInCommand extends Command {
     @Override
     protected void execute() {
     	// https://www.desmos.com/calculator/wx1lpnt1a7
-    	Robot.Drive_System.drive.arcadeDrive(Math.sin(0.31415 * timer.get()), 0);
+    	Robot.driveTrain.drive.arcadeDrive(Math.sin(0.31415 * timer.get()), 0);
     }
 
     /**
@@ -58,7 +57,7 @@ public class SinBreakInCommand extends Command {
      */
     @Override
     protected void end() {
-    	Robot.Drive_System.drive.setSafetyEnabled(true);
+    	Robot.driveTrain.drive.setSafetyEnabled(true);
     }
 
     /**
