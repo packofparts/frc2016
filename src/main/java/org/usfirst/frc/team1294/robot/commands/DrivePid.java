@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1294.robot.commands;
 
 import org.usfirst.frc.team1294.robot.Robot;
-import org.usfirst.frc.team1294.robot.RobotMap;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
@@ -10,18 +9,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DrivePid extends PIDCommand {
 
+	private static final double PID_TOLERANCE = 0.25;
+	private static final double PID_P = 0.05;
+	private static final double PID_I = 0.01;
+	private static final double PID_D = 0.00;
+	
 	private DriveBase driveTrain;
 	private double heading;
 	private double speed;
 	private double distance;
 	private double leftEncoderStart;
 	private double rightEncoderStart;
-	private double leftSpeed;
-	private double rightSpeed;
 		
 	public DrivePid(double heading, double speed, double distance) {
 		// TODO: tune this pid
-		super(String.format("DrivePid(%f, %f, %f)", heading, speed, distance), 0.05,0,0.01);
+		super(String.format("DrivePid(%f, %f, %f)", heading, speed, distance), PID_P, PID_I, PID_D);
 		
 		requires(Robot.driveTrain);
 		this.driveTrain = Robot.driveTrain;
@@ -50,6 +52,7 @@ public class DrivePid extends PIDCommand {
 		this.getPIDController().setInputRange(0, 360);
 		this.getPIDController().setOutputRange(-1, 1);
 		this.getPIDController().setContinuous();
+		this.getPIDController().setPercentTolerance(PID_TOLERANCE);
 		
 		this.leftEncoderStart = this.driveTrain.getLeftPosition();
 		this.rightEncoderStart = this.driveTrain.getRightPosition();
@@ -79,23 +82,25 @@ public class DrivePid extends PIDCommand {
 			return true;
 		}
 		
-		if (distance == 0) {
-			// distance set to 0, which means turn to heading, turn until heading is close enough
-			return Math.abs(driveTrain.getNormalizedAngle() - this.heading) < 1;
-		} else {
-			// average the distance reported by both encoders
-			double avgDistance = (
-					Math.abs(driveTrain.getLeftPosition() - leftEncoderStart) + 
-					Math.abs(driveTrain.getRightPosition() - rightEncoderStart)) / 2;
-			
-			System.out.println(avgDistance + " " + distance + " " + speed);
-			return avgDistance >= distance;
+		// return false if robot is not pointing the correct direction
+		if (Math.abs(driveTrain.getNormalizedAngle() - this.heading) > PID_TOLERANCE) {
+			return false;
 		}
+		
+		// return false if robot has not traveled far enough
+		double distanceDriven = (
+				Math.abs(driveTrain.getLeftPosition() - leftEncoderStart) + 
+				Math.abs(driveTrain.getRightPosition() - rightEncoderStart)) / 2;
+		if (distanceDriven < distance) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
 	protected void end() {
-		this.driveTrain.tankDrive(0, 0);
+		this.driveTrain.arcadeDrive(0, 0);
 	}
 
 	@Override
