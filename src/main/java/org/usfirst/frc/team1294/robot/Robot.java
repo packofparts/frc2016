@@ -56,6 +56,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(new ResetGyro());
         
         //this.autoCommand = new SquareAutonomousCommand();
+        SmartDashboard.putData(new SinBreakInCommand());
     }
 
     /**

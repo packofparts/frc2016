@@ -49,12 +49,19 @@ model {
 }
 
 task generateBintrayFile(type: Copy) {
+	def vcs_tag = project.version.toString() // default to version
+	grgit = org.ajoberstar.grgit.Grgit.open(project.file('.')) 
+	try {
+		vcs_tag = grgit.log(maxCommits: 1).get(0).id
+	} catch(all) {}
+
 	from(projectDir) {
 		include 'bintray.json'
 	}
 	expand(
 		version: project.version.toString(),
-		date: new Date().format('yyyy-MM-dd')
+		date: new Date().format('yyyy-MM-dd'),
+		vcs_tag: vcs_tag
 	)
 	into 'build'
 }

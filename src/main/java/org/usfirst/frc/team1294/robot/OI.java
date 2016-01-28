@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1294.robot;
 
-
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
 import org.usfirst.frc.team1294.robot.commands.TurnCommand;
@@ -55,4 +54,3 @@ public class OI {
 	public Joystick getStickRight() {
 		return stickRight;
 	}
-}
