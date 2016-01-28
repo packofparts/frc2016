@@ -50,10 +50,10 @@ public class DriveBase extends Subsystem {
     	gyro = new AnalogGyro(0);
     	
     	LiveWindow.addSensor("Drive Sensor", "Gyro", gyro);
-    	LiveWindow.addActuator("Drive", "Left Front", leftFrontTalon);
-    	LiveWindow.addActuator("Drive", "Left Rear", leftBackTalon);
-    	LiveWindow.addActuator("Drive", "Right Front", rightFrontTalon);
-    	LiveWindow.addActuator("Drive", "Right Rear", rightBackTalon);
+//    	LiveWindow.addActuator("Drive", "Left Front", leftFrontTalon);
+//    	LiveWindow.addActuator("Drive", "Left Rear", leftBackTalon);
+//    	LiveWindow.addActuator("Drive", "Right Front", rightFrontTalon);
+//    	LiveWindow.addActuator("Drive", "Right Rear", rightBackTalon);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class DriveBase extends Subsystem {
     public void tankDrive(Joystick left, Joystick right) {
 		drive.tankDrive(left, right);
 	}
-    public void arcadeDrive(double y, double d){
-    	drive.arcadeDrive(y, d);
+    public void arcadeDrive(double speed, double rotation){
+    	drive.arcadeDrive(speed, rotation);
     }
     public void setToEncoders(){
     	rightBackTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -101,10 +101,10 @@ public class DriveBase extends Subsystem {
 	}
 	
 	public double getLeftPosition() {
-		return leftFrontTalon.getPosition();
+		return leftFrontTalon.getEncPosition() / RobotMap.distanceScaler;
 	}
 	
 	public double getRightPosition() {
-		return rightBackTalon.getPosition();
+		return rightBackTalon.getEncPosition() / RobotMap.distanceScaler;
 	}
 }

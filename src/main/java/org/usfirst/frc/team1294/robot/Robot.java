@@ -38,23 +38,24 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(Scheduler.getInstance());
         
         // turn to heading in place
-        SmartDashboard.putData(new DrivePid(0, 0.5, 0));
-        SmartDashboard.putData(new DrivePid(90, 0.5, 0));
-        SmartDashboard.putData(new DrivePid(180, 0.5, 0));
-        SmartDashboard.putData(new DrivePid(270, 0.5, 0));
+        SmartDashboard.putData(new DrivePid(0, 0, 0));
+        SmartDashboard.putData(new DrivePid(90, 0, 0));
+        SmartDashboard.putData(new DrivePid(180, 0, 0));
+        SmartDashboard.putData(new DrivePid(270, 0, 0));
         
         // turn to heading while driving one meter
-        SmartDashboard.putData(new DrivePid(0, 0.5, 1));
-        SmartDashboard.putData(new DrivePid(90, 0.5, 1));
-        SmartDashboard.putData(new DrivePid(180, 0.5, 1));
-        SmartDashboard.putData(new DrivePid(270, 0.5, 1));
-        
+//        SmartDashboard.putData(new DrivePid(0, 0.5, 1));
+//        SmartDashboard.putData(new DrivePid(90, 0.5, 1));
+//        SmartDashboard.putData(new DrivePid(180, 0.5, 1));
+//        SmartDashboard.putData(new DrivePid(270, 0.5, 1));
+//        
         // drive current heading for one meter
-        SmartDashboard.putData(new DrivePid(-1, 1, 1));
+        SmartDashboard.putData(new DrivePid(-1, -0.75, 1));
+        SmartDashboard.putData(new DrivePid(-1, 0.75, 1));
         
         SmartDashboard.putData(new ResetGyro());
         
-        this.autoCommand = new SquareAutonomousCommand();
+        //this.autoCommand = new SquareAutonomousCommand();
     }
 
     /**

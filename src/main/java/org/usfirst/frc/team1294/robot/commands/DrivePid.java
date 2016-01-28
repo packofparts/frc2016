@@ -21,7 +21,7 @@ public class DrivePid extends PIDCommand {
 		
 	public DrivePid(double heading, double speed, double distance) {
 		// TODO: tune this pid
-		super(0.5,0,0);
+		super(String.format("DrivePid(%f, %f, %f)", heading, speed, distance), 0.05,0,0.01);
 		
 		requires(Robot.driveTrain);
 		this.driveTrain = Robot.driveTrain;
@@ -32,9 +32,7 @@ public class DrivePid extends PIDCommand {
 		// since this is a closed loop command, and may be running without operator intervention, set a timeout
 		this.setTimeout(15);
 		
-		this.getPIDController().setInputRange(0, 359);
-		this.getPIDController().setOutputRange(-1, 1);
-		this.getPIDController().setContinuous();
+		
 		
 		LiveWindow.addActuator("DriveSystem", "DriveHeadingPid", this.getPIDController());
 	}
@@ -43,9 +41,15 @@ public class DrivePid extends PIDCommand {
 	protected void initialize() {
 		// if heading was not provided, use current heading
 		if (heading < 0) {
-			heading = driveTrain.getNormalizedAngle();
+			this.setSetpoint(driveTrain.getNormalizedAngle());
+			System.out.println("setpoint to current heading " + driveTrain.getNormalizedAngle());
+		} else {
+			this.setSetpoint(heading);
 		}
-		this.setSetpoint(heading);
+		
+		this.getPIDController().setInputRange(0, 360);
+		this.getPIDController().setOutputRange(-1, 1);
+		this.getPIDController().setContinuous();
 		
 		this.leftEncoderStart = this.driveTrain.getLeftPosition();
 		this.rightEncoderStart = this.driveTrain.getRightPosition();
@@ -60,34 +64,13 @@ public class DrivePid extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		leftSpeed = this.speed;
-		rightSpeed = this.speed;
-		
-		if (output < 0) {
-			// CCW, but since our motors seem to be reversed, correcting here for now
-			leftSpeed += output;
-			rightSpeed -= output;
-		} else if (output > 0) {
-			// CW
-			leftSpeed -= output;
-			rightSpeed += output;
-		}
-		
-		// the output of the pid (value of output) is constrained to -1 to 1, but since we are adding/subtracting from
-		// speed, we need to make sure the output stays within -1 to 1.
-		if (leftSpeed > 1)
-			leftSpeed = 1;
-		if (leftSpeed < -1)
-			leftSpeed = -1;
-		if (rightSpeed > 1)
-			rightSpeed = 1;
-		if (rightSpeed < -1)
-			rightSpeed = -1;
+		System.out.println("output " + output);
+		this.driveTrain.arcadeDrive(speed, output);
 	}
 
 	@Override
 	protected void execute() {
-		this.driveTrain.tankDrive(leftSpeed, rightSpeed);
+		
 	}
 
 	@Override
@@ -101,9 +84,12 @@ public class DrivePid extends PIDCommand {
 			return Math.abs(driveTrain.getNormalizedAngle() - this.heading) < 1;
 		} else {
 			// average the distance reported by both encoders
-			double avgDistance = ((driveTrain.getLeftPosition() - leftEncoderStart) + 
-					(driveTrain.getRightPosition() - rightEncoderStart)) / 2;
-			return avgDistance / RobotMap.distanceScaler <= distance;
+			double avgDistance = (
+					Math.abs(driveTrain.getLeftPosition() - leftEncoderStart) + 
+					Math.abs(driveTrain.getRightPosition() - rightEncoderStart)) / 2;
+			
+			System.out.println(avgDistance + " " + distance + " " + speed);
+			return avgDistance >= distance;
 		}
 	}
 
