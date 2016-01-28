@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * at the specified times.
  */
 public class Robot extends IterativeRobot {
-	public static final DriveBase driveTrain = new DriveBase();
+	public static final DriveBase driveBase = new DriveBase();
 
     public static OI oi;
 
@@ -107,7 +107,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Gyro Angle", driveTrain.getGyro().getAngle());
+        SmartDashboard.putNumber("Gyro Angle", driveBase.getGyro().getAngle());
     }
 
     /**

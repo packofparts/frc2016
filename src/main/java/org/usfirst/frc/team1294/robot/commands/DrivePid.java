@@ -14,7 +14,7 @@ public class DrivePid extends PIDCommand {
 	private static final double PID_I = 0.01;
 	private static final double PID_D = 0.00;
 	
-	private DriveBase driveTrain;
+	private DriveBase driveBase;
 	private double heading;
 	private double speed;
 	private double distance;
@@ -25,8 +25,8 @@ public class DrivePid extends PIDCommand {
 		// TODO: tune this pid
 		super(String.format("DrivePid(%f, %f, %f)", heading, speed, distance), PID_P, PID_I, PID_D);
 		
-		requires(Robot.driveTrain);
-		this.driveTrain = Robot.driveTrain;
+		requires(Robot.driveBase);
+		this.driveBase = Robot.driveBase;
 		this.heading = heading;
 		this.speed = speed;
 		this.distance = distance;
@@ -43,8 +43,8 @@ public class DrivePid extends PIDCommand {
 	protected void initialize() {
 		// if heading was not provided, use current heading
 		if (heading < 0) {
-			this.setSetpoint(driveTrain.getNormalizedAngle());
-			System.out.println("setpoint to current heading " + driveTrain.getNormalizedAngle());
+			this.setSetpoint(driveBase.getNormalizedAngle());
+			System.out.println("setpoint to current heading " + driveBase.getNormalizedAngle());
 		} else {
 			this.setSetpoint(heading);
 		}
@@ -54,21 +54,21 @@ public class DrivePid extends PIDCommand {
 		this.getPIDController().setContinuous();
 		this.getPIDController().setPercentTolerance(PID_TOLERANCE);
 		
-		this.leftEncoderStart = this.driveTrain.getLeftPosition();
-		this.rightEncoderStart = this.driveTrain.getRightPosition();
+		this.leftEncoderStart = this.driveBase.getLeftPosition();
+		this.rightEncoderStart = this.driveBase.getRightPosition();
 	
 		SmartDashboard.putData(this);
 	}
 	
 	@Override
 	protected double returnPIDInput() {
-		return this.driveTrain.getNormalizedAngle();
+		return this.driveBase.getNormalizedAngle();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
 		System.out.println("output " + output);
-		this.driveTrain.arcadeDrive(speed, output);
+		this.driveBase.arcadeDrive(speed, output);
 	}
 
 	@Override
@@ -83,14 +83,14 @@ public class DrivePid extends PIDCommand {
 		}
 		
 		// return false if robot is not pointing the correct direction
-		if (Math.abs(driveTrain.getNormalizedAngle() - this.heading) > PID_TOLERANCE) {
+		if (Math.abs(driveBase.getNormalizedAngle() - this.heading) > PID_TOLERANCE) {
 			return false;
 		}
 		
 		// return false if robot has not traveled far enough
 		double distanceDriven = (
-				Math.abs(driveTrain.getLeftPosition() - leftEncoderStart) + 
-				Math.abs(driveTrain.getRightPosition() - rightEncoderStart)) / 2;
+				Math.abs(driveBase.getLeftPosition() - leftEncoderStart) + 
+				Math.abs(driveBase.getRightPosition() - rightEncoderStart)) / 2;
 		if (distanceDriven < distance) {
 			return false;
 		}
@@ -100,7 +100,7 @@ public class DrivePid extends PIDCommand {
 
 	@Override
 	protected void end() {
-		this.driveTrain.arcadeDrive(0, 0);
+		this.driveBase.arcadeDrive(0, 0);
 	}
 
 	@Override

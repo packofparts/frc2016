@@ -8,7 +8,7 @@ public class ResetGyro extends Command {
 
 	public ResetGyro() {
 		// TODO Auto-generated constructor stub
-		requires(Robot.driveTrain);
+		requires(Robot.driveBase);
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class ResetGyro extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.driveTrain.resetGyro();
+		Robot.driveBase.resetGyro();
 	}
 
 	@Override

@@ -14,7 +14,7 @@ private double desiredAngle;
 		super("Turn to " + desieredAngle + " degs");
 		this.desiredAngle = desieredAngle;
 		
-		requires (Robot.driveTrain);
+		requires (Robot.driveBase);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ private double desiredAngle;
 	}
 
 	private double currentAngle() {
-		return Robot.driveTrain.getGyro().getAngle() % 360;
+		return Robot.driveBase.getGyro().getAngle() % 360;
 	}
 	
 	@Override
@@ -34,9 +34,9 @@ private double desiredAngle;
 		// TODO Auto-generated method stub
 		
 		if (Math.abs(desiredAngle - currentAngle()) > 180)
-			Robot.driveTrain.tankDrive(0.5, -0.5);
+			Robot.driveBase.tankDrive(0.5, -0.5);
 		else 
-			Robot.driveTrain.tankDrive(-0.5, 0.5);
+			Robot.driveBase.tankDrive(-0.5, 0.5);
 	}
 
 	@Override
