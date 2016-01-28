@@ -64,15 +64,26 @@ public class DriveBase extends Subsystem {
     public void tankDrive(Joystick left, Joystick right) {
 		drive.tankDrive(left, right);
 	}
+    
     public void arcadeDrive(double speed, double rotation){
     	drive.arcadeDrive(speed, rotation);
     }
-    public void setToEncoders(){
+    
+    public void setTalonsToClosedLoopSpeed(){
     	rightBackTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	leftFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	rightBackTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
     	leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
-    	drive.setMaxOutput(2048);
+    	rightBackTalon.set(0);
+    	leftFrontTalon.set(0);
+    	drive.setMaxOutput(2048); // TODO: validate this is indeed the max output we want to send to the talons
+    }
+    
+    public void setTalonsToOpenLoop() {
+    	rightBackTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+    	leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+    	rightBackTalon.set(0);
+    	leftFrontTalon.set(0);
     }
 	
 	public void stop() {

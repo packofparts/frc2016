@@ -16,7 +16,7 @@ public class DriveStraightDistance extends Command{
 		this.desiredSpeed = speed;
 	}
 	protected void initialize() {
-		Robot.driveBase.setToEncoders();
+		Robot.driveBase.setTalonsToClosedLoopSpeed();
 		startDistance = Robot.driveBase.leftFrontTalon.getPosition();
 		// Robot.driveTrain.getGyro().reset();
 		startAngle = Robot.driveBase.getGyro().getAngle();

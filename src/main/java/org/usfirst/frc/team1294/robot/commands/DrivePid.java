@@ -54,6 +54,8 @@ public class DrivePid extends PIDCommand {
 		this.getPIDController().setContinuous();
 		this.getPIDController().setPercentTolerance(PID_TOLERANCE);
 		
+		this.driveBase.setTalonsToClosedLoopSpeed();
+		
 		this.leftEncoderStart = this.driveBase.getLeftPosition();
 		this.rightEncoderStart = this.driveBase.getRightPosition();
 	
@@ -100,6 +102,7 @@ public class DrivePid extends PIDCommand {
 
 	@Override
 	protected void end() {
+		this.driveBase.setTalonsToOpenLoop();
 		this.driveBase.arcadeDrive(0, 0);
 	}
 
