@@ -18,14 +18,14 @@ private double desieredAngle;
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		startAngle = Robot.driveBase.getGyro().getAngle();
+		startAngle = Robot.driveBase.getRawAngle();
 		desieredAngle = startAngle + deltaDegrees;
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		if (Robot.driveBase.getGyro().getAngle() < desieredAngle)
+		if (Robot.driveBase.getRawAngle() < desieredAngle)
 			Robot.driveBase.tankDrive(-0.5, 0.5);
 		else Robot.driveBase.tankDrive(0.5, -0.5);
 	}
@@ -33,7 +33,7 @@ private double desieredAngle;
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Math.abs(desieredAngle - Robot.driveBase.getGyro().getAngle()) < 5;
+		return Math.abs(desieredAngle - Robot.driveBase.getRawAngle()) < 5;
 	}
 
 	@Override

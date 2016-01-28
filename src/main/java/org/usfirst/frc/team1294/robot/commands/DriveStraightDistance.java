@@ -19,7 +19,7 @@ public class DriveStraightDistance extends Command{
 		Robot.driveBase.setTalonsToClosedLoopSpeed();
 		startDistance = Robot.driveBase.leftFrontTalon.getPosition();
 		// Robot.driveTrain.getGyro().reset();
-		startAngle = Robot.driveBase.getGyro().getAngle();
+		startAngle = Robot.driveBase.getRawAngle();
 	}
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
@@ -31,8 +31,8 @@ public class DriveStraightDistance extends Command{
     private static final double K_P = 0.05;
     
     private double correctAngle() {
-    	double angle = Robot.driveBase.getGyro().getAngle() - startAngle;
-    	System.out.println("current -> " + Robot.driveBase.getGyro().getAngle());
+    	double angle = Robot.driveBase.getRawAngle() - startAngle;
+    	System.out.println("current -> " + Robot.driveBase.getRawAngle());
     	System.out.println("start -> " + startAngle);
     	while (angle < -180)
     		angle += 360;

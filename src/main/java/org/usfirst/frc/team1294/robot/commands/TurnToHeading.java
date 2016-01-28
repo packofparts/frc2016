@@ -26,7 +26,7 @@ private double desiredAngle;
 	}
 
 	private double currentAngle() {
-		return Robot.driveBase.getGyro().getAngle() % 360;
+		return Robot.driveBase.getRawAngle() % 360;
 	}
 	
 	@Override

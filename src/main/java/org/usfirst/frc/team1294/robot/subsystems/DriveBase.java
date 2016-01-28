@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -21,7 +22,7 @@ public class DriveBase extends Subsystem {
 	public CANTalon leftBackTalon;
 	public CANTalon rightBackTalon;
 	public RobotDrive drive;
-	private AnalogGyro gyro;
+	private Gyro gyro;
 	
 	
 	
@@ -47,9 +48,10 @@ public class DriveBase extends Subsystem {
     	//set control mode for encoder talons
     	
     	drive = new RobotDrive(leftFrontTalon, rightBackTalon);
-    	gyro = new AnalogGyro(0);
+    	AnalogGyro analogGyro = new AnalogGyro(0);
+    	gyro = analogGyro;
     	
-    	LiveWindow.addSensor("Drive Sensor", "Gyro", gyro);
+    	LiveWindow.addSensor(this.getName(), "AnalogGyro", analogGyro);
 //    	LiveWindow.addActuator("Drive", "Left Front", leftFrontTalon);
 //    	LiveWindow.addActuator("Drive", "Left Rear", leftBackTalon);
 //    	LiveWindow.addActuator("Drive", "Right Front", rightFrontTalon);
@@ -93,10 +95,6 @@ public class DriveBase extends Subsystem {
 
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		drive.tankDrive(leftSpeed, rightSpeed);
-	}
-
-	public AnalogGyro getGyro(){
-		return gyro;
 	}
 	
 	public double getRawAngle() {
