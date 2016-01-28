@@ -5,7 +5,7 @@ import org.usfirst.frc.team1294.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
+@Deprecated
 public class TurnToHeading extends Command{
 //private double startAngle;
 private double desiredAngle;

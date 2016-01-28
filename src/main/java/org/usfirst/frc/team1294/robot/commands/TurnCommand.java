@@ -4,7 +4,7 @@ import org.usfirst.frc.team1294.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-
+@Deprecated
 public class TurnCommand extends Command{
 private double deltaDegrees;
 private double startAngle;

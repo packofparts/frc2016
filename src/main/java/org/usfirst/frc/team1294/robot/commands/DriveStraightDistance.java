@@ -5,6 +5,7 @@ import org.usfirst.frc.team1294.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+@Deprecated
 public class DriveStraightDistance extends Command{
 	private double startDistance;
 	private double desiredDistance;

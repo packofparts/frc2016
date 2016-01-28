@@ -20,10 +20,22 @@ public class DrivePid extends PIDCommand {
 	private double distance;
 	private double leftEncoderStart;
 	private double rightEncoderStart;
-		
+	
+	public DrivePid(double heading) {
+		this(String.format("Turn to a heading of %f", heading), heading, 0, 0);
+	}
+	
+	public DrivePid(double speed, double distance) {
+		this(String.format("Drive the current heading at a speed of %f for a distance of %f.", speed, distance), -1, speed, distance);
+	}
+	
 	public DrivePid(double heading, double speed, double distance) {
+		this(String.format("Drive a heading of %f at a speed of %f for a distance of %f.)", heading, speed, distance), heading, speed, distance);
+	}
+	
+	private DrivePid(String name, double heading, double speed, double distance) {
 		// TODO: tune this pid
-		super(String.format("DrivePid(%f, %f, %f)", heading, speed, distance), PID_P, PID_I, PID_D);
+		super(name, PID_P, PID_I, PID_D);
 		
 		requires(Robot.driveBase);
 		this.driveBase = Robot.driveBase;
@@ -33,8 +45,6 @@ public class DrivePid extends PIDCommand {
 		
 		// since this is a closed loop command, and may be running without operator intervention, set a timeout
 		this.setTimeout(15);
-		
-		
 		
 		LiveWindow.addActuator("DriveSystem", "DriveHeadingPid", this.getPIDController());
 	}
