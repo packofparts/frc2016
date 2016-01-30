@@ -11,8 +11,5 @@ public class RobotMap {
 	public static int leftBackTalon = 3;
 	public static int rightFrontTalon = 2;
 	public static int rightBackTalon = 4;
-	public static double p = 20;
-	public static double i = 0;
-	public static double d = 0;
 	public static double distanceScaler = 2400;
 }
