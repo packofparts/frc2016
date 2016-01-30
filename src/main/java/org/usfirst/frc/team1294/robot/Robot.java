@@ -1,13 +1,16 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.Vision;
+import org.usfirst.frc.team1294.robot.commands.DrivePid;
+import org.usfirst.frc.team1294.robot.commands.ResetGyro;
+import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
+import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
+import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -16,8 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * at the specified times.
  */
 public class Robot extends IterativeRobot {
-    public static final Subsystem EXAMPLE_SUBSYSTEM = new ExampleSubsystem();
     public static final Vision vision = new Vision();
+	public static final DriveBase driveBase = new DriveBase();
 
     public static OI oi;
 
@@ -37,6 +40,22 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putString("Git-Author", vi.getAuthor());
         
         LiveWindow.addSensor(Vision.class.getSimpleName(), Vision.class.getSimpleName(), vision);
+        SmartDashboard.putData(Scheduler.getInstance());
+        
+        // turn to heading in place
+        SmartDashboard.putData(new DrivePid(0));
+        SmartDashboard.putData(new DrivePid(90));
+        SmartDashboard.putData(new DrivePid(180));
+        SmartDashboard.putData(new DrivePid(270));
+          
+        // drive current heading for one meter
+        SmartDashboard.putData(new DrivePid(-0.5, 1));
+        SmartDashboard.putData(new DrivePid(0.5, 1));
+        
+        SmartDashboard.putData(new ResetGyro());
+        
+        //this.autoCommand = new SquareAutonomousCommand();
+        SmartDashboard.putData(new SinBreakInCommand());
     }
 
     /**
@@ -88,6 +107,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Gyro Angle", driveBase.getNormalizedAngle());
     }
 
     /**

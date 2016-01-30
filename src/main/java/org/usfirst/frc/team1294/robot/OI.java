@@ -1,14 +1,57 @@
 package org.usfirst.frc.team1294.robot;
 
-/**
- * Things relating to the driver station should be defined here,
- * such as {@link edu.wpi.first.wpilibj.Joystick} and {@link edu.wpi.first.wpilibj.buttons.JoystickButton}.
- * <p>
- * A constructor is necessary to define which {@link edu.wpi.first.wpilibj.command.Command} is run by which button.
- * <p>
- * In general no other methods are needed, instead each joystick should be {@code public static final} so that
- * they are accessible from elsewhere in Commands and such. Buttons can be {@code private static final}.
- */
-public class OI {
+import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
+import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
+import org.usfirst.frc.team1294.robot.commands.TurnCommand;
+import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
+public class OI {
+	//// CREATING BUTTONS
+	// One type of button is a joystick button which is any button on a joystick.
+	// You create one by telling it which joystick it's on and which button
+	// number it is.
+	Joystick stickLeft = new Joystick(0);
+	Button leftButton1 = new JoystickButton(stickLeft, 7);
+	Button leftButton6 = new JoystickButton(stickLeft, 6);
+	Button leftButton10 = new JoystickButton(stickLeft, 10);
+	Joystick stickRight = new Joystick(1);
+
+	// Button button = new JoystickButton(stick, buttonNumber);
+
+	// There are a few additional built in buttons you can use. Additionally,
+	// by subclassing Button you can create custom triggers and bind those to
+	// commands the same as any other Button.
+	public OI() {
+		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
+		leftButton6.toggleWhenPressed(new TurnCommand(90));
+		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
+		//stickLeft.
+	}
+	//// TRIGGERING COMMANDS WITH BUTTONS
+	// Once you have a button, it's trivial to bind it to a button in one of
+	// three ways:
+
+	// Start the command when the button is pressed and let it run the command
+	// until it is finished as determined by it's isFinished method.
+	// button.whenPressed(new ExampleCommand());
+
+	// Run the command while the button is being held down and interrupt it once
+	// the button is released.
+	// button.whileHeld(new ExampleCommand());
+
+	// Start the command when the button is released  and let it run the command
+	// until it is finished as determined by it's isFinished method.
+	// button.whenReleased(new ExampleCommand());
+
+	public Joystick getStickLeft() {
+		return stickLeft;
+	}
+
+	public Joystick getStickRight() {
+		return stickRight;
+	}
 }
