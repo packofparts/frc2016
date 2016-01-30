@@ -1,10 +1,5 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
-import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
-import org.usfirst.frc.team1294.robot.commands.TurnCommand;
-import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -26,9 +21,9 @@ public class OI {
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
 	public OI() {
-		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
-		leftButton6.toggleWhenPressed(new TurnCommand(90));
-		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
+//		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
+//		leftButton6.toggleWhenPressed(new TurnCommand(90));
+//		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
 		//stickLeft.
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS

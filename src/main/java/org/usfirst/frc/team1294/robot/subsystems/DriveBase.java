@@ -3,7 +3,7 @@ package org.usfirst.frc.team1294.robot.subsystems;
 import org.usfirst.frc.team1294.robot.RobotMap;
 import org.usfirst.frc.team1294.robot.commands.TankDriveWithJoystick;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.Joystick;
@@ -31,9 +31,14 @@ public class DriveBase extends Subsystem {
       rightBackTalon = new CANTalon(RobotMap.rightBackTalon);
 
       leftFrontTalon.setInverted(true);
-      leftBackTalon.reverseOutput(true);
+      leftBackTalon.setInverted(false);
+      rightFrontTalon.setInverted(true);
+      rightBackTalon.setInverted(false);
 
-      rightBackTalon.setInverted(true);
+      leftFrontTalon.reverseOutput(true);
+      leftBackTalon.reverseOutput(false);
+      rightFrontTalon.reverseOutput(true);
+      rightBackTalon.reverseOutput(false);
 
       leftBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
       leftBackTalon.set(leftFrontTalon.getDeviceID());
@@ -41,8 +46,11 @@ public class DriveBase extends Subsystem {
       rightBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
       rightBackTalon.set(rightFrontTalon.getDeviceID());
 
+      rightFrontTalon.reverseSensor(true);
+
       drive = new RobotDrive(leftFrontTalon, rightFrontTalon);
-      gyro = new AnalogGyro(0);
+
+      gyro = new ADXRS450_Gyro();
 
       /*
       LiveWindow.addSensor(this.getName(), "AnalogGyro", (AnalogGyro) gyro);
@@ -67,20 +75,20 @@ public class DriveBase extends Subsystem {
     }
     
     public void setTalonsToClosedLoopSpeed(){
-    	rightBackTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	leftFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	rightBackTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
-    	leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
-    	rightBackTalon.set(0);
-    	leftFrontTalon.set(0);
+      rightFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+      leftFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+      rightFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
+      leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
+      rightFrontTalon.set(0);
+      leftFrontTalon.set(0);
     	drive.setMaxOutput(2048); // TODO: validate this is indeed the max output we want to send to the talons
     }
     
     public void setTalonsToOpenLoop() {
-    	rightBackTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-    	leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-    	rightBackTalon.set(0);
-    	leftFrontTalon.set(0);
+      rightFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+      leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+      rightFrontTalon.set(0);
+      leftFrontTalon.set(0);
     }
 	
 	public void stop() {
@@ -109,6 +117,6 @@ public class DriveBase extends Subsystem {
 	}
 	
 	public double getRightPosition() {
-		return rightBackTalon.getEncPosition() / RobotMap.distanceScaler;
-	}
+    return rightFrontTalon.getEncPosition() / RobotMap.distanceScaler;
+  }
 }
