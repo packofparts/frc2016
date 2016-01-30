@@ -1,8 +1,10 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.commands.ExampleCommand;
+import org.usfirst.frc.team1294.robot.commands.DrivePid;
+import org.usfirst.frc.team1294.robot.commands.ResetGyro;
+import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
-import org.usfirst.frc.team1294.robot.subsystems.DriveSystem;
+import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -16,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * at the specified times.
  */
 public class Robot extends IterativeRobot {
-    public static DriveSystem Drive_System = new DriveSystem();
+	public static final DriveBase driveBase = new DriveBase();
 
     public static OI oi;
 
@@ -34,7 +36,21 @@ public class Robot extends IterativeRobot {
         VersionInformation vi = new VersionInformation();
         SmartDashboard.putString("Version", vi.getVersion());
         SmartDashboard.putString("Git-Author", vi.getAuthor());
-        SmartDashboard.putData(new ExampleCommand());
+        SmartDashboard.putData(Scheduler.getInstance());
+        
+        // turn to heading in place
+        SmartDashboard.putData(new DrivePid(0));
+        SmartDashboard.putData(new DrivePid(90));
+        SmartDashboard.putData(new DrivePid(180));
+        SmartDashboard.putData(new DrivePid(270));
+          
+        // drive current heading for one meter
+        SmartDashboard.putData(new DrivePid(-0.5, 1));
+        SmartDashboard.putData(new DrivePid(0.5, 1));
+        
+        SmartDashboard.putData(new ResetGyro());
+        
+        //this.autoCommand = new SquareAutonomousCommand();
         SmartDashboard.putData(new SinBreakInCommand());
     }
 
@@ -87,6 +103,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Gyro Angle", driveBase.getNormalizedAngle());
     }
 
     /**
