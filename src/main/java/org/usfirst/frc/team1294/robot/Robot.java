@@ -45,8 +45,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(new DrivePid(270));
           
         // drive current heading for one meter
-        SmartDashboard.putData(new DrivePid(-0.75, 1));
-        SmartDashboard.putData(new DrivePid(0.75, 1));
+        SmartDashboard.putData(new DrivePid(-0.5, 1));
+        SmartDashboard.putData(new DrivePid(0.5, 1));
         
         SmartDashboard.putData(new ResetGyro());
         

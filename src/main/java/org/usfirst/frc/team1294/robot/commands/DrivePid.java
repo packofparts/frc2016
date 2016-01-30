@@ -9,14 +9,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DrivePid extends PIDCommand {
 
-	private static final double PID_TOLERANCE = 0.25;
-	private static final double PID_P = 0.05;
-	private static final double PID_I = 0.01;
-	private static final double PID_D = 0.00;
+	private static final double PID_TOLERANCE = 1;
+	private static final double PID_P = 0.15;
+	private static final double PID_I = 0.02;
+	private static final double PID_D = 0.09;
 	
 	private DriveBase driveBase;
 	private double heading;
-	private double speed;
+	private final double speed;
+	private double desiredSpeed;
 	private double distance;
 	private double leftEncoderStart;
 	private double rightEncoderStart;
@@ -59,10 +60,13 @@ public class DrivePid extends PIDCommand {
 			this.setSetpoint(heading);
 		}
 		
+		this.desiredSpeed = speed;
+		
 		this.getPIDController().setInputRange(0, 360);
-		this.getPIDController().setOutputRange(-1, 1);
+		this.getPIDController().setOutputRange(-0.4, 0.4);
 		this.getPIDController().setContinuous();
-		this.getPIDController().setPercentTolerance(PID_TOLERANCE);
+		//this.getPIDController().setPercentTolerance(PID_TOLERANCE);
+		this.getPIDController().setAbsoluteTolerance(PID_TOLERANCE);
 		
 		this.driveBase.setTalonsToClosedLoopSpeed();
 		
@@ -79,8 +83,8 @@ public class DrivePid extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		System.out.println("output " + output);
-		this.driveBase.arcadeDrive(speed, output);
+		//System.out.println("output " + output);
+		this.driveBase.arcadeDrive(desiredSpeed, output);
 	}
 
 	@Override
@@ -94,26 +98,37 @@ public class DrivePid extends PIDCommand {
 			return true;
 		}
 		
-		// return false if robot is not pointing the correct direction
-		if (Math.abs(driveBase.getNormalizedAngle() - this.heading) > PID_TOLERANCE) {
-			return false;
-		}
-		
 		// return false if robot has not traveled far enough
 		double distanceDriven = (
 				Math.abs(driveBase.getLeftPosition() - leftEncoderStart) + 
 				Math.abs(driveBase.getRightPosition() - rightEncoderStart)) / 2;
+
+		System.out.println(distanceDriven + " " + distance);
+		boolean hasDrivenFarEnough = false;
+		
 		if (distanceDriven < distance) {
-			return false;
+			//return false;
+		} else {
+			this.desiredSpeed = 0; // TODO: do this slower
+			hasDrivenFarEnough = true;
+		}
+
+		boolean isPointingRightDirection = false;
+		// return false if robot is not pointing the correct direction
+		if (Math.abs(driveBase.getNormalizedAngle() - this.heading) > PID_TOLERANCE) {
+			//return false;
+		} else {
+			isPointingRightDirection = true;
 		}
 		
-		return true;
+		
+		return hasDrivenFarEnough && isPointingRightDirection;
 	}
 
 	@Override
 	protected void end() {
-		this.driveBase.setTalonsToOpenLoop();
-		this.driveBase.arcadeDrive(0, 0);
+		//this.driveBase.setTalonsToOpenLoop();
+		//this.driveBase.arcadeDrive(0, 0);
 	}
 
 	@Override
