@@ -1,5 +1,8 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.DriveDirectionCommand;
+import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -14,6 +17,8 @@ public class OI {
 	Button leftButton6 = new JoystickButton(stickLeft, 6);
 	Button leftButton10 = new JoystickButton(stickLeft, 10);
 	Joystick stickRight = new Joystick(1);
+	Button forwardsButton = new JoystickButton(stickRight, 8);
+	Button backwardsButton = new JoystickButton(stickRight, 9);
 
 	// Button button = new JoystickButton(stick, buttonNumber);
 
@@ -24,6 +29,8 @@ public class OI {
 //		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
 //		leftButton6.toggleWhenPressed(new TurnCommand(90));
 //		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
+		forwardsButton.whenPressed(new DriveDirectionCommand(DriveBase.Direction.FORWARDS));
+		backwardsButton.whenPressed(new DriveDirectionCommand(DriveBase.Direction.BACKWARDS));
 		//stickLeft.
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS

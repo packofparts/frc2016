@@ -13,19 +13,18 @@ public class ResetGyro extends Command {
 
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
-		
+		Robot.driveBase.resetGyro();
 	}
 
 	@Override
 	protected void execute() {
-		Robot.driveBase.resetGyro();
+
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		return true; // ends immediately after it starts - all the real work is done in initialize()
 	}
 
 	@Override
