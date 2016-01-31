@@ -10,22 +10,23 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * An example subsystem.
  */
-public class DriveSystem extends Subsystem {
+public class DriveBase extends Subsystem {
 	public CANTalon leftFrontTalon;
 	public CANTalon rightFrontTalon;
 	public CANTalon leftBackTalon;
 	public CANTalon rightBackTalon;
 	public RobotDrive drive;
-	private AnalogGyro gyro;
+	private Gyro gyro;
 	
 	
 	
-    public DriveSystem() {
+    public DriveBase() {
     	//encoders are on talon one and four
         // Set left feedback device and talon numbers
     	leftFrontTalon = new CANTalon(RobotMap.leftFrontTalon);
@@ -47,13 +48,14 @@ public class DriveSystem extends Subsystem {
     	//set control mode for encoder talons
     	
     	drive = new RobotDrive(leftFrontTalon, rightBackTalon);
-    	gyro = new AnalogGyro(0);
+    	AnalogGyro analogGyro = new AnalogGyro(0);
+    	gyro = analogGyro;
     	
-    	LiveWindow.addSensor("Drive Sensor", "Gyro", gyro);
-    	LiveWindow.addActuator("Drive", "Left Front", leftFrontTalon);
-    	LiveWindow.addActuator("Drive", "Left Rear", leftBackTalon);
-    	LiveWindow.addActuator("Drive", "Right Front", rightFrontTalon);
-    	LiveWindow.addActuator("Drive", "Right Rear", rightBackTalon);
+    	LiveWindow.addSensor(this.getName(), "AnalogGyro", analogGyro);
+//    	LiveWindow.addActuator("Drive", "Left Front", leftFrontTalon);
+//    	LiveWindow.addActuator("Drive", "Left Rear", leftBackTalon);
+//    	LiveWindow.addActuator("Drive", "Right Front", rightFrontTalon);
+//    	LiveWindow.addActuator("Drive", "Right Rear", rightBackTalon);
     }
 
     @Override
@@ -64,15 +66,26 @@ public class DriveSystem extends Subsystem {
     public void tankDrive(Joystick left, Joystick right) {
 		drive.tankDrive(left, right);
 	}
-    public void arcadeDrive(double y, double d){
-    	drive.arcadeDrive(y, d);
+    
+    public void arcadeDrive(double speed, double rotation){
+    	drive.arcadeDrive(speed, rotation);
     }
-    public void setToEncoders(){
+    
+    public void setTalonsToClosedLoopSpeed(){
     	rightBackTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	leftFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	rightBackTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
     	leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
-    	drive.setMaxOutput(2048);
+    	rightBackTalon.set(0);
+    	leftFrontTalon.set(0);
+    	drive.setMaxOutput(2048); // TODO: validate this is indeed the max output we want to send to the talons
+    }
+    
+    public void setTalonsToOpenLoop() {
+    	rightBackTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+    	leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+    	rightBackTalon.set(0);
+    	leftFrontTalon.set(0);
     }
 	
 	public void stop() {
@@ -82,10 +95,6 @@ public class DriveSystem extends Subsystem {
 
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		drive.tankDrive(leftSpeed, rightSpeed);
-	}
-
-	public AnalogGyro getGyro(){
-		return gyro;
 	}
 	
 	public double getRawAngle() {
@@ -98,5 +107,13 @@ public class DriveSystem extends Subsystem {
 	
 	public void resetGyro() {
 		gyro.reset();
+	}
+	
+	public double getLeftPosition() {
+		return leftFrontTalon.getEncPosition() / RobotMap.distanceScaler;
+	}
+	
+	public double getRightPosition() {
+		return rightBackTalon.getEncPosition() / RobotMap.distanceScaler;
 	}
 }
