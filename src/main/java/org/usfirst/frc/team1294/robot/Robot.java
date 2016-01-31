@@ -2,8 +2,8 @@ package org.usfirst.frc.team1294.robot;
 
 import org.usfirst.frc.team1294.robot.commands.DrivePid;
 import org.usfirst.frc.team1294.robot.commands.ResetGyro;
-import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
+import org.usfirst.frc.team1294.robot.commands.TwoPIDControllerCommand;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
@@ -52,6 +52,14 @@ public class Robot extends IterativeRobot {
         
         //this.autoCommand = new SquareAutonomousCommand();
         SmartDashboard.putData(new SinBreakInCommand());
+
+        SmartDashboard.putData(new TwoPIDControllerCommand(0));
+        SmartDashboard.putData(new TwoPIDControllerCommand(90));
+        SmartDashboard.putData(new TwoPIDControllerCommand(180));
+        SmartDashboard.putData(new TwoPIDControllerCommand(270));
+
+        SmartDashboard.putData(new TwoPIDControllerCommand(-0.5, 1));
+        SmartDashboard.putData(new TwoPIDControllerCommand(0.5, 1));
     }
 
     /**
