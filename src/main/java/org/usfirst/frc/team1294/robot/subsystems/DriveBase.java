@@ -30,15 +30,7 @@ public class DriveBase extends Subsystem {
       rightFrontTalon = new CANTalon(RobotMap.rightFrontTalon);
       rightBackTalon = new CANTalon(RobotMap.rightBackTalon);
 
-      leftFrontTalon.setInverted(true);
-      leftBackTalon.setInverted(false);
-      rightFrontTalon.setInverted(true);
-      rightBackTalon.setInverted(false);
-
-      leftFrontTalon.reverseOutput(true);
-      leftBackTalon.reverseOutput(false);
-      rightFrontTalon.reverseOutput(true);
-      rightBackTalon.reverseOutput(false);
+      setDirection(Direction.FORWARDS);
 
       leftBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
       leftBackTalon.set(leftFrontTalon.getDeviceID());
@@ -118,5 +110,46 @@ public class DriveBase extends Subsystem {
 	
 	public double getRightPosition() {
     return rightFrontTalon.getEncPosition() / RobotMap.distanceScaler;
+  }
+
+  /**
+   * Inverts the motors depending on the direction specified.
+   *
+   * @param direction The direction for the motors to move.
+   */
+  public void setDirection(final Direction direction) {
+    boolean leftFront;
+    boolean leftBack;
+    boolean rightFront;
+    boolean rightBack;
+
+    if (direction == Direction.FORWARDS) {
+      leftFront = true;
+      leftBack = false;
+      rightFront = true;
+      rightBack = false;
+    } else {
+      leftFront = false;
+      leftBack = true;
+      rightFront = false;
+      rightBack = true;
+    }
+
+    leftFrontTalon.setInverted(leftFront);
+    leftBackTalon.setInverted(leftBack);
+    rightFrontTalon.setInverted(rightFront);
+    rightBackTalon.setInverted(rightBack);
+
+    leftFrontTalon.reverseOutput(leftFront);
+    leftBackTalon.reverseOutput(leftBack);
+    rightFrontTalon.reverseOutput(rightFront);
+    rightBackTalon.reverseOutput(rightBack);
+  }
+
+  /**
+   * A direction in which the robot can move.
+   */
+  public enum Direction {
+    FORWARDS, BACKWARDS
   }
 }
