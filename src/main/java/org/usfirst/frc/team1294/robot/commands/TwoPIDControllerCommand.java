@@ -102,7 +102,6 @@ public class TwoPIDControllerCommand extends Command {
   @Override
   protected boolean isFinished() {
     return isTimedOut() || (turnController.onTarget() && moveController.onTarget());
-
   }
 
   @Override
