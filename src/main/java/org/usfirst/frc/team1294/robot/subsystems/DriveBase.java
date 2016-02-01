@@ -1,13 +1,13 @@
 package org.usfirst.frc.team1294.robot.subsystems;
 
-import edu.wpi.first.wpilibj.CANTalon;
-
+import org.usfirst.frc.team1294.robot.Robot;
 import org.usfirst.frc.team1294.robot.RobotMap;
 import org.usfirst.frc.team1294.robot.commands.TankDriveWithJoystick;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -115,5 +115,9 @@ public class DriveBase extends Subsystem {
 	
 	public double getRightPosition() {
 		return rightBackTalon.getEncPosition() / RobotMap.distanceScaler;
+	}
+
+	public double getAverageEncoderDistance() {
+		return (Robot.driveBase.getLeftPosition() + Robot.driveBase.getRightPosition()) / 2;
 	}
 }

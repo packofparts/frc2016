@@ -84,7 +84,7 @@ public class TwoPIDControllerCommand extends Command {
     turnController.setAbsoluteTolerance(PID_TOLERANCE);
     turnController.enable();
 
-    moveController.setSetpoint(distance);
+    moveController.setSetpoint(Robot.driveBase.getAverageEncoderDistance() + distance);
     moveController.setOutputRange(-speed, speed);
     moveController.setAbsoluteTolerance(PID_TOLERANCE);
     moveController.enable();
@@ -146,7 +146,7 @@ public class TwoPIDControllerCommand extends Command {
 
     @Override
     public double pidGet() {
-      return (Robot.driveBase.getLeftPosition() + Robot.driveBase.getRightPosition()) / 2;
+      return Robot.driveBase.getAverageEncoderDistance();
     }
   }
 
