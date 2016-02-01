@@ -14,3 +14,10 @@ deploy:
   dry-run: false
   on:
     all_branches: true
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/d43ef9170f17307ee02a
+    on_start: always
+    on_failure: always
+    on_success: change
