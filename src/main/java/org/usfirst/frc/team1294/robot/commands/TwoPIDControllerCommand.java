@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Austin Jenchi (timtim17)
@@ -90,8 +89,6 @@ public class TwoPIDControllerCommand extends Command {
     moveController.enable();
 
     Robot.driveBase.setTalonsToClosedLoopSpeed();
-
-    SmartDashboard.putData(this);
   }
 
   @Override
