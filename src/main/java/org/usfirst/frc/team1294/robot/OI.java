@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.GetFrontUltrasonicSensor;
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
 import org.usfirst.frc.team1294.robot.commands.TurnCommand;
@@ -18,6 +19,7 @@ public class OI {
 	Button leftButton1 = new JoystickButton(stickLeft, 7);
 	Button leftButton6 = new JoystickButton(stickLeft, 6);
 	Button leftButton10 = new JoystickButton(stickLeft, 10);
+	Button rightButton6 = new JoystickButton(stickLeft, 6);
 	Joystick stickRight = new Joystick(1);
 
 	// Button button = new JoystickButton(stick, buttonNumber);
@@ -29,6 +31,8 @@ public class OI {
 		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
 		leftButton6.toggleWhenPressed(new TurnCommand(90));
 		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
+		rightButton6.toggleWhenPressed(new GetFrontUltrasonicSensor());
+		
 		//stickLeft.
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS

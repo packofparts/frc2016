@@ -6,6 +6,7 @@ import org.usfirst.frc.team1294.robot.RobotMap;
 import org.usfirst.frc.team1294.robot.commands.TankDriveWithJoystick;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -23,6 +24,9 @@ public class DriveBase extends Subsystem {
 	public CANTalon rightBackTalon;
 	public RobotDrive drive;
 	private Gyro gyro;
+	private AnalogInput ultrasonic;
+	private AnalogInput ultrasonic2;
+	private AnalogInput ultrasonic3;
 	
 	
 	
@@ -52,6 +56,12 @@ public class DriveBase extends Subsystem {
     	gyro = analogGyro;
     	
     	LiveWindow.addSensor(this.getName(), "AnalogGyro", analogGyro);
+    	AnalogInput ultrasonicSensor = new AnalogInput(1);
+    	ultrasonic = ultrasonicSensor;
+    	AnalogInput ultrasonicSensor2 = new AnalogInput(2);
+    	ultrasonic2 = ultrasonicSensor2;
+    	AnalogInput ultrasonicSensor3 = new AnalogInput(3);
+    	ultrasonic3 = ultrasonicSensor3;
 //    	LiveWindow.addActuator("Drive", "Left Front", leftFrontTalon);
 //    	LiveWindow.addActuator("Drive", "Left Rear", leftBackTalon);
 //    	LiveWindow.addActuator("Drive", "Right Front", rightFrontTalon);
@@ -115,5 +125,17 @@ public class DriveBase extends Subsystem {
 	
 	public double getRightPosition() {
 		return rightBackTalon.getEncPosition() / RobotMap.distanceScaler;
+	}
+	public double getUltrasonicDistanceFront(){
+		double voltage = ultrasonic.getVoltage();
+		return (voltage * (512.0/5.0));
+	}
+	public double getUltrasonicDistanceLeft(){
+		double voltage = ultrasonic2.getVoltage();
+		return (voltage *(512.0/5.0));
+	}
+	public double getUltrasonicDistanceRight(){
+		double voltage = ultrasonic3.getVoltage();
+		return (voltage *(512.0/5.0));
 	}
 }
