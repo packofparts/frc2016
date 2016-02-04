@@ -1,11 +1,12 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.subsystems.Vision;
 import org.usfirst.frc.team1294.robot.commands.DrivePid;
 import org.usfirst.frc.team1294.robot.commands.ResetGyro;
-import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
+import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
+import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
+import org.usfirst.frc.team1294.robot.subsystems.Vision;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
     public static final Vision vision = new Vision();
 	public static final DriveBase driveBase = new DriveBase();
+    public static final CameraSubsystem CAMERA_SUBSYSTEM = new CameraSubsystem();
 
     public static OI oi;
 
@@ -56,6 +58,9 @@ public class Robot extends IterativeRobot {
         
         //this.autoCommand = new SquareAutonomousCommand();
         SmartDashboard.putData(new SinBreakInCommand());
+
+        SmartDashboard.putData(new SetCameraCommand("cam0"));
+        SmartDashboard.putData(new SetCameraCommand("cam1"));
     }
 
     /**

@@ -1,9 +1,9 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
+import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
+import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.TurnCommand;
-import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -19,6 +19,8 @@ public class OI {
 	Button leftButton6 = new JoystickButton(stickLeft, 6);
 	Button leftButton10 = new JoystickButton(stickLeft, 10);
 	Joystick stickRight = new Joystick(1);
+	Button cam1 = new JoystickButton(stickLeft, 2);
+	Button cam2 = new JoystickButton(stickLeft, 4);
 
 	// Button button = new JoystickButton(stick, buttonNumber);
 
@@ -30,6 +32,8 @@ public class OI {
 		leftButton6.toggleWhenPressed(new TurnCommand(90));
 		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
 		//stickLeft.
+		cam1.whenPressed(new SetCameraCommand("cam0"));
+		cam2.whenPressed(new SetCameraCommand("cam1"));
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
