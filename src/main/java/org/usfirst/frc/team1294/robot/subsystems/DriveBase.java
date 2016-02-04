@@ -96,6 +96,7 @@ public class DriveBase extends Subsystem {
     	leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
     	rightBackTalon.set(0);
     	leftFrontTalon.set(0);
+    	drive.setMaxOutput(1);
     }
 	
 	public void stop() {
