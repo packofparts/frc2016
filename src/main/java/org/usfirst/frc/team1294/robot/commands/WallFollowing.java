@@ -8,21 +8,21 @@ public class WallFollowing extends Command{
 
 	public WallFollowing() {
 		// TODO Auto-generated constructor stub
+		requires (Robot.driveBase);
 	}
 
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		if(Robot.driveBase.getUltrasonicDistanceLeft() > 40){
-			Robot.driveBase.tankDrive(.3, .5);
+		if(Robot.driveBase.getUltrasonicDistanceLeft() > 30){
+			Robot.driveBase.tankDrive(.3,.5);
 		}
-		else if(Robot.driveBase.getUltrasonicDistanceLeft() < 40){
+		else if(Robot.driveBase.getUltrasonicDistanceLeft() < 20){
 			Robot.driveBase.tankDrive(.5,.3);
 		}
 		else{
