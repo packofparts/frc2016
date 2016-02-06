@@ -19,12 +19,15 @@ public class TankDriveWithJoystick extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        double left = Robot.oi.getStickLeft().getY();
-        double right = Robot.oi.getStickRight().getY();
+        double left;
+        double right;
 
         if (Robot.CAMERA_SUBSYSTEM.getCurrentCamera() == CameraSubsystem.Camera.BACK) {
-            left *= -1;
-            right *= -1;
+            left = Robot.oi.getStickRight().getY() * -1;
+            right = Robot.oi.getStickLeft().getY() * -1;
+        } else {
+            left = Robot.oi.getStickLeft().getY();
+            right = Robot.oi.getStickRight().getY();
         }
 
         Robot.driveBase.tankDrive(left, right);
