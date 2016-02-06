@@ -18,14 +18,6 @@ public class CameraSubsystem extends Subsystem {
   private static CameraServer cameraServer = CameraServer.getInstance();
   private static USBCamera driveCamera, targetCamera, piCamera;
 
-  static {
-    driveCamera = new USBCamera("cam0");
-    targetCamera = new USBCamera("cam1");
-
-    driveCamera.startCapture();
-    targetCamera.startCapture();
-  }
-
   private Camera currentCamera;
   private NIVision.Image frame;
   private int quality;
@@ -69,8 +61,18 @@ public class CameraSubsystem extends Subsystem {
     currentCamera = camera;
   }
 
+  private void initCameras() {
+    driveCamera = new USBCamera("cam0");
+    targetCamera = new USBCamera("cam1");
+//    piCamera = new USBCamera("cam2");
+
+    driveCamera.startCapture();
+    targetCamera.startCapture();
+  }
+
   public void stream() {
-    // TODO: Implement This
+    if (driveCamera == null || targetCamera == null/* || piCamera == null*/) initCameras();
+
     switch (currentCamera) {
       case DRIVE:
         driveCamera.getImage(frame);
