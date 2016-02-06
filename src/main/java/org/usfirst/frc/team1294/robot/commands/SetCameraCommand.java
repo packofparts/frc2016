@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1294.robot.commands;
 
 import org.usfirst.frc.team1294.robot.Robot;
+import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -11,16 +12,17 @@ import edu.wpi.first.wpilibj.command.Command;
  * @see org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem
  */
 public class SetCameraCommand extends Command {
-  private String name;
+  private CameraSubsystem.Camera camera;
 
-  public SetCameraCommand(String camName) {
+  public SetCameraCommand(CameraSubsystem.Camera camera) {
+    super("Sets camera to " + camera.toString());
     requires(Robot.CAMERA_SUBSYSTEM);
-    name = camName;
+    this.camera = camera;
   }
 
   @Override
   protected void initialize() {
-    Robot.CAMERA_SUBSYSTEM.startStream(name);
+    Robot.CAMERA_SUBSYSTEM.startStream(camera);
   }
 
   @Override

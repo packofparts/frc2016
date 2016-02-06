@@ -1,7 +1,12 @@
 package org.usfirst.frc.team1294.robot.subsystems;
 
+import com.ni.vision.NIVision;
+
+import org.usfirst.frc.team1294.robot.commands.StreamCameraCommand;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
  * A subsystem that handles the streaming of the camera to the driver station.
@@ -11,7 +16,18 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class CameraSubsystem extends Subsystem {
   private static CameraServer cameraServer = CameraServer.getInstance();
+  private static USBCamera driveCamera, targetCamera, piCamera;
 
+  static {
+    driveCamera = new USBCamera("cam0");
+    targetCamera = new USBCamera("cam1");
+
+    driveCamera.startCapture();
+    targetCamera.startCapture();
+  }
+
+  private Camera currentCamera;
+  private NIVision.Image frame;
   private int quality;
 
   /**
@@ -36,10 +52,10 @@ public class CameraSubsystem extends Subsystem {
   /**
    * Starts the stream with the default camera ({@code "cam0"}).
    *
-   * @see #startStream(String)
+   * @see #startStream(Camera)
    */
   public void startStream() {
-    startStream("cam0");
+    startStream(Camera.DRIVE);
   }
 
   /**
@@ -47,15 +63,30 @@ public class CameraSubsystem extends Subsystem {
    *
    * <p>Camera names can be found on webdash ({@code roboRIO-TEAM-frc.local}).</p>
    *
-   * @param camName The name of the camera to stream.
+   * @param camera The name of the camera to stream.
    */
-  public void startStream(final String camName) {
-    cameraServer.startAutomaticCapture(camName);
+  public void startStream(final Camera camera) {
+    currentCamera = camera;
+  }
+
+  public void stream() {
+    // TODO: Implement This
+    switch (currentCamera) {
+      case DRIVE:
+        driveCamera.getImage(frame);
+        break;
+      case TARGET:
+        targetCamera.getImage(frame);
+        break;
+      case PI:
+        throw new IllegalStateException("Pi camera not implemented");
+    }
+    cameraServer.setImage(frame);
   }
 
   @Override
   protected void initDefaultCommand() {
-    // setDefaultCommand();
+    setDefaultCommand(new StreamCameraCommand());
   }
 
   /**
@@ -80,4 +111,6 @@ public class CameraSubsystem extends Subsystem {
     this.quality = quality;
     cameraServer.setQuality(quality);
   }
+
+  public enum Camera {DRIVE, TARGET, PI}
 }

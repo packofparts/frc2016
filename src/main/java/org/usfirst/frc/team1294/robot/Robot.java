@@ -6,7 +6,6 @@ import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
-import org.usfirst.frc.team1294.robot.subsystems.Vision;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -20,8 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * at the specified times.
  */
 public class Robot extends IterativeRobot {
-    public static final Vision vision = new Vision();
-	public static final DriveBase driveBase = new DriveBase();
+    //    public static final Vision vision = new Vision();
+    public static final DriveBase driveBase = new DriveBase();
     public static final CameraSubsystem CAMERA_SUBSYSTEM = new CameraSubsystem();
 
     public static OI oi;
@@ -40,8 +39,8 @@ public class Robot extends IterativeRobot {
         VersionInformation vi = new VersionInformation();
         SmartDashboard.putString("Version", vi.getVersion());
         SmartDashboard.putString("Git-Author", vi.getAuthor());
-        
-        LiveWindow.addSensor(Vision.class.getSimpleName(), Vision.class.getSimpleName(), vision);
+
+//        LiveWindow.addSensor(Vision.class.getSimpleName(), Vision.class.getSimpleName(), vision);
         SmartDashboard.putData(Scheduler.getInstance());
         
         // turn to heading in place
@@ -59,8 +58,8 @@ public class Robot extends IterativeRobot {
         //this.autoCommand = new SquareAutonomousCommand();
         SmartDashboard.putData(new SinBreakInCommand());
 
-        SmartDashboard.putData(new SetCameraCommand("cam0"));
-        SmartDashboard.putData(new SetCameraCommand("cam1"));
+        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.DRIVE));
+        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.TARGET));
     }
 
     /**
