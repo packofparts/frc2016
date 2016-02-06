@@ -4,6 +4,7 @@ import org.usfirst.frc.team1294.robot.commands.DrivePid;
 import org.usfirst.frc.team1294.robot.commands.ResetGyro;
 import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
+import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
@@ -60,6 +61,8 @@ public class Robot extends IterativeRobot {
 
         SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.DRIVE));
         SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.TARGET));
+
+        SmartDashboard.putData(new SwitchCameraCommand());
     }
 
     /**
