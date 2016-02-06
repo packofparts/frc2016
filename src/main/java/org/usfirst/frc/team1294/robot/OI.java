@@ -34,8 +34,8 @@ public class OI {
 		leftButton6.toggleWhenPressed(new WallFollowing());
 		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
 		//stickLeft.
-		cam1.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.DRIVE));
-		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.TARGET));
+		cam1.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
+		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 		switchCam.whenPressed(new SwitchCameraCommand());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS

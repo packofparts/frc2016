@@ -16,11 +16,11 @@ public class SwitchCameraCommand extends Command {
   @Override
   protected void initialize() {
     switch (Robot.CAMERA_SUBSYSTEM.getCurrentCamera()) {
-      case DRIVE:
-        Robot.CAMERA_SUBSYSTEM.startStream(CameraSubsystem.Camera.TARGET);
+      case FRONT:
+        Robot.CAMERA_SUBSYSTEM.startStream(CameraSubsystem.Camera.BACK);
         break;
-      case TARGET:
-        Robot.CAMERA_SUBSYSTEM.startStream(CameraSubsystem.Camera.DRIVE);
+      case BACK:
+        Robot.CAMERA_SUBSYSTEM.startStream(CameraSubsystem.Camera.FRONT);
         break;
       default:
         throw new IllegalStateException("Not implemented - what are you even doing");

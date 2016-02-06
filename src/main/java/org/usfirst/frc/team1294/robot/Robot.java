@@ -4,9 +4,9 @@ import org.usfirst.frc.team1294.robot.commands.DrivePid;
 import org.usfirst.frc.team1294.robot.commands.ResetGyro;
 import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
+import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
-import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
@@ -56,12 +56,12 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(new DrivePid(0.5, 1));
         
         SmartDashboard.putData(new ResetGyro());
-        
-        this.autoCommand = new SquareAutonomousCommand();
+
+        autoCommand = new SquareAutonomousCommand();
         SmartDashboard.putData(new SinBreakInCommand());
 
-        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.DRIVE));
-        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.TARGET));
+        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
+        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 
         SmartDashboard.putData(new SwitchCameraCommand());
     }

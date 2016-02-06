@@ -60,7 +60,7 @@ public class CameraSubsystem extends Subsystem {
    * @see #startStream(Camera)
    */
   public void startStream() {
-    startStream(Camera.DRIVE);
+    startStream(Camera.FRONT);
   }
 
   /**
@@ -74,12 +74,12 @@ public class CameraSubsystem extends Subsystem {
     currentCamera = camera;
     System.out.println("Start stream");
     switch (camera) {
-      case DRIVE:
+      case FRONT:
         driveCamera.startCapture();
         targetCamera.stopCapture();
 //        piCamera.stopCapture();
         break;
-      case TARGET:
+      case BACK:
         driveCamera.stopCapture();
         targetCamera.startCapture();
 //        piCamera.stopCapture();
@@ -99,10 +99,10 @@ public class CameraSubsystem extends Subsystem {
     System.out.println("stream");
 
     switch (currentCamera) {
-      case DRIVE:
+      case FRONT:
         driveCamera.getImage(frame);
         break;
-      case TARGET:
+      case BACK:
         targetCamera.getImage(frame);
         break;
       case PI:
@@ -145,5 +145,5 @@ public class CameraSubsystem extends Subsystem {
     return currentCamera;
   }
 
-  public enum Camera {DRIVE, TARGET, PI}
+  public enum Camera {FRONT, BACK, PI}
 }
