@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1294.robot;
 
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
+
+import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
 import org.usfirst.frc.team1294.robot.commands.TurnCommand;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
@@ -29,8 +31,8 @@ public class OI {
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
 	public OI() {
-		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
-		leftButton6.toggleWhenPressed(new TurnCommand(90));
+//		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
+//		leftButton6.toggleWhenPressed(new TurnCommand(90));
 		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
 		//stickLeft.
 		cam1.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.DRIVE));
