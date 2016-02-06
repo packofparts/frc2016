@@ -138,4 +138,16 @@ public class DriveBase extends Subsystem {
 	public double getRightSpeed() {
 		return rightFrontTalon.getEncVelocity();
 	}
+	public double getUltrasonicDistanceFront(){
+		double voltage = ultrasonic.getVoltage();
+		return (voltage * (512.0/5.0));
+	}
+	public double getUltrasonicDistanceLeft(){
+		double voltage = ultrasonic2.getVoltage();
+		return (voltage *(512.0/5.0));
+	}
+	public double getUltrasonicDistanceRight(){
+		double voltage = ultrasonic3.getVoltage();
+		return (voltage *(512.0/5.0));
+	}
 }
