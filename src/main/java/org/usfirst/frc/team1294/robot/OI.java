@@ -1,11 +1,9 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
-
-import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
-import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
-import org.usfirst.frc.team1294.robot.commands.TurnCommand;
-import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
+import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
+import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
