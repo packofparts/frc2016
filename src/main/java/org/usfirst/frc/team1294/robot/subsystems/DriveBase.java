@@ -4,6 +4,7 @@ import org.usfirst.frc.team1294.robot.RobotMap;
 import org.usfirst.frc.team1294.robot.commands.TankDriveWithJoystick;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.Joystick;
@@ -21,6 +22,9 @@ public class DriveBase extends Subsystem {
 	public CANTalon rightBackTalon;
 	public RobotDrive drive;
 	private Gyro gyro;
+	private AnalogInput ultrasonic;
+	private AnalogInput ultrasonic2;
+	private AnalogInput ultrasonic3;
 
 	public DriveBase() {
 		leftFrontTalon = new CANTalon(RobotMap.leftFrontTalon);
@@ -50,7 +54,12 @@ public class DriveBase extends Subsystem {
 		
 
 		setTalonsToClosedLoopSpeed();
-		
+		AnalogInput ultrasonicSensor = new AnalogInput(1);
+    	ultrasonic = ultrasonicSensor;
+    	AnalogInput ultrasonicSensor2 = new AnalogInput(2);
+    	ultrasonic2 = ultrasonicSensor2;
+    	AnalogInput ultrasonicSensor3 = new AnalogInput(3);
+    	ultrasonic3 = ultrasonicSensor3;
 		gyro = new ADXRS450_Gyro();
 
 		/*
