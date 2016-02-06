@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1294.robot;
 
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
+import org.usfirst.frc.team1294.robot.commands.WallFollowing;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -24,7 +25,7 @@ public class OI {
 	// commands the same as any other Button.
 	public OI() {
 //		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
-//		leftButton6.toggleWhenPressed(new TurnCommand(90));
+		leftButton6.toggleWhenPressed(new WallFollowing());
 		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
 		//stickLeft.
 	}
