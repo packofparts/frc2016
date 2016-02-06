@@ -108,6 +108,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Ultrasonic Sensor 3", driveBase.getUltrasonicDistanceRight());
         SmartDashboard.putNumber("Ultrasonic Sensor 2", driveBase.getUltrasonicDistanceLeft());
         SmartDashboard.putNumber("Ultrasonic Sensor 1", driveBase.getUltrasonicDistanceFront());
+        SmartDashboard.putNumber("Right Encoder", driveBase.getRightPosition());
+        SmartDashboard.putNumber("Left Encoder", driveBase.getLeftPosition());
     }
 
     /**
