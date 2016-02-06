@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -23,7 +25,7 @@ public class OI {
 	public OI() {
 //		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
 //		leftButton6.toggleWhenPressed(new TurnCommand(90));
-//		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
+		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
 		//stickLeft.
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS

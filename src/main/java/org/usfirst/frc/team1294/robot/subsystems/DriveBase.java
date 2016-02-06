@@ -21,102 +21,121 @@ public class DriveBase extends Subsystem {
 	public CANTalon rightBackTalon;
 	public RobotDrive drive;
 	private Gyro gyro;
-	
-	
-	
-    public DriveBase() {
-      leftFrontTalon = new CANTalon(RobotMap.leftFrontTalon);
-      leftBackTalon = new CANTalon(RobotMap.leftBackTalon);
-      rightFrontTalon = new CANTalon(RobotMap.rightFrontTalon);
-      rightBackTalon = new CANTalon(RobotMap.rightBackTalon);
 
-      leftFrontTalon.setInverted(true);
-      leftBackTalon.setInverted(false);
-      rightFrontTalon.setInverted(true);
-      rightBackTalon.setInverted(false);
+	public DriveBase() {
+		leftFrontTalon = new CANTalon(RobotMap.leftFrontTalon);
+		leftFrontTalon.setInverted(true); // Inverts the direction of the motor direction. Only works in vbus mode
+		leftFrontTalon.reverseOutput(false); // flips the sign of the throttle values going into the motor on the talon in closed loop modes
+		leftFrontTalon.reverseSensor(false); // flips the sign of the sensor values going into the talon in closed loop modes
 
-      leftFrontTalon.reverseOutput(true);
-      leftBackTalon.reverseOutput(false);
-      rightFrontTalon.reverseOutput(true);
-      rightBackTalon.reverseOutput(false);
+		leftBackTalon = new CANTalon(RobotMap.leftBackTalon);
+		leftBackTalon.setInverted(false);
+		leftBackTalon.reverseOutput(false);
+		leftBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
+		leftBackTalon.set(leftFrontTalon.getDeviceID());
+		
+		rightFrontTalon = new CANTalon(RobotMap.rightFrontTalon);
+		rightFrontTalon.setInverted(true);
+		rightFrontTalon.reverseOutput(false);
+		rightFrontTalon.reverseSensor(false);
+		
+		rightBackTalon = new CANTalon(RobotMap.rightBackTalon);
+		rightBackTalon.setInverted(false);
+		rightBackTalon.reverseOutput(false);
+		rightBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
+		rightBackTalon.set(rightFrontTalon.getDeviceID());
 
-      leftBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
-      leftBackTalon.set(leftFrontTalon.getDeviceID());
 
-      rightBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
-      rightBackTalon.set(rightFrontTalon.getDeviceID());
+		drive = new RobotDrive(leftFrontTalon, rightFrontTalon);
+		
 
-      rightFrontTalon.reverseSensor(true);
+		setTalonsToClosedLoopSpeed();
+		
+		gyro = new ADXRS450_Gyro();
 
-      drive = new RobotDrive(leftFrontTalon, rightFrontTalon);
+		/*
+		 * LiveWindow.addSensor(this.getName(), "AnalogGyro", (AnalogGyro)
+		 * gyro); LiveWindow.addActuator("Drive", "Left Front", leftFrontTalon);
+		 * LiveWindow.addActuator("Drive", "Left Rear", leftBackTalon);
+		 * LiveWindow.addActuator("Drive", "Right Front", rightFrontTalon);
+		 * LiveWindow.addActuator("Drive", "Right Rear", rightBackTalon);
+		 */
+	}
 
-      gyro = new ADXRS450_Gyro();
+	@Override
+	protected void initDefaultCommand() {
+		setDefaultCommand(new TankDriveWithJoystick());
+	}
 
-      /*
-      LiveWindow.addSensor(this.getName(), "AnalogGyro", (AnalogGyro) gyro);
-    	LiveWindow.addActuator("Drive", "Left Front", leftFrontTalon);
-    	LiveWindow.addActuator("Drive", "Left Rear", leftBackTalon);
-    	LiveWindow.addActuator("Drive", "Right Front", rightFrontTalon);
-    	LiveWindow.addActuator("Drive", "Right Rear", rightBackTalon);
-      */
-    }
-
-    @Override
-    protected void initDefaultCommand() {
-        setDefaultCommand(new TankDriveWithJoystick());
-    }
-    
-    public void tankDrive(Joystick left, Joystick right) {
+	public void tankDrive(Joystick left, Joystick right) {
 		drive.tankDrive(left, right);
 	}
-    
-    public void arcadeDrive(double speed, double rotation){
-    	drive.arcadeDrive(speed, rotation);
-    }
-    
-    public void setTalonsToClosedLoopSpeed(){
-      rightFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-      leftFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-      rightFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
-      leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
-      rightFrontTalon.set(0);
-      leftFrontTalon.set(0);
-    	drive.setMaxOutput(2048); // TODO: validate this is indeed the max output we want to send to the talons
-    }
-    
-    public void setTalonsToOpenLoop() {
-      rightFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-      leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-      rightFrontTalon.set(0);
-      leftFrontTalon.set(0);
-    }
-	
-	public void stop() {
-		drive.drive(0,0);
+
+	public void arcadeDrive(double speed, double rotation) {
+		drive.arcadeDrive(speed, rotation);
 	}
-	
+
+	public void setTalonsToClosedLoopSpeed() {
+		leftFrontTalon.set(0);
+		leftFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
+		leftFrontTalon.setP(1);
+		leftFrontTalon.setI(0);
+		leftFrontTalon.setD(0);
+		
+		rightFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		rightFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
+		rightFrontTalon.set(0);
+		rightFrontTalon.setP(1);
+		rightFrontTalon.setI(0);
+		rightFrontTalon.setD(0);
+		
+		drive.setMaxOutput(2000);
+	}
+
+	public void setTalonsToOpenLoop() {
+		rightFrontTalon.set(0);
+		leftFrontTalon.set(0);
+		rightFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+		leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+		
+		drive.setMaxOutput(1);
+		
+	}
+
+	public void stop() {
+		drive.drive(0, 0);
+	}
 
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		drive.tankDrive(leftSpeed, rightSpeed);
 	}
-	
+
 	public double getRawAngle() {
 		return gyro.getAngle();
 	}
-	
+
 	public double getNormalizedAngle() {
 		return gyro.getAngle() % 360;
 	}
-	
+
 	public void resetGyro() {
 		gyro.reset();
 	}
-	
+
 	public double getLeftPosition() {
 		return leftFrontTalon.getEncPosition() / RobotMap.distanceScaler;
 	}
-	
+
 	public double getRightPosition() {
-    return rightFrontTalon.getEncPosition() / RobotMap.distanceScaler;
-  }
+		return rightFrontTalon.getEncPosition() / RobotMap.distanceScaler;
+	}
+
+	public double getLeftSpeed() {
+		return leftFrontTalon.getEncVelocity();
+	}
+
+	public double getRightSpeed() {
+		return rightFrontTalon.getEncVelocity();
+	}
 }
