@@ -23,6 +23,7 @@ public class OI {
 	Button cam1 = new JoystickButton(stickLeft, 2);
 	Button cam2 = new JoystickButton(stickLeft, 4);
 	Button switchCam = new JoystickButton(stickLeft, 3);
+	Button otherSwitchCam = new JoystickButton(stickRight, 3);
 
 	// Button button = new JoystickButton(stick, buttonNumber);
 
@@ -37,6 +38,7 @@ public class OI {
 		cam1.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
 		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 		switchCam.whenPressed(new SwitchCameraCommand());
+		otherSwitchCam.whenPressed(new SwitchCameraCommand());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
