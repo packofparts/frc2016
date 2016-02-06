@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class StreamCameraCommand extends Command {
   private static final int FPS = 30;
+  private Thread captureThread;
 
   public StreamCameraCommand() {
     requires(Robot.CAMERA_SUBSYSTEM);
@@ -17,13 +18,20 @@ public class StreamCameraCommand extends Command {
 
   @Override
   protected void initialize() {
-
+    captureThread = new Thread(() -> {
+      while (true) {
+        Robot.CAMERA_SUBSYSTEM.stream();
+        System.out.println(1 / (double) FPS);
+        Timer.delay(1 / (double) FPS);
+      }
+    });
+    captureThread.setName("Camera Capture Thread");
+    captureThread.start();
   }
 
   @Override
   protected void execute() {
-    Robot.CAMERA_SUBSYSTEM.stream();
-    Timer.delay(1 / (double) FPS * 1000);
+
   }
 
   @Override
@@ -33,11 +41,11 @@ public class StreamCameraCommand extends Command {
 
   @Override
   protected void end() {
-
+    captureThread.stop();
   }
 
   @Override
   protected void interrupted() {
-
+    end();
   }
 }

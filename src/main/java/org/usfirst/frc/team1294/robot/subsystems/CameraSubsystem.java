@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1294.robot.subsystems;
 
 import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.Image;
 
 import org.usfirst.frc.team1294.robot.commands.StreamCameraCommand;
 
@@ -17,9 +18,10 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
 public class CameraSubsystem extends Subsystem {
   private static CameraServer cameraServer = CameraServer.getInstance();
   private static USBCamera driveCamera, targetCamera, piCamera;
+  private static boolean initCameras = false;
 
   private Camera currentCamera;
-  private NIVision.Image frame;
+  private Image frame;
   private int quality;
 
   /**
@@ -28,7 +30,7 @@ public class CameraSubsystem extends Subsystem {
    * <p>Sets default quality at 50%.</p>
    */
   public CameraSubsystem() {
-    this(50);
+    this(30);
   }
 
   /**
@@ -39,6 +41,17 @@ public class CameraSubsystem extends Subsystem {
   public CameraSubsystem(final int quality) {
     super("Camera");
     setQuality(quality);
+    frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+  }
+
+  public static void initCameras() {
+    if (initCameras) return;
+
+    driveCamera = new USBCamera("cam0");
+    targetCamera = new USBCamera("cam1");
+//    piCamera = new USBCamera("cam2");
+
+    initCameras = true;
   }
 
   /**
@@ -59,19 +72,31 @@ public class CameraSubsystem extends Subsystem {
    */
   public void startStream(final Camera camera) {
     currentCamera = camera;
-  }
-
-  private void initCameras() {
-    driveCamera = new USBCamera("cam0");
-    targetCamera = new USBCamera("cam1");
-//    piCamera = new USBCamera("cam2");
-
-    driveCamera.startCapture();
-    targetCamera.startCapture();
+    System.out.println("Start stream");
+    switch (camera) {
+      case DRIVE:
+        driveCamera.startCapture();
+        targetCamera.stopCapture();
+//        piCamera.stopCapture();
+        break;
+      case TARGET:
+        driveCamera.stopCapture();
+        targetCamera.startCapture();
+//        piCamera.stopCapture();
+        break;
+      case PI:
+        throw new IllegalStateException("Pi camera not implemented");
+    }
+    System.out.println("hi");
   }
 
   public void stream() {
-    if (driveCamera == null || targetCamera == null/* || piCamera == null*/) initCameras();
+    if (!initCameras) {
+      initCameras();
+      startStream();
+    }
+
+    System.out.println("stream");
 
     switch (currentCamera) {
       case DRIVE:
@@ -84,6 +109,8 @@ public class CameraSubsystem extends Subsystem {
         throw new IllegalStateException("Pi camera not implemented");
     }
     cameraServer.setImage(frame);
+
+    System.out.println("done stream");
   }
 
   @Override
@@ -112,6 +139,10 @@ public class CameraSubsystem extends Subsystem {
 
     this.quality = quality;
     cameraServer.setQuality(quality);
+  }
+
+  public Camera getCurrentCamera() {
+    return currentCamera;
   }
 
   public enum Camera {DRIVE, TARGET, PI}

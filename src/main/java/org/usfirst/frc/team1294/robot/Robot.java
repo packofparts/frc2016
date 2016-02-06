@@ -60,8 +60,6 @@ public class Robot extends IterativeRobot {
 
         SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.DRIVE));
         SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.TARGET));
-
-        new SetCameraCommand(CameraSubsystem.Camera.DRIVE).start();
     }
 
     /**
