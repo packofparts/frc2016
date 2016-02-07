@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * @see org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem
  */
 public class SetCameraCommand extends Command {
-  private static final double DEADBAND = 100;
+  private static final double DEADBAND = 5;
 
   private CameraSubsystem.Camera camera;
 
@@ -24,8 +24,7 @@ public class SetCameraCommand extends Command {
 
   @Override
   protected void initialize() {
-    double speed = (Robot.driveBase.getLeftSpeed() + Robot.driveBase.getRightSpeed()) / 2.0;
-    if (speed < DEADBAND)
+    if (Math.abs(Robot.driveBase.getLeftSpeed()) < DEADBAND && Math.abs(Robot.driveBase.getRightSpeed()) < DEADBAND)
       Robot.CAMERA_SUBSYSTEM.startStream(camera); // plz no kill robot due to voltage spike
   }
 
