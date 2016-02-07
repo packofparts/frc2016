@@ -15,6 +15,8 @@ public class SwitchCameraCommand extends Command {
 
   @Override
   protected void initialize() {
+    if (Robot.driveBase.getLeftSpeed() > 100 || Robot.driveBase.getRightSpeed() > 100) return;
+
     switch (Robot.CAMERA_SUBSYSTEM.getCurrentCamera()) {
       case FRONT:
         Robot.CAMERA_SUBSYSTEM.startStream(CameraSubsystem.Camera.BACK);
