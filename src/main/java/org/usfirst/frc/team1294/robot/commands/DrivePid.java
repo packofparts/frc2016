@@ -14,9 +14,9 @@ public class DrivePid extends PIDCommand {
 	private static final double PID_I = 0.02;
 	private static final double PID_D = 0.09;
 	
-	private DriveBase driveBase;
-	private double heading;
-	private final double speed;
+	protected DriveBase driveBase;
+	protected double heading;
+	protected double speed;
 	private double desiredSpeed;
 	private double distance;
 	private double leftEncoderStart;
