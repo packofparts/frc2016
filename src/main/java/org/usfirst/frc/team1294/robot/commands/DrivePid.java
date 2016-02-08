@@ -21,6 +21,7 @@ public class DrivePid extends PIDCommand {
 	private double distance;
 	private double leftEncoderStart;
 	private double rightEncoderStart;
+	private boolean driveCurrentHeading = false;
 	
 	public DrivePid(double heading) {
 		this(String.format("Turn to a heading of %f", heading), heading, 0, 0);
@@ -28,6 +29,7 @@ public class DrivePid extends PIDCommand {
 	
 	public DrivePid(double speed, double distance) {
 		this(String.format("Drive the current heading at a speed of %f for a distance of %f.", speed, distance), -1, speed, distance);
+		driveCurrentHeading = true;
 	}
 	
 	public DrivePid(double heading, double speed, double distance) {
@@ -53,7 +55,7 @@ public class DrivePid extends PIDCommand {
 	@Override
 	protected void initialize() {
 		// if heading was not provided, use current heading
-		if (heading < 0) {
+		if (driveCurrentHeading) {
 			this.setSetpoint(driveBase.getNormalizedAngle());
 			System.out.println("setpoint to current heading " + driveBase.getNormalizedAngle());
 		} else {
