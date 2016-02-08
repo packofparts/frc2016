@@ -7,12 +7,9 @@ package org.usfirst.frc.team1294.robot;
  * and either {@code int} or {@code double}.
  */
 public class RobotMap {
-	public static int leftFrontTalon = 1;
-	public static int leftBackTalon = 3;
-	public static int rightFrontTalon = 2;
+	public static int leftFrontTalon = 2;
+	public static int leftBackTalon = 1;
+	public static int rightFrontTalon = 3;
 	public static int rightBackTalon = 4;
-	public static double p = 20;
-	public static double i = 0;
-	public static double d = 0;
-	public static double distanceScaler = 2400;
+	public static double distanceScaler = 5300;
 }
