@@ -1,9 +1,10 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
-import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
-import org.usfirst.frc.team1294.robot.commands.TurnCommand;
-import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
+import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
+import org.usfirst.frc.team1294.robot.commands.WallFollowing;
+import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -19,6 +20,10 @@ public class OI {
 	Button leftButton6 = new JoystickButton(stickLeft, 6);
 	Button leftButton10 = new JoystickButton(stickLeft, 10);
 	Joystick stickRight = new Joystick(1);
+	Button cam1 = new JoystickButton(stickLeft, 2);
+	Button cam2 = new JoystickButton(stickLeft, 4);
+	Button switchCam = new JoystickButton(stickLeft, 3);
+	Button otherSwitchCam = new JoystickButton(stickRight, 3);
 
 	// Button button = new JoystickButton(stick, buttonNumber);
 
@@ -26,10 +31,14 @@ public class OI {
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
 	public OI() {
-		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
-		leftButton6.toggleWhenPressed(new TurnCommand(90));
+//		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
+		leftButton6.toggleWhenPressed(new WallFollowing());
 		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
 		//stickLeft.
+		cam1.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
+		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
+		switchCam.whenPressed(new SwitchCameraCommand());
+		otherSwitchCam.whenPressed(new SwitchCameraCommand());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of

@@ -1,8 +1,9 @@
 package org.usfirst.frc.team1294.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team1294.robot.Robot;
+import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Have the robot drive tank style using the PS3 Joystick until interrupted.
@@ -18,7 +19,18 @@ public class TankDriveWithJoystick extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveBase.tankDrive(Robot.oi.getStickLeft(), Robot.oi.getStickRight());
+        double left;
+        double right;
+
+        if (Robot.CAMERA_SUBSYSTEM.getCurrentCamera() == CameraSubsystem.Camera.BACK) {
+            left = Robot.oi.getStickRight().getY() * -1;
+            right = Robot.oi.getStickLeft().getY() * -1;
+        } else {
+            left = Robot.oi.getStickLeft().getY();
+            right = Robot.oi.getStickRight().getY();
+        }
+
+        Robot.driveBase.tankDrive(left, right);
     }
 
     // Make this return true when this Command no longer needs to run execute()
