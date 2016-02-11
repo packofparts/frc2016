@@ -6,13 +6,27 @@ package org.usfirst.frc.team1294.robot.commands;
  * defenses are: Low Bar, Moat, Ramparts, Rock Wall, Rough Terrain
  */
 public class AutonomousEasyDefense extends AutonomousReachDefense {
-	protected static final double DISTANCE_TO_DEFEAT_DEFENSE = 1.0; // TODO
+	protected static final double DISTANCE_TO_DEFEAT_DEFENSE = 1.0; // TODO, how far to drive to defeat the defense
 
 	public AutonomousEasyDefense(DefensePosition position) {
 		super();
 		
 		addSequential(new DriveStraightDistance(SPEED, DISTANCE_TO_DEFEAT_DEFENSE));
-		addSequential(new TurnToBearing(position.bearingToCastle));
-		// TODO string together the other commands we need to aim and shoot
+		
+		if(position.distanceBeforeTurn > 0) {
+			addSequential(new DriveStraightDistance(SPEED, position.distanceBeforeTurn));
+		}
+		if (position.bearingToCastle != 0) {
+			addSequential(new TurnToBearing(position.bearingToCastle));
+		}
+		if(position.distanceAfterTurn > 0) {
+			addSequential(new DriveStraightDistance(SPEED, position.distanceAfterTurn));
+		}
+		
+		addSequential(new Wait(1000));
+		addSequential(new TurnTowardsVisionTarget());
+		addSequential(new Wait(1000));
+		addSequential(new TurnTowardsVisionTarget());
+		// TODO shoot
 	}
 }

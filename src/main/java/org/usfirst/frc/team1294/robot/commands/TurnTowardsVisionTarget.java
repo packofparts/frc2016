@@ -18,8 +18,6 @@ public class TurnTowardsVisionTarget extends TurnToBearing {
 	protected void initialize() {
 		if (Robot.vision.getTimeSinceLastUpdate() <= MAX_AGE_OF_VISION_DATA && Robot.vision.isTargetAcquired()) {
 			bearing = (Robot.vision.getTargetX() - WIDTH / 2) * DEGREES_PER_PIXEL;
-//			System.out.println(vision.getTargetX());
-//			System.out.println(bearing);
 		}
 		super.initialize();
 	}

@@ -1,16 +1,20 @@
 package org.usfirst.frc.team1294.robot.commands;
 
 public enum DefensePosition {
-	ONE(0), // TODO calculate bearing
-	TWO(0), // TODO calculate bearing
-	THREE(0), // TODO calculate bearing
-	FOUR(0), // TODO calculate bearing
-	FIVE(0); // TODO calculate bearing
+	ONE(0,0,0), // TODO calculate bearing and both distances
+	TWO(0,0,0), // TODO calculate bearing and both distances
+	THREE(0,0,0), // TODO calculate bearing and both distances
+	FOUR(0,0,0), // TODO calculate bearing and both distances
+	FIVE(0,0,0); // TODO calculate bearing and both distances
 	
+	final double distanceBeforeTurn;
 	final double bearingToCastle;
+	final double distanceAfterTurn;
 	
-	DefensePosition(double bearing) {
-		this.bearingToCastle = bearing;
+	DefensePosition(double distanceBeforeTurn, double bearingToCastle, double distanceAfterTurn) {
+		this.distanceBeforeTurn = distanceBeforeTurn;
+		this.bearingToCastle = bearingToCastle;
+		this.distanceAfterTurn = distanceAfterTurn;
 	}
 	
 }
