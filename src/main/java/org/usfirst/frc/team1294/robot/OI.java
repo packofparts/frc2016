@@ -38,7 +38,7 @@ public class OI {
 	// commands the same as any other Button.
 
 	// TODO: Get rid of this parameter (CommandBase)
-	public OI(Vision visionSubsystem) {
+	public OI() {
 //		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
 		leftButton6.toggleWhenPressed(new WallFollowing());
 		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
@@ -47,7 +47,7 @@ public class OI {
 		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 		switchCam.whenPressed(new SwitchCameraCommand());
 		otherSwitchCam.whenPressed(new SwitchCameraCommand());
-		turnToTargetButton.whenPressed(new TurnTowardsVisionTarget(visionSubsystem));
+		turnToTargetButton.whenPressed(new TurnTowardsVisionTarget());
 		notSmartDashboard.whenPressed(new TurnToBearing(-30));
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS

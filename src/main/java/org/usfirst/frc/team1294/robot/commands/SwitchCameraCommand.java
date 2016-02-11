@@ -10,19 +10,19 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class SwitchCameraCommand extends Command {
   public SwitchCameraCommand() {
-    requires(Robot.CAMERA_SUBSYSTEM);
+    requires(Robot.cameraSubsystem);
   }
 
   @Override
   protected void initialize() {
     if (Robot.driveBase.getLeftSpeed() > 100 || Robot.driveBase.getRightSpeed() > 100) return;
 
-    switch (Robot.CAMERA_SUBSYSTEM.getCurrentCamera()) {
+    switch (Robot.cameraSubsystem.getCurrentCamera()) {
       case FRONT:
-        Robot.CAMERA_SUBSYSTEM.startStream(CameraSubsystem.Camera.BACK);
+        Robot.cameraSubsystem.startStream(CameraSubsystem.Camera.BACK);
         break;
       case BACK:
-        Robot.CAMERA_SUBSYSTEM.startStream(CameraSubsystem.Camera.FRONT);
+        Robot.cameraSubsystem.startStream(CameraSubsystem.Camera.FRONT);
         break;
       default:
         throw new IllegalStateException("Not implemented - what are you even doing");

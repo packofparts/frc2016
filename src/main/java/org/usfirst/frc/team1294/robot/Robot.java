@@ -20,9 +20,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * at the specified times.
  */
 public class Robot extends IterativeRobot {
-    //    public static final Vision vision = new Vision();
-    public static final DriveBase driveBase = new DriveBase();
-    public static final CameraSubsystem CAMERA_SUBSYSTEM = new CameraSubsystem();
+    public static Vision vision;
+    public static DriveBase driveBase;
+    public static CameraSubsystem cameraSubsystem;
     public static OI oi;
     private Command autoCommand;
     private SendableChooser autoChooser;
@@ -36,8 +36,9 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         visionSubsystem = new Vision();
-
-        oi = new OI(visionSubsystem);
+        driveBase = new DriveBase();
+        cameraSubsystem = new CameraSubsystem();
+        oi = new OI();
 
         VersionInformation vi = new VersionInformation();
         SmartDashboard.putString("Version", vi.getVersion());

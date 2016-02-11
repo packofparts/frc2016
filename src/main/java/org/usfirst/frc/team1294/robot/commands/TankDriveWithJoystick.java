@@ -22,7 +22,7 @@ public class TankDriveWithJoystick extends Command {
         double left;
         double right;
 
-        if (Robot.CAMERA_SUBSYSTEM.getCurrentCamera() == CameraSubsystem.Camera.BACK) {
+        if (Robot.cameraSubsystem.getCurrentCamera() == CameraSubsystem.Camera.BACK) {
             left = Robot.oi.getStickRight().getY() * -1;
             right = Robot.oi.getStickLeft().getY() * -1;
         } else {
