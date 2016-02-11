@@ -11,19 +11,19 @@ The official robot code for the 2016 _FIRST_ Robotics Competition game, _FIRST_ 
   ```
 
 * Then, you can create your new release
-** To create a new patch version (v0.0.1)
+  * To create a new patch version (v0.0.1)
 
   ```
   gradlew release -Prelease.scope=PATCH -Prelease.stage=FINAL
   ```
   
-** To create a new minor version (v0.1.0)
+  * To create a new minor version (v0.1.0)
 
   ```
   gradlew release -Prelease.scope=MINOR -Prelease.stage=FINAL
   ```
   
-** To create a new major version (v1.0.0)
+  * To create a new major version (v1.0.0)
 
   ```
   gradlew release -Prelease.scope=MAJOR -Prelease.stage=FINAL
