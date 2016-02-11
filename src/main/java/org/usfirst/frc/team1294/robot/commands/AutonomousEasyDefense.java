@@ -24,10 +24,10 @@ public class AutonomousEasyDefense extends AutonomousReachDefense {
 		if(position.distanceAfterTurn > 0) {
 			addSequential(new DriveStraightDistance(SPEED, position.distanceAfterTurn));
 		}
-		
-		addSequential(new WaitCommand(1000));
+
+		addSequential(new WaitCommand(1));
 		addSequential(new TurnTowardsVisionTarget());
-		addSequential(new WaitCommand(1000));
+		addSequential(new WaitCommand(1));
 		addSequential(new TurnTowardsVisionTarget());
 		// TODO shoot
 	}
