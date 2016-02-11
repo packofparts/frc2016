@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1294.robot.commands;
 
+import edu.wpi.first.wpilibj.command.WaitCommand;
+
 /**
  * Autonomous command that drives forward a calculated distance, turns to roughly
  * face the castle, uses vision system to fine tune the aim, and shoots. Easy
@@ -23,9 +25,9 @@ public class AutonomousEasyDefense extends AutonomousReachDefense {
 			addSequential(new DriveStraightDistance(SPEED, position.distanceAfterTurn));
 		}
 		
-		addSequential(new Wait(1000));
+		addSequential(new WaitCommand(1000));
 		addSequential(new TurnTowardsVisionTarget());
-		addSequential(new Wait(1000));
+		addSequential(new WaitCommand(1000));
 		addSequential(new TurnTowardsVisionTarget());
 		// TODO shoot
 	}
