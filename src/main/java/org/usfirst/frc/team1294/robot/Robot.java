@@ -3,13 +3,9 @@ package org.usfirst.frc.team1294.robot;
 import org.usfirst.frc.team1294.robot.commands.AutonomousEasyDefense;
 import org.usfirst.frc.team1294.robot.commands.AutonomousReachDefense;
 import org.usfirst.frc.team1294.robot.commands.DefensePosition;
-import org.usfirst.frc.team1294.robot.commands.DrivePid;
-import org.usfirst.frc.team1294.robot.commands.ResetGyro;
-import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
-import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
-import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
+import org.usfirst.frc.team1294.robot.subsystems.Vision;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -27,11 +23,10 @@ public class Robot extends IterativeRobot {
     //    public static final Vision vision = new Vision();
     public static final DriveBase driveBase = new DriveBase();
     public static final CameraSubsystem CAMERA_SUBSYSTEM = new CameraSubsystem();
-
     public static OI oi;
-
     private Command autoCommand;
     private SendableChooser autoChooser;
+    public Vision visionSubsystem;
 
     /**
      * This method is called when the robot is first started up.
@@ -40,35 +35,17 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        oi = new OI();
+        visionSubsystem = new Vision();
+
+        oi = new OI(visionSubsystem);
 
         VersionInformation vi = new VersionInformation();
         SmartDashboard.putString("Version", vi.getVersion());
         SmartDashboard.putString("Git-Author", vi.getAuthor());
 
-//        LiveWindow.addSensor(Vision.class.getSimpleName(), Vision.class.getSimpleName(), vision);
         SmartDashboard.putData(Scheduler.getInstance());
         
-        // turn to heading in place
-        SmartDashboard.putData(new DrivePid(0));
-        SmartDashboard.putData(new DrivePid(90));
-        SmartDashboard.putData(new DrivePid(180));
-        SmartDashboard.putData(new DrivePid(270));
-          
-        // drive current heading for one meter
-        SmartDashboard.putData(new DrivePid(-0.5, 1));
-        SmartDashboard.putData(new DrivePid(0.5, 1));
-        
-        SmartDashboard.putData(new ResetGyro());
-
-        SmartDashboard.putData(new SinBreakInCommand());
-
-        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
-        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.BACK));
-
-        SmartDashboard.putData(new SwitchCameraCommand());
-        
-        // SendableChooser for Autonomous Commands
+     // SendableChooser for Autonomous Commands
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Reach Defense", new AutonomousReachDefense());
         autoChooser.addObject("Position 1 Low Bar", new AutonomousEasyDefense(DefensePosition.ONE));
