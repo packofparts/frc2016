@@ -72,7 +72,6 @@ public class CameraSubsystem extends Subsystem {
    */
   public void startStream(final Camera camera) {
     currentCamera = camera;
-    System.out.println("Start stream");
     switch (camera) {
       case FRONT:
         driveCamera.startCapture();
@@ -87,7 +86,6 @@ public class CameraSubsystem extends Subsystem {
       case PI:
         throw new IllegalStateException("Pi camera not implemented");
     }
-    System.out.println("hi");
   }
 
   public void stream() {
@@ -95,8 +93,6 @@ public class CameraSubsystem extends Subsystem {
       initCameras();
       startStream();
     }
-
-    System.out.println("stream");
 
     switch (currentCamera) {
       case FRONT:
@@ -109,8 +105,6 @@ public class CameraSubsystem extends Subsystem {
         throw new IllegalStateException("Pi camera not implemented");
     }
     cameraServer.setImage(frame);
-
-    System.out.println("done stream");
   }
 
   @Override

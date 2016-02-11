@@ -3,8 +3,11 @@ package org.usfirst.frc.team1294.robot;
 import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
+import org.usfirst.frc.team1294.robot.commands.TurnToBearing;
+import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
 import org.usfirst.frc.team1294.robot.commands.WallFollowing;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
+import org.usfirst.frc.team1294.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -24,13 +27,18 @@ public class OI {
 	Button cam2 = new JoystickButton(stickLeft, 4);
 	Button switchCam = new JoystickButton(stickLeft, 3);
 	Button otherSwitchCam = new JoystickButton(stickRight, 3);
+	Joystick stickTheThird = new Joystick(2);
+	Button turnToTargetButton = new JoystickButton(stickTheThird, 3);
+	Button notSmartDashboard = new JoystickButton(stickTheThird, 8);
 
 	// Button button = new JoystickButton(stick, buttonNumber);
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
-	public OI() {
+
+	// TODO: Get rid of this parameter (CommandBase)
+	public OI(Vision visionSubsystem) {
 //		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
 		leftButton6.toggleWhenPressed(new WallFollowing());
 		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
@@ -39,6 +47,8 @@ public class OI {
 		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 		switchCam.whenPressed(new SwitchCameraCommand());
 		otherSwitchCam.whenPressed(new SwitchCameraCommand());
+		turnToTargetButton.whenPressed(new TurnTowardsVisionTarget(visionSubsystem));
+		notSmartDashboard.whenPressed(new TurnToBearing(-30));
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of

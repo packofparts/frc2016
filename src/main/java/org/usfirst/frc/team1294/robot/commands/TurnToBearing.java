@@ -4,13 +4,15 @@ public class TurnToBearing extends DrivePid {
 	protected double bearing;
 	
 	public TurnToBearing(double bearing) {
-		super(0,0,0);
+		super(0);
 		this.bearing = bearing;
 	}
 
 	@Override
 	protected void initialize() {
-		heading = driveBase.getNormalizedAngle() + bearing;
+		heading = (driveBase.getNormalizedAngle() + bearing) % 360;
+		if (heading < 0) heading += 360;
+//		System.out.println("HEADINGS AND BEARINGS: " + heading + " " + bearing);
 		super.initialize();
 	}
 	

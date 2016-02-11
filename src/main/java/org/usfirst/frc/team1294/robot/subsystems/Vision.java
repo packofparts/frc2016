@@ -6,7 +6,11 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.tables.ITableListener;
 
-public class Vision extends Subsystem implements LiveWindowSendable {
+/**
+ * @author jxlewis
+ *
+ */
+public class Vision extends Subsystem implements LiveWindowSendable, ITableListener {
 	private static final String NETWORK_TABLE_NAME = "vision";
 	private static final String THRESHOLD_HIGH_L = "thresholdHighL";
 	private static final String THRESHOLD_HIGH_S = "thresholdHighS";
@@ -35,6 +39,7 @@ public class Vision extends Subsystem implements LiveWindowSendable {
 	private static final long DEFAULT_LAST_UPDATED = -1;
 	
 	private final NetworkTable nt;
+	private long lastUpdate = Long.MIN_VALUE;
 
 	public Vision() {
 		this.nt = NetworkTable.getTable(NETWORK_TABLE_NAME);
@@ -48,6 +53,9 @@ public class Vision extends Subsystem implements LiveWindowSendable {
 		nt.setPersistent(THRESHOLD_LOW_S);
 		nt.setPersistent(QUALITY);
 		nt.setPersistent(FPS);
+		
+		// listen for changes from the raspberry pi
+		nt.addTableListener(this);
 	}
 	
 	@Override
@@ -221,6 +229,20 @@ public class Vision extends Subsystem implements LiveWindowSendable {
 	
 	public long getLastUpdated() {
 		return (long)nt.getNumber(LAST_UPDATED, DEFAULT_LAST_UPDATED);
+	}
+
+	@Override
+	public void valueChanged(ITable source, String key, Object value, boolean isNew) {
+		if (key == LAST_UPDATED) {
+			this.lastUpdate = System.currentTimeMillis();
+		}
+	}
+	
+	/**
+	 * @return time (in milliseconds) since the last update was received from the RaspberryPi vision system
+	 */
+	public long getTimeSinceLastUpdate() {
+		return System.currentTimeMillis() - this.lastUpdate;
 	}
 
 	
