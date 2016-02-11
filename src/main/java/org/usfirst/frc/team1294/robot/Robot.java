@@ -1,10 +1,12 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.AutonomousEasyDefense;
+import org.usfirst.frc.team1294.robot.commands.AutonomousReachDefense;
+import org.usfirst.frc.team1294.robot.commands.DefensePosition;
 import org.usfirst.frc.team1294.robot.commands.DrivePid;
 import org.usfirst.frc.team1294.robot.commands.ResetGyro;
 import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
-import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
@@ -14,6 +16,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -27,7 +30,8 @@ public class Robot extends IterativeRobot {
 
     public static OI oi;
 
-    private static Command autoCommand;
+    private Command autoCommand;
+    private SendableChooser autoChooser;
 
     /**
      * This method is called when the robot is first started up.
@@ -57,13 +61,22 @@ public class Robot extends IterativeRobot {
         
         SmartDashboard.putData(new ResetGyro());
 
-        autoCommand = new SquareAutonomousCommand();
         SmartDashboard.putData(new SinBreakInCommand());
 
         SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
         SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 
         SmartDashboard.putData(new SwitchCameraCommand());
+        
+        // SendableChooser for Autonomous Commands
+        autoChooser = new SendableChooser();
+        autoChooser.addDefault("Reach Defense", new AutonomousReachDefense());
+        autoChooser.addObject("Position 1 Low Bar", new AutonomousEasyDefense(DefensePosition.ONE));
+        autoChooser.addObject("Position 2 Easy", new AutonomousEasyDefense(DefensePosition.TWO));
+        autoChooser.addObject("Position 3 Easy", new AutonomousEasyDefense(DefensePosition.THREE));
+        autoChooser.addObject("Position 4 Easy", new AutonomousEasyDefense(DefensePosition.FOUR));
+        autoChooser.addObject("Position 5 Easy", new AutonomousEasyDefense(DefensePosition.FIVE));
+        // TODO if we have the hardware, add choosers for positions 2 - 5 for Sally Port, DrawBridge, Cheval de Frise, Portcullis
     }
 
     /**
@@ -86,6 +99,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
+    	autoCommand = (Command)autoChooser.getSelected();
         if (autoCommand != null) autoCommand.start();
     }
 
