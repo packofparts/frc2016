@@ -21,7 +21,7 @@ public class StreamCameraCommand extends Command {
     captureThread = new Thread(() -> {
       while (true) {
         Robot.CAMERA_SUBSYSTEM.stream();
-        System.out.println(1 / (double) FPS);
+//        System.out.println(1 / (double) FPS);
         Timer.delay(1 / (double) FPS);
       }
     });
