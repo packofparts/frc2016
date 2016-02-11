@@ -8,7 +8,6 @@ public class TurnTowardsVisionTarget extends TurnToBearing {
 	private static final double DEGREES_PER_PIXEL = FOV / WIDTH;
 	private static final double MAX_AGE_OF_VISION_DATA = 1000;
 
-	// TODO: Refactor into CommandBase and remove parameter
 	public TurnTowardsVisionTarget() {
 		super(0);
 		this.requires(Robot.vision);

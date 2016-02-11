@@ -7,7 +7,6 @@ import org.usfirst.frc.team1294.robot.commands.TurnToBearing;
 import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
 import org.usfirst.frc.team1294.robot.commands.WallFollowing;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
-import org.usfirst.frc.team1294.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -37,7 +36,6 @@ public class OI {
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
 
-	// TODO: Get rid of this parameter (CommandBase)
 	public OI() {
 //		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
 		leftButton6.toggleWhenPressed(new WallFollowing());
