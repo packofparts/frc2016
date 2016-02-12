@@ -19,15 +19,9 @@ public class WallFollowing extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		if(Robot.driveBase.getUltrasonicDistanceLeft() > 30){
-			Robot.driveBase.tankDrive(.3,.5);
-		}
-		else if(Robot.driveBase.getUltrasonicDistanceLeft() < 20){
-			Robot.driveBase.tankDrive(.5,.3);
-		}
-		else{
-			Robot.driveBase.tankDrive(.5, .5);
-		}
+		double difference = 20 - Robot.driveBase.getUltrasonicDistanceLeft();
+		double turnAngle = Math.toDegrees(Math.asin(difference/31));
+		Robot.driveBase.arcadeDrive(0.5, turnAngle*-1);
 	}
 
 	@Override
