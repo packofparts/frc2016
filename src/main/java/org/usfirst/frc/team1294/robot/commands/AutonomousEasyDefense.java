@@ -13,16 +13,16 @@ public class AutonomousEasyDefense extends AutonomousReachDefense {
 	public AutonomousEasyDefense(DefensePosition position) {
 		super();
 		
-		addSequential(new DriveStraightDistance(SPEED, DISTANCE_TO_DEFEAT_DEFENSE));
+		addSequential(new DriveStraightDistance(DISTANCE_TO_DEFEAT_DEFENSE));
 		
 		if(position.distanceBeforeTurn > 0) {
-			addSequential(new DriveStraightDistance(SPEED, position.distanceBeforeTurn));
+			addSequential(new DriveStraightDistance(position.distanceBeforeTurn));
 		}
 		if (position.bearingToCastle != 0) {
 			addSequential(new TurnToBearing(position.bearingToCastle));
 		}
 		if(position.distanceAfterTurn > 0) {
-			addSequential(new DriveStraightDistance(SPEED, position.distanceAfterTurn));
+			addSequential(new DriveStraightDistance(position.distanceAfterTurn));
 		}
 
 		addSequential(new WaitCommand(1));

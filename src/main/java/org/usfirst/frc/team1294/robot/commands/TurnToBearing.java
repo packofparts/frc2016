@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1294.robot.commands;
 
+import org.usfirst.frc.team1294.robot.Robot;
+
 public class TurnToBearing extends DrivePid {
 	protected double bearing;
 	
@@ -10,7 +12,7 @@ public class TurnToBearing extends DrivePid {
 
 	@Override
 	protected void initialize() {
-		heading = (driveBase.getNormalizedAngle() + bearing) % 360;
+		heading = (Robot.driveBase.getNormalizedAngle() + bearing) % 360;
 		if (heading < 0) heading += 360;
 		super.initialize();
 	}
