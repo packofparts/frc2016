@@ -22,8 +22,6 @@ public class OI {
 	Button leftButton6 = new JoystickButton(stickLeft, 6);
 	Button leftButton10 = new JoystickButton(stickLeft, 10);
 	Joystick stickRight = new Joystick(1);
-	Button cam1 = new JoystickButton(stickLeft, 2);
-	Button cam2 = new JoystickButton(stickLeft, 4);
 	Button switchCam = new JoystickButton(stickLeft, 3);
 	Button otherSwitchCam = new JoystickButton(stickRight, 3);
 	Joystick stickTheThird = new Joystick(2);
@@ -41,8 +39,6 @@ public class OI {
 		leftButton6.toggleWhenPressed(new WallFollowing());
 		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
 		//stickLeft.
-		cam1.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
-		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 		switchCam.whenPressed(new SwitchCameraCommand());
 		otherSwitchCam.whenPressed(new SwitchCameraCommand());
 		turnToTargetButton.whenPressed(new TurnTowardsVisionTarget());
