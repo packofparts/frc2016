@@ -18,7 +18,11 @@ public class ArcadeDriveCommand extends Command {
 
   @Override
   protected void execute() {
-    Robot.driveBase.arcadeDrive(Robot.oi.getStickLeft().getY(), Robot.oi.getStickLeft().getX() * 0.5);
+    Robot.driveBase.arcadeDrive(expo(Robot.oi.getStickLeft().getY(), 1.25), expo(Robot.oi.getStickLeft().getX(), 1.75));
+  }
+  
+  protected double expo(double input, double expoAmount) {
+	  return (Math.pow(input, 3) * (expoAmount-1) + input)/expoAmount;
   }
 
   @Override
