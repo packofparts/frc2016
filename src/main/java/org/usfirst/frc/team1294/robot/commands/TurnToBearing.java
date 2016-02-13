@@ -6,7 +6,7 @@ public class TurnToBearing extends DrivePid {
 	protected double bearing;
 	
 	public TurnToBearing(double bearing) {
-		super(0);
+		super(0, 0);
 		this.bearing = bearing;
 	}
 

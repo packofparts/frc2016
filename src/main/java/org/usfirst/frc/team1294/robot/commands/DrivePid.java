@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DrivePid extends Command {
 
+	private static final double MAX_MOTOR_SPEED = 0.4;
+	
 	private static final double HEADING_PID_TOLERANCE = 1;
 	private static final double HEADING_PID_P = 0.15;
 	private static final double HEADING_PID_I = 0.05;
@@ -43,13 +45,13 @@ public class DrivePid extends Command {
 		this.setTimeout(15);
 		
 		distanceController = new PIDController(DISTANCE_PID_P, DISTANCE_PID_I, DISTANCE_PID_D, distanceSource, distanceOutput);
-		distanceController.setOutputRange(-0.4, 0.4);
+		distanceController.setOutputRange(-MAX_MOTOR_SPEED, MAX_MOTOR_SPEED);
 		distanceController.setPercentTolerance(DISTANCE_PID_TOLERANCE);
 		
 		headingController = new PIDController(HEADING_PID_P, HEADING_PID_I, HEADING_PID_D, headingSource, headingOutput);
 		headingController.setInputRange(0, 360);
-		headingController.setOutputRange(-0.4, 0.4);
 		headingController.setContinuous();
+		headingController.setOutputRange(-MAX_MOTOR_SPEED, MAX_MOTOR_SPEED);
 		headingController.setPercentTolerance(HEADING_PID_TOLERANCE);
 	}
 	
