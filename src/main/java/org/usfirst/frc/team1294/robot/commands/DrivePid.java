@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DrivePid extends PIDCommand {
 
-	private static final double PID_TOLERANCE = 2;
+	private static final double PID_TOLERANCE = 1;
 	private static final double PID_P = 0.15;
 	private static final double PID_I = 0.05;
 	private static final double PID_D = 0.07;
@@ -37,7 +37,6 @@ public class DrivePid extends PIDCommand {
 	}
 	
 	private DrivePid(String name, double heading, double speed, double distance) {
-		// TODO: tune this pid
 		super(name, PID_P, PID_I, PID_D);
 		
 		requires(Robot.driveBase);
@@ -67,7 +66,6 @@ public class DrivePid extends PIDCommand {
 		this.getPIDController().setInputRange(0, 360);
 		this.getPIDController().setOutputRange(-0.4, 0.4);
 		this.getPIDController().setContinuous();
-		//this.getPIDController().setPercentTolerance(PID_TOLERANCE);
 		this.getPIDController().setAbsoluteTolerance(PID_TOLERANCE);
 		
 		this.driveBase.setTalonsToClosedLoopSpeed();
@@ -96,23 +94,22 @@ public class DrivePid extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
+		// exit if timed out
 		if (isTimedOut()) {
 			return true;
 		}
 		
-		// return false if robot has not traveled far enough
+		// determine if robot has driven far enough
 		double distanceDriven = (
 				Math.abs(driveBase.getLeftPosition() - leftEncoderStart) + 
 				Math.abs(driveBase.getRightPosition() - rightEncoderStart)) / 2;
-
-//		System.out.println(distanceDriven + " " + distance);
 		boolean hasDrivenFarEnough = false;
-		
 		if (distanceDriven > distance) {
 			this.desiredSpeed = 0;
 			hasDrivenFarEnough = true;
 		}
 
+		// determine if robot is pointing in right direction
 		boolean isPointingRightDirection = false;
 		if (this.getPIDController().onTarget()) {
 			isPointingRightDirection = true;
@@ -123,8 +120,7 @@ public class DrivePid extends PIDCommand {
 
 	@Override
 	protected void end() {
-		//this.driveBase.setTalonsToOpenLoop();
-		//this.driveBase.arcadeDrive(0, 0);
+		
 	}
 
 	@Override
