@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.MoveUpperArmMotor;
 import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
@@ -25,6 +26,7 @@ public class OI {
 	Button switchCam = new JoystickButton(stickLeft, 3);
 	Button otherSwitchCam = new JoystickButton(stickRight, 3);
 	Joystick mechStickOne = new Joystick(3);
+	Button mechButton1 = new JoystickButton(mechStickOne, 1);
 
 	// Button button = new JoystickButton(stick, buttonNumber);
 
@@ -35,11 +37,13 @@ public class OI {
 //		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
 		leftButton6.toggleWhenPressed(new WallFollowing());
 		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
+		
 		//stickLeft.
 		cam1.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
 		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 		switchCam.whenPressed(new SwitchCameraCommand());
 		otherSwitchCam.whenPressed(new SwitchCameraCommand());
+		mechButton1.toggleWhenPressed(new MoveUpperArmMotor());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of

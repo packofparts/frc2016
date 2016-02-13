@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1294.robot.subsystems;
 
 import org.usfirst.frc.team1294.robot.RobotMap;
+import org.usfirst.frc.team1294.robot.commands.MoveUpperArmMotor;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -25,7 +26,7 @@ public class ArmSubsystem extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		
+		setDefaultCommand(new MoveUpperArmMotor());
 	}
 	public void moveLowerMotor(Joystick one){
 		lowerArmTalon.set(one.getY()*0.5);
