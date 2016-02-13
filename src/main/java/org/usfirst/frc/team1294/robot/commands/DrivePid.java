@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DrivePid extends PIDCommand {
 
-	private static final double PID_TOLERANCE = 1;
+	private static final double PID_TOLERANCE = 2;
 	private static final double PID_P = 0.15;
-	private static final double PID_I = 0.02;
-	private static final double PID_D = 0.09;
+	private static final double PID_I = 0.05;
+	private static final double PID_D = 0.07;
 	
 	protected DriveBase driveBase;
 	protected double heading;
@@ -108,21 +108,15 @@ public class DrivePid extends PIDCommand {
 //		System.out.println(distanceDriven + " " + distance);
 		boolean hasDrivenFarEnough = false;
 		
-		if (distanceDriven < distance) {
-			//return false;
-		} else {
-			this.desiredSpeed = 0; // TODO: do this slower
+		if (distanceDriven > distance) {
+			this.desiredSpeed = 0;
 			hasDrivenFarEnough = true;
 		}
 
 		boolean isPointingRightDirection = false;
-		// return false if robot is not pointing the correct direction
-		if (Math.abs(driveBase.getNormalizedAngle() - this.heading) > PID_TOLERANCE) {
-			//return false;
-		} else {
+		if (this.getPIDController().onTarget()) {
 			isPointingRightDirection = true;
 		}
-		
 		
 		return hasDrivenFarEnough && isPointingRightDirection;
 	}

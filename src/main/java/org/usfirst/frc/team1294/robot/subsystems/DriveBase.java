@@ -91,7 +91,7 @@ public class DriveBase extends Subsystem {
 		leftFrontTalon.setP(1);
 		leftFrontTalon.setI(0);
 		leftFrontTalon.setD(0);
-		
+
 		rightFrontTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		rightFrontTalon.changeControlMode(CANTalon.TalonControlMode.Speed);
 		rightFrontTalon.set(0);
@@ -100,6 +100,8 @@ public class DriveBase extends Subsystem {
 		rightFrontTalon.setD(0);
 		
 		drive.setMaxOutput(2000);
+		
+		
 	}
 
 	public void setTalonsToOpenLoop() {
