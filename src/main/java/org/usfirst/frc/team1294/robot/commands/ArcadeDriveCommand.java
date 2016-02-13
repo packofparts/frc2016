@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1294.robot.commands;
 
 import org.usfirst.frc.team1294.robot.Robot;
+import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,7 +19,15 @@ public class ArcadeDriveCommand extends Command {
 
   @Override
   protected void execute() {
-    Robot.driveBase.arcadeDrive(expo(Robot.oi.getStickLeft().getY(), 1.25), expo(Robot.oi.getStickLeft().getX(), 1.75));
+    double forwards = expo(Robot.oi.getStickLeft().getY(), 1.25);
+    double turn = expo(Robot.oi.getStickLeft().getX(), 1.75);
+
+    if (Robot.CAMERA_SUBSYSTEM.getCurrentCamera() == CameraSubsystem.Camera.BACK) {
+      forwards *= -1;
+      turn *= -1;
+    }
+
+    Robot.driveBase.arcadeDrive(forwards, turn);
   }
   
   protected double expo(double input, double expoAmount) {
