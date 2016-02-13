@@ -26,7 +26,6 @@ public class Robot extends IterativeRobot {
     public static OI oi;
     private Command autoCommand;
     private SendableChooser autoChooser;
-    public Vision visionSubsystem;
 
     /**
      * This method is called when the robot is first started up.
@@ -35,7 +34,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        visionSubsystem = new Vision();
+    	vision = new Vision();
         driveBase = new DriveBase();
         cameraSubsystem = new CameraSubsystem();
         oi = new OI();
