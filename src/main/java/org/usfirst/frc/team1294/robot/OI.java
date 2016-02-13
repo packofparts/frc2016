@@ -24,6 +24,7 @@ public class OI {
 	Button cam2 = new JoystickButton(stickLeft, 4);
 	Button switchCam = new JoystickButton(stickLeft, 3);
 	Button otherSwitchCam = new JoystickButton(stickRight, 3);
+	Joystick mechStickOne = new Joystick(3);
 
 	// Button button = new JoystickButton(stick, buttonNumber);
 
@@ -62,5 +63,8 @@ public class OI {
 
 	public Joystick getStickRight() {
 		return stickRight;
+	}
+	public Joystick getMechStickOne(){
+		return mechStickOne;
 	}
 }

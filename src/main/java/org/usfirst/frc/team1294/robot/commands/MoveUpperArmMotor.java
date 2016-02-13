@@ -4,9 +4,9 @@ import org.usfirst.frc.team1294.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveLowerArmMotor extends Command{
+public class MoveUpperArmMotor extends Command{
 
-	public MoveLowerArmMotor() {
+	public MoveUpperArmMotor() {
 		// TODO Auto-generated constructor stub
 		requires (Robot.armSubsystem);
 	}
@@ -19,7 +19,8 @@ public class MoveLowerArmMotor extends Command{
 
 	@Override
 	protected void execute() {
-		Robot.armSubsystem.moveLowerMotor(Robot.oi.getMechStickOne());
+		// TODO Auto-generated method stub
+		Robot.armSubsystem.moveUpperMotor(Robot.oi.getMechStickOne());
 	}
 
 	@Override
