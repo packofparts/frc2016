@@ -15,7 +15,7 @@ public class SwitchCameraCommand extends Command {
 
   @Override
   protected void initialize() {
-    if (Robot.driveBase.getLeftSpeed() > 100 || Robot.driveBase.getRightSpeed() > 100) return;
+    if (Math.abs(Robot.driveBase.getLeftSpeed()) > 100 || Math.abs(Robot.driveBase.getRightSpeed()) > 100) return;
 
     switch (Robot.cameraSubsystem.getCurrentCamera()) {
       case FRONT:
