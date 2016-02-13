@@ -17,9 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * at the specified times.
  */
 public class Robot extends IterativeRobot {
-    //    public static final Vision vision = new Vision();
+    public static final Vision vision = new Vision();
     public static final DriveBase driveBase = new DriveBase();
-    public static final CameraSubsystem CAMERA_SUBSYSTEM = new CameraSubsystem();
+    public static final CameraSubsystem cameraSubsystem = new CameraSubsystem();
     public static OI oi;
     private static Command autoCommand;
     public Vision visionSubsystem;

@@ -13,14 +13,14 @@ public class StreamCameraCommand extends Command {
   private Thread captureThread;
 
   public StreamCameraCommand() {
-    requires(Robot.CAMERA_SUBSYSTEM);
+    requires(Robot.cameraSubsystem);
   }
 
   @Override
   protected void initialize() {
     captureThread = new Thread(() -> {
       while (true) {
-        Robot.CAMERA_SUBSYSTEM.stream();
+        Robot.cameraSubsystem.stream();
 //        System.out.println(1 / (double) FPS);
         Timer.delay(1 / (double) FPS);
       }
