@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.ArcadeDriveCommand;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 import org.usfirst.frc.team1294.robot.subsystems.Vision;
@@ -64,6 +65,8 @@ public class Robot extends IterativeRobot {
 //        SmartDashboard.putData(new TurnTowardsVisionTarget(visionSubsystem));
 
 //        SmartDashboard.putData(new TurnToBearing(-30));
+
+        SmartDashboard.putData(new ArcadeDriveCommand());
     }
 
     /**
