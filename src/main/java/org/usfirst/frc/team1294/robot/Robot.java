@@ -6,11 +6,8 @@ import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
-<<<<<<< HEAD
 import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
-=======
 import org.usfirst.frc.team1294.robot.subsystems.BallHandlingSubsystem;
->>>>>>> origin/game-mech
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
@@ -29,11 +26,8 @@ public class Robot extends IterativeRobot {
     //    public static final Vision vision = new Vision();
     public static final DriveBase driveBase = new DriveBase();
     public static final CameraSubsystem CAMERA_SUBSYSTEM = new CameraSubsystem();
-<<<<<<< HEAD
     public static final ArmSubsystem armSubsystem = new ArmSubsystem();
-=======
     public static final BallHandlingSubsystem ballHandleSubsystem = new BallHandlingSubsystem();
->>>>>>> origin/game-mech
 
     public static OI oi;
 
