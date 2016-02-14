@@ -18,19 +18,19 @@ public class DrivePid extends Command {
 	private static final double HEADING_PID_D = 0.07;
 	
 	private static final double DISTANCE_PID_TOLERANCE = 1;
-	private static final double DISTANCE_PID_P = 1.00;
+	private static final double DISTANCE_PID_P = 0.10;
 	private static final double DISTANCE_PID_I = 0.00;
 	private static final double DISTANCE_PID_D = 0.00;
 	
 	protected double heading;
 	protected boolean driveCurrentHeading = false;
 	protected double distance;
-	protected double startPosition;
+	protected double position;
 	
 	protected PIDController distanceController;
 	protected PIDController headingController;
-	protected double desiredSpeed = 0;
-	protected double desiredTurn = 0;
+	protected double commandedSpeed = 0;
+	protected double commandedTurn = 0;
 	
 	public DrivePid(double distance) {
 		this(0, distance);
@@ -57,62 +57,6 @@ public class DrivePid extends Command {
 		headingController.setPercentTolerance(HEADING_PID_TOLERANCE);
 	}
 	
-	protected double getPosition() {
-		return (Robot.driveBase.getLeftPosition() + Robot.driveBase.getRightPosition()) / 2;
-	}
-	
-	private PIDSource distanceSource = new PIDSource() {
-		
-		@Override
-		public void setPIDSourceType(PIDSourceType pidSource) {
-		}
-		
-		@Override
-		public double pidGet() {
-			return getPosition();
-		}
-		
-		@Override
-		public PIDSourceType getPIDSourceType() {
-			return PIDSourceType.kDisplacement;
-		}
-	};
-	
-	private PIDOutput distanceOutput = new PIDOutput() {
-		
-		@Override
-		public void pidWrite(double output) {
-			desiredSpeed = output;
-			Robot.driveBase.arcadeDrive(desiredSpeed, desiredTurn);
-		}
-	};
-	
-	private PIDSource headingSource = new PIDSource() {
-		
-		@Override
-		public void setPIDSourceType(PIDSourceType pidSource) {
-		}
-		
-		@Override
-		public double pidGet() {
-			return Robot.driveBase.getNormalizedAngle();
-		}
-		
-		@Override
-		public PIDSourceType getPIDSourceType() {
-			return PIDSourceType.kDisplacement;
-		}
-	};
-	
-	private PIDOutput headingOutput = new PIDOutput() {
-		
-		@Override
-		public void pidWrite(double output) {
-			desiredTurn = output;
-			Robot.driveBase.arcadeDrive(desiredSpeed, desiredTurn);
-		}
-	};
-
 	@Override
 	protected void initialize() {
 		if (driveCurrentHeading) {
@@ -121,19 +65,17 @@ public class DrivePid extends Command {
 		this.headingController.setSetpoint(heading);
 		this.headingController.enable();
 		
-		this.startPosition = getPosition();
-		this.distanceController.setSetpoint(startPosition + distance);
+		this.position = Robot.driveBase.getAveragePosition() + distance;
+		this.distanceController.setSetpoint(this.position);
 		this.distanceController.enable();
 		
 		Robot.driveBase.setTalonsToClosedLoopSpeed();
-		
-		System.out.println("DrivePid init heading:" + heading + " distance:" + distance);
 	}
 
 	@Override
 	protected void execute() {
-		System.out.println("disiredPosition: " + startPosition + distance + " currentPosition:" + getPosition() + " desiredSpeed:" + desiredSpeed + " desiredTurn:" + desiredTurn + " distanceControllerError:" + distanceController.getError());
-		
+		System.out.println("disiredPosition: " + position + " currentPosition:" + Robot.driveBase.getAveragePosition() + " commandedSpeed:" + commandedSpeed + " commandedTurn:" + commandedTurn + " distanceControllerError:" + distanceController.getError());
+		Robot.driveBase.arcadeDrive(commandedSpeed, commandedTurn);
 	}
 
 	@Override
@@ -143,11 +85,46 @@ public class DrivePid extends Command {
 
 	@Override
 	protected void end() {
-		Robot.driveBase.arcadeDrive(0, 0);
+		this.distanceController.disable();
+		this.headingController.disable();
 	}
 
 	@Override
 	protected void interrupted() {
 		end();
 	}
+	
+	private PIDSource distanceSource = new PIDSource() {
+		@Override public void setPIDSourceType(PIDSourceType pidSource) {}
+		@Override public PIDSourceType getPIDSourceType() { return PIDSourceType.kDisplacement; }
+		
+		@Override
+		public double pidGet() {
+			return Robot.driveBase.getAveragePosition();
+		}		
+	};
+	
+	private PIDOutput distanceOutput = new PIDOutput() {
+		@Override
+		public void pidWrite(double output) {
+			commandedSpeed = output;
+		}
+	};
+	
+	private PIDSource headingSource = new PIDSource() {
+		@Override public void setPIDSourceType(PIDSourceType pidSource) {}
+		@Override public PIDSourceType getPIDSourceType() { return PIDSourceType.kDisplacement; }
+		
+		@Override
+		public double pidGet() {
+			return Robot.driveBase.getNormalizedAngle();
+		}
+	};
+	
+	private PIDOutput headingOutput = new PIDOutput() {
+		@Override
+		public void pidWrite(double output) {
+			commandedTurn = output;
+		}
+	};
 }
