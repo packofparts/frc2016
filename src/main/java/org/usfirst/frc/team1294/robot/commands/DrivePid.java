@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DrivePid extends Command {
 
-	private static final double MAX_MOTOR_SPEED = 0.4;
+	private static final double MAX_MOTOR_SPEED = 0.6;
 	
 	private static final double HEADING_PID_TOLERANCE = 1;
 	private static final double HEADING_PID_P = 0.15;
@@ -18,18 +18,19 @@ public class DrivePid extends Command {
 	private static final double HEADING_PID_D = 0.07;
 	
 	private static final double DISTANCE_PID_TOLERANCE = 1;
-	private static final double DISTANCE_PID_P = 0.15;
+	private static final double DISTANCE_PID_P = 1.00;
 	private static final double DISTANCE_PID_I = 0.00;
 	private static final double DISTANCE_PID_D = 0.00;
 	
 	protected double heading;
 	protected boolean driveCurrentHeading = false;
 	protected double distance;
+	protected double startPosition;
 	
 	protected PIDController distanceController;
 	protected PIDController headingController;
-	protected double desiredSpeed;
-	protected double desiredTurn;
+	protected double desiredSpeed = 0;
+	protected double desiredTurn = 0;
 	
 	public DrivePid(double distance) {
 		this(0, distance);
@@ -38,6 +39,7 @@ public class DrivePid extends Command {
 	
 	public DrivePid(double heading, double distance) {
 		requires(Robot.driveBase);
+		
 		this.heading = heading;
 		this.distance = distance;
 		
@@ -55,6 +57,10 @@ public class DrivePid extends Command {
 		headingController.setPercentTolerance(HEADING_PID_TOLERANCE);
 	}
 	
+	protected double getPosition() {
+		return (Robot.driveBase.getLeftPosition() + Robot.driveBase.getRightPosition()) / 2;
+	}
+	
 	private PIDSource distanceSource = new PIDSource() {
 		
 		@Override
@@ -63,7 +69,7 @@ public class DrivePid extends Command {
 		
 		@Override
 		public double pidGet() {
-			return (Robot.driveBase.getLeftPosition() + Robot.driveBase.getRightPosition()) / 2;
+			return getPosition();
 		}
 		
 		@Override
@@ -77,6 +83,7 @@ public class DrivePid extends Command {
 		@Override
 		public void pidWrite(double output) {
 			desiredSpeed = output;
+			Robot.driveBase.arcadeDrive(desiredSpeed, desiredTurn);
 		}
 	};
 	
@@ -102,6 +109,7 @@ public class DrivePid extends Command {
 		@Override
 		public void pidWrite(double output) {
 			desiredTurn = output;
+			Robot.driveBase.arcadeDrive(desiredSpeed, desiredTurn);
 		}
 	};
 
@@ -111,16 +119,21 @@ public class DrivePid extends Command {
 			heading = Robot.driveBase.getNormalizedAngle();
 		}
 		this.headingController.setSetpoint(heading);
+		this.headingController.enable();
 		
-		double desiredPosition = (Robot.driveBase.getLeftPosition() + Robot.driveBase.getRightPosition()) / 2 + distance;
-		this.distanceController.setSetpoint(desiredPosition);
+		this.startPosition = getPosition();
+		this.distanceController.setSetpoint(startPosition + distance);
+		this.distanceController.enable();
 		
 		Robot.driveBase.setTalonsToClosedLoopSpeed();
+		
+		System.out.println("DrivePid init heading:" + heading + " distance:" + distance);
 	}
 
 	@Override
 	protected void execute() {
-		Robot.driveBase.arcadeDrive(desiredSpeed, desiredTurn);
+		System.out.println("disiredPosition: " + startPosition + distance + " currentPosition:" + getPosition() + " desiredSpeed:" + desiredSpeed + " desiredTurn:" + desiredTurn + " distanceControllerError:" + distanceController.getError());
+		
 	}
 
 	@Override

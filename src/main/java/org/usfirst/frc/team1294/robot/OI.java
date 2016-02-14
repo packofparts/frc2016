@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.DrivePid;
 import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
@@ -41,12 +42,13 @@ public class OI {
 		leftButton6.toggleWhenPressed(new WallFollowing());
 		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
 		//stickLeft.
-		cam1.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
-		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
+		
 		switchCam.whenPressed(new SwitchCameraCommand());
 		otherSwitchCam.whenPressed(new SwitchCameraCommand());
 		turnToTargetButton.whenPressed(new TurnTowardsVisionTarget());
 		notSmartDashboard.whenPressed(new TurnToBearing(-30));
+		
+		cam1.whenActive(new DrivePid(10, -1));
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of

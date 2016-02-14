@@ -11,5 +11,10 @@ public class RobotMap {
 	public static int leftBackTalon = 1;
 	public static int rightFrontTalon = 3;
 	public static int rightBackTalon = 4;
+	
 	public static double distanceScaler = 5300;
+	public static double maxEncoderSpeed = 2000;
+
+	//public static double distanceScaler = 5300;
+	//public static double maxDriveSpeed = 725;
 }

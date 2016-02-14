@@ -101,7 +101,7 @@ public class DriveBase extends Subsystem {
 		rightFrontTalon.setI(0);
 		rightFrontTalon.setD(0);
 		
-		drive.setMaxOutput(2000);
+		drive.setMaxOutput(RobotMap.maxEncoderSpeed);
 		
 		
 	}
