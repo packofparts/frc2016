@@ -125,7 +125,10 @@ public class DriveBase extends Subsystem {
 	}
 
 	public double getNormalizedAngle() {
-		return gyro.getAngle() % 360;
+		double angle = gyro.getAngle() % 360;
+		if (angle < 0)
+			angle += 360;
+		return angle;
 	}
 
 	public void resetGyro() {

@@ -10,6 +10,7 @@ import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.BallHandlingSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
+import org.usfirst.frc.team1294.robot.subsystems.Vision;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -30,8 +31,8 @@ public class Robot extends IterativeRobot {
     public static final BallHandlingSubsystem ballHandleSubsystem = new BallHandlingSubsystem();
 
     public static OI oi;
-
     private static Command autoCommand;
+    public Vision visionSubsystem;
 
     /**
      * This method is called when the robot is first started up.
@@ -40,6 +41,8 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
+        visionSubsystem = new Vision();
+
         oi = new OI();
 
         VersionInformation vi = new VersionInformation();
@@ -50,24 +53,28 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(Scheduler.getInstance());
         
         // turn to heading in place
-        SmartDashboard.putData(new DrivePid(0));
-        SmartDashboard.putData(new DrivePid(90));
-        SmartDashboard.putData(new DrivePid(180));
-        SmartDashboard.putData(new DrivePid(270));
-          
-        // drive current heading for one meter
-        SmartDashboard.putData(new DrivePid(-0.5, 1));
-        SmartDashboard.putData(new DrivePid(0.5, 1));
-        
-        SmartDashboard.putData(new ResetGyro());
+//        SmartDashboard.putData(new DrivePid(0));
+//        SmartDashboard.putData(new DrivePid(90));
+//        SmartDashboard.putData(new DrivePid(180));
+//        SmartDashboard.putData(new DrivePid(270));
+//
+//        // drive current heading for one meter
+//        SmartDashboard.putData(new DrivePid(-0.5, 1));
+//        SmartDashboard.putData(new DrivePid(0.5, 1));
 
-        autoCommand = new SquareAutonomousCommand();
-        SmartDashboard.putData(new SinBreakInCommand());
+//        SmartDashboard.putData(new ResetGyro());
 
-        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
-        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.BACK));
+//        autoCommand = new SquareAutonomousCommand();
+//        SmartDashboard.putData(new SinBreakInCommand());
+//
+//        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
+//        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.BACK));
+//
+//        SmartDashboard.putData(new SwitchCameraCommand());
+//
+//        SmartDashboard.putData(new TurnTowardsVisionTarget(visionSubsystem));
 
-        SmartDashboard.putData(new SwitchCameraCommand());
+//        SmartDashboard.putData(new TurnToBearing(-30));
     }
 
     /**
