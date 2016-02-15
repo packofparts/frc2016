@@ -1,15 +1,20 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.EjectBallCommand;
+import org.usfirst.frc.team1294.robot.commands.LaunchBallCommand;
 import org.usfirst.frc.team1294.robot.commands.MoveUpperArmMotor;
 import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.WallFollowing;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
+import org.usfirst.frc.team1294.robot.triggers.LeftTriggerPressedTrigger;
+import org.usfirst.frc.team1294.robot.triggers.RightTriggerPressedTrigger;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 public class OI {
 	//// CREATING BUTTONS
@@ -26,7 +31,11 @@ public class OI {
 	Button switchCam = new JoystickButton(stickLeft, 3);
 	Button otherSwitchCam = new JoystickButton(stickRight, 3);
 	Joystick mechStickOne = new Joystick(3);
-	Button mechButton1 = new JoystickButton(mechStickOne, 1);
+	Button mechButtonX = new JoystickButton(mechStickOne, 3);
+	Button mechButtonA = new JoystickButton(mechStickOne, 1);
+	Trigger leftPressed = new LeftTriggerPressedTrigger();
+	Trigger rightPressed = new RightTriggerPressedTrigger();
+	Button mechRightButton = new JoystickButton(mechStickOne, 6);
 
 	// Button button = new JoystickButton(stick, buttonNumber);
 
@@ -43,7 +52,12 @@ public class OI {
 		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 		switchCam.whenPressed(new SwitchCameraCommand());
 		otherSwitchCam.whenPressed(new SwitchCameraCommand());
-		mechButton1.toggleWhenPressed(new MoveUpperArmMotor());
+
+		mechButtonX.toggleWhenPressed(new MoveUpperArmMotor());
+		leftPressed.whileActive(new EjectBallCommand());
+		rightPressed.whileActive(new IntakeBallCommand());
+		mechButtonA.whenPressed(new LaunchBallCommand());
+//		mechRightButton.toggleWhenPressed(new );
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of

@@ -22,6 +22,7 @@ public class BallHandlingSubsystem extends Subsystem {
   }
 
   // TODO: delete this? not sure if we need this
+  @Deprecated
   public void forwardsCatatpult() {
     talonCatapult.set(CATAPULT_SPEED);
   }
@@ -30,6 +31,11 @@ public class BallHandlingSubsystem extends Subsystem {
     talonCatapult.set(-CATAPULT_SPEED);
   }
 
+  /**
+   * @param direction the direction to move the intake motors in.
+   * @deprecated use #setIntake(double) instead.
+   */
+  @Deprecated
   public void setIntakeDirection(IntakeDirection direction) {
     if (direction == IntakeDirection.IN) talonBallIntake.set(INTAKE_SPEED);
     else if (direction == IntakeDirection.OUT) talonBallIntake.set(-INTAKE_SPEED);
@@ -50,13 +56,21 @@ public class BallHandlingSubsystem extends Subsystem {
 //    setDefaultCommand(Command);
   }
 
-  public void setCatapultBrakeMode(boolean brake) {
-    talonCatapult.enableBrakeMode(brake);
-  }
-
   public void stopCatapult() {
     talonCatapult.set(0);
   }
 
+  public void setIntake(double intake) {
+    talonBallIntake.set(intake);
+  }
+
+  public void stopIntake() {
+    talonBallIntake.set(0);
+  }
+
+  /**
+   * @deprecated
+   */
+  @Deprecated
   public enum IntakeDirection {IN, OUT, STOP}
 }

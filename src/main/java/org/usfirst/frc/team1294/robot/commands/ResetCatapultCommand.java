@@ -29,11 +29,12 @@ public class ResetCatapultCommand extends Command {
 
   @Override
   protected void end() {
+    Robot.ballHandleSubsystem.intakeSolenoid(false);
     Robot.ballHandleSubsystem.stopCatapult();
   }
 
   @Override
   protected void interrupted() {
-
+    end();
   }
 }

@@ -1,40 +1,37 @@
-package org.usfirst.frc.team1294.robot.commands;
-
-import org.usfirst.frc.team1294.robot.Robot;
+package org.usfirst.frc.team1294.robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * @author Austin Jenchi (timtim17)
  */
-public class CatapultLetGoCommand extends Command {
-  public CatapultLetGoCommand() {
+public class IntakeBallCommand extends Command {
+  public IntakeBallCommand() {
     requires(Robot.ballHandleSubsystem);
   }
 
   @Override
   protected void initialize() {
-    Robot.ballHandleSubsystem.intakeSolenoid(true);
-    setTimeout(2); // TODO: Find correct timeout to let boulder shoot
+
   }
 
   @Override
   protected void execute() {
-    // nothing to do
+    Robot.ballHandleSubsystem.setIntake(Robot.oi.getMechStickOne().getRawAxis(3));
   }
 
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   @Override
   protected void end() {
-
+    Robot.ballHandleSubsystem.stopIntake();
   }
 
   @Override
   protected void interrupted() {
-
+    end();
   }
 }
