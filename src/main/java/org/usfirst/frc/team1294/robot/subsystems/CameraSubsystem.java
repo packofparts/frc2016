@@ -7,6 +7,7 @@ import org.usfirst.frc.team1294.robot.commands.StreamCameraCommand;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
@@ -16,6 +17,16 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
  * @see org.usfirst.frc.team1294.robot.commands.SetCameraCommand
  */
 public class CameraSubsystem extends Subsystem {
+  //  public static final float RED = 0x0000FF;
+//  public static final float BLUE = 0xFF0000;
+//  private static /* final */ int BORDER_SIZE = 10;
+//  private static final int WIDTH = 640;
+//  private static final int HEIGHT = 480;
+//
+//  private static NIVision.Rect BORDER_TOP = new NIVision.Rect(0, 0, WIDTH, BORDER_SIZE);
+//  private static NIVision.Rect BORDER_LEFT = new NIVision.Rect(0, 0, BORDER_SIZE, HEIGHT);
+//  private static NIVision.Rect BORDER_BOTTOM = new NIVision.Rect(0, HEIGHT - BORDER_SIZE, WIDTH, BORDER_SIZE);
+//  private static NIVision.Rect BORDER_RIGHT = new NIVision.Rect(WIDTH - BORDER_SIZE, 0, BORDER_SIZE, HEIGHT);
   private static CameraServer cameraServer = CameraServer.getInstance();
   private static USBCamera driveCamera, targetCamera, piCamera;
   private static boolean initCameras = false;
@@ -27,7 +38,7 @@ public class CameraSubsystem extends Subsystem {
   /**
    * {@inheritDoc}
    *
-   * <p>Sets default quality at 50%.</p>
+   * <p>Sets default quality at 30%.</p>
    */
   public CameraSubsystem() {
     this(30);
@@ -42,6 +53,7 @@ public class CameraSubsystem extends Subsystem {
     super("Camera");
     setQuality(quality);
     frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+//    SmartDashboard.putNumber("border width", 10);
   }
 
   public static void initCameras() {
@@ -100,11 +112,30 @@ public class CameraSubsystem extends Subsystem {
         break;
       case BACK:
         targetCamera.getImage(frame);
+        // TODO: Borders and text
+//        drawBorder(RED);
         break;
       case PI:
         throw new IllegalStateException("Pi camera not implemented");
     }
+
+    SmartDashboard.putBoolean("REVERSE", currentCamera == Camera.BACK);
+
     cameraServer.setImage(frame);
+  }
+
+  private void drawBorder(final float color) {
+//    BORDER_SIZE = (int) SmartDashboard.getNumber("border width", 10);
+
+//    NIVision.imaqDrawShapeOnImage(frame, frame, BORDER_TOP, NIVision.DrawMode.PAINT_VALUE,
+//            NIVision.ShapeMode.SHAPE_RECT, color);
+//    NIVision.imaqDrawShapeOnImage(frame, frame, BORDER_LEFT, NIVision.DrawMode.PAINT_VALUE,
+//            NIVision.ShapeMode.SHAPE_RECT, color);
+//    NIVision.imaqDrawShapeOnImage(frame, frame, BORDER_BOTTOM, NIVision.DrawMode.PAINT_VALUE,
+//            NIVision.ShapeMode.SHAPE_RECT, color);
+//    NIVision.imaqDrawShapeOnImage(frame, frame, BORDER_RIGHT, NIVision.DrawMode.PAINT_VALUE,
+//            NIVision.ShapeMode.SHAPE_RECT, color);
+//    NIVision.imaqOverlayText(frame, new NIVision.Point(0, 0), "REVERSE", NIVision.RGB_RED, new NIVision.OverlayTextOptions("Arial", 12, 1, 0, 0, 0, NIVision.TextAlignment.LEFT, NIVision.VerticalTextAlignment.BASELINE, NIVision.RGB_WHITE, 0), "text");
   }
 
   @Override
