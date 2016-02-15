@@ -7,7 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Have the robot drive tank style using the PS3 Joystick until interrupted.
+ *
+ * @deprecated replaced with ArcadeDriveCommand.
+ * This method no longer works due to the removal of the second joystick in OI.
  */
+@Deprecated
 public class TankDriveWithJoystick extends Command {
     
     public TankDriveWithJoystick() {
@@ -23,19 +27,19 @@ public class TankDriveWithJoystick extends Command {
         double right;
 
         if (Robot.CAMERA_SUBSYSTEM.getCurrentCamera() == CameraSubsystem.Camera.BACK) {
-            left = Robot.oi.getStickRight().getY() * -1;
+//            left = Robot.oi.getStickRight().getY() * -1;
             right = Robot.oi.getStickLeft().getY() * -1;
         } else {
             left = Robot.oi.getStickLeft().getY();
-            right = Robot.oi.getStickRight().getY();
+//            right = Robot.oi.getStickRight().getY();
         }
 
-        Robot.driveBase.tankDrive(left, right);
+//        Robot.driveBase.tankDrive(left, right);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false; // Runs until interrupted
+        return true; // Runs until interrupted
     }
 
     // Called once after isFinished returns true
