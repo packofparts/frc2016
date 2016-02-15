@@ -21,6 +21,8 @@ public class ArmSubsystem extends Subsystem{
 		//linear = linearPotentiometer;
 		lowerArmTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
 		lowerArmTalon.changeControlMode(CANTalon.TalonControlMode.Position);
+		upperArmTalon.setInverted(true);
+		lowerArmTalon.setInverted(true);
 	}
 
 	@Override
@@ -29,10 +31,10 @@ public class ArmSubsystem extends Subsystem{
 		setDefaultCommand(new MoveUpperArmMotor());
 	}
 	public void moveLowerMotor(Joystick one){
-		lowerArmTalon.set(one.getY()*0.5);
+		lowerArmTalon.set(one.getRawAxis(1)*0.5);
 	}
 	public void moveUpperMotor(Joystick one){
-		upperArmTalon.set(one.getY()*0.05);
+		upperArmTalon.set(one.getRawAxis(1)*0.05);
 	}
 
 }
