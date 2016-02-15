@@ -29,9 +29,9 @@ public class ArcadeDriveCommand extends Command {
 
     Robot.driveBase.arcadeDrive(forwards, turn);
   }
-  
+
   protected double expo(double input, double expoAmount) {
-	  return (Math.pow(input, 3) * (expoAmount-1) + input)/expoAmount;
+    return (Math.pow(input, 3) * (expoAmount - 1) + input) / expoAmount;
   }
 
   @Override
