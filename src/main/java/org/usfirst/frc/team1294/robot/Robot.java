@@ -1,11 +1,5 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.commands.DrivePid;
-import org.usfirst.frc.team1294.robot.commands.ResetGyro;
-import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
-import org.usfirst.frc.team1294.robot.commands.SinBreakInCommand;
-import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
-import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.BallHandlingSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
@@ -24,15 +18,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * at the specified times.
  */
 public class Robot extends IterativeRobot {
-    //    public static final Vision vision = new Vision();
     public static final DriveBase driveBase = new DriveBase();
     public static final CameraSubsystem CAMERA_SUBSYSTEM = new CameraSubsystem();
     public static final ArmSubsystem armSubsystem = new ArmSubsystem();
     public static final BallHandlingSubsystem ballHandleSubsystem = new BallHandlingSubsystem();
-
+    public static Vision visionSubsystem;
     public static OI oi;
     private static Command autoCommand;
-    public Vision visionSubsystem;
 
     /**
      * This method is called when the robot is first started up.
@@ -41,7 +33,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        visionSubsystem = new Vision();
+        visionSubsystem = new Vision(); // init subsystem here to avoid NetworkTables init exception
 
         oi = new OI();
 

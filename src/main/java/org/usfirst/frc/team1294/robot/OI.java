@@ -12,7 +12,6 @@ import org.usfirst.frc.team1294.robot.commands.WallFollowing;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.triggers.LeftTriggerPressedTrigger;
 import org.usfirst.frc.team1294.robot.triggers.RightTriggerPressedTrigger;
-import org.usfirst.frc.team1294.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -57,14 +56,15 @@ public class OI {
 		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 		switchCam.whenPressed(new SwitchCameraCommand());
 		otherSwitchCam.whenPressed(new SwitchCameraCommand());
-		turnToTargetButton.whenPressed(new TurnTowardsVisionTarget(visionSubsystem));
+		turnToTargetButton.whenPressed(new TurnTowardsVisionTarget());
 		notSmartDashboard.whenPressed(new TurnToBearing(-30));
 
 		mechButtonX.toggleWhenPressed(new MoveUpperArmMotor());
 		leftPressed.whileActive(new EjectBallCommand());
 		rightPressed.whileActive(new IntakeBallCommand());
 		mechButtonA.whenPressed(new LaunchBallCommand());
-//		mechRightButton.toggleWhenPressed(new );
+		mechRightButton.toggleWhenPressed(new TurnTowardsVisionTarget());  // allow PID command to be
+		// canceled by pressing button again if needed
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
