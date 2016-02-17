@@ -1,15 +1,11 @@
 package org.usfirst.frc.team1294.robot;
 
 import org.usfirst.frc.team1294.robot.commands.EjectBallCommand;
+import org.usfirst.frc.team1294.robot.commands.IntakeBallCommand;
 import org.usfirst.frc.team1294.robot.commands.LaunchBallCommand;
 import org.usfirst.frc.team1294.robot.commands.MoveUpperArmMotor;
-//import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
-//import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
-//import org.usfirst.frc.team1294.robot.commands.TurnToBearing;
 import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
-//import org.usfirst.frc.team1294.robot.commands.WallFollowing;
-//import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.triggers.LeftTriggerPressedTrigger;
 import org.usfirst.frc.team1294.robot.triggers.RightTriggerPressedTrigger;
 
@@ -17,6 +13,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
+
+//import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
+//import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
+//import org.usfirst.frc.team1294.robot.commands.TurnToBearing;
+//import org.usfirst.frc.team1294.robot.commands.WallFollowing;
+//import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 
 public class OI {
 	//// CREATING BUTTONS
