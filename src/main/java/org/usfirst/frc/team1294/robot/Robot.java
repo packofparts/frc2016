@@ -33,7 +33,8 @@ public class Robot extends IterativeRobot {
   public static OI oi;
   private static Command autoCommand;
   private static WhichRobot whichRobot = null;
-
+  
+  // TODO: Refactor into its own utility class?
   /**
    * Returns which robot the code is currently running on. This is determined by a file on the
    * roboRIO that contains either a "1" or a "2". This can be used to set constants or run code
@@ -50,7 +51,7 @@ public class Robot extends IterativeRobot {
       try {
         scanner = new Scanner(new BufferedReader(new FileReader("robot.txt")));
         String in = scanner.nextLine();
-        whichRobot = in.equals("1") ? WhichRobot.ROBOT_1 : WhichRobot.ROBOT_2;
+        whichRobot = in.equals("2") ? WhichRobot.ROBOT_2 : WhichRobot.ROBOT_1;
       } catch (FileNotFoundException | NumberFormatException e) {
         whichRobot = WhichRobot.ROBOT_1;
       } finally {
