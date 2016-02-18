@@ -8,6 +8,11 @@ import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 import org.usfirst.frc.team1294.robot.subsystems.Vision;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -15,128 +20,135 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * The main class for the robot. The roboRIO automatically runs this program
- * at the specified times.
+ * The main class for the robot. The roboRIO automatically runs this program at the specified
+ * times.
  */
 public class Robot extends IterativeRobot {
-    public static final DriveBase driveBase = new DriveBase();
-    public static final CameraSubsystem CAMERA_SUBSYSTEM = new CameraSubsystem();
-    public static final ArmSubsystem armSubsystem = new ArmSubsystem();
-    public static final BallHandlingSubsystem ballHandleSubsystem = new BallHandlingSubsystem();
-    public static Vision visionSubsystem;
-    public static OI oi;
-    private static Command autoCommand;
+  public static final DriveBase driveBase = new DriveBase();
+  public static final CameraSubsystem CAMERA_SUBSYSTEM = new CameraSubsystem();
+  public static final ArmSubsystem armSubsystem = new ArmSubsystem();
+  public static final BallHandlingSubsystem ballHandleSubsystem = new BallHandlingSubsystem();
+  private static final String WHICH_ROBOT_FILE_NAME = "robot.txt";
+  public static Vision visionSubsystem;
+  public static OI oi;
+  private static Command autoCommand;
+  private static WhichRobot whichRobot = null;
 
-    /**
-     * This method is called when the robot is first started up.
-     * This method is run before it is marked as ready in FMS.
-     * Use this to initialize things like gyros and encoders.
-     */
-    @Override
-    public void robotInit() {
-        visionSubsystem = new Vision(); // init subsystem here to avoid NetworkTables init exception
+  /**
+   * Returns which robot the code is currently running on. This is determined by a file on the
+   * roboRIO that contains either a "1" or a "2". This can be used to set constants or run code
+   * that works on one robot or the other. If the file can't be found, it defaults to robot #1.
+   *
+   * <p>This value can be used by comparing it to a value in the enum {@link WhichRobot}.</p>
+   *
+   * @return the robot that the code is currently running on.
+   */
+  public static WhichRobot getWhichRobot() {
+    if (whichRobot == null) {
+      Scanner scanner = null;
 
-        oi = new OI();
-
-        VersionInformation vi = new VersionInformation();
-        SmartDashboard.putString("Version", vi.getVersion());
-        SmartDashboard.putString("Git-Author", vi.getAuthor());
-
-//        LiveWindow.addSensor(Vision.class.getSimpleName(), Vision.class.getSimpleName(), vision);
-        SmartDashboard.putData(Scheduler.getInstance());
-        
-        // turn to heading in place
-//        SmartDashboard.putData(new DrivePid(0));
-//        SmartDashboard.putData(new DrivePid(90));
-//        SmartDashboard.putData(new DrivePid(180));
-//        SmartDashboard.putData(new DrivePid(270));
-//
-//        // drive current heading for one meter
-//        SmartDashboard.putData(new DrivePid(-0.5, 1));
-//        SmartDashboard.putData(new DrivePid(0.5, 1));
-
-//        SmartDashboard.putData(new ResetGyro());
-
-//        autoCommand = new SquareAutonomousCommand();
-//        SmartDashboard.putData(new SinBreakInCommand());
-//
-//        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
-//        SmartDashboard.putData(new SetCameraCommand(CameraSubsystem.Camera.BACK));
-//
-//        SmartDashboard.putData(new SwitchCameraCommand());
-//
-//        SmartDashboard.putData(new TurnTowardsVisionTarget(visionSubsystem));
-
-//        SmartDashboard.putData(new TurnToBearing(-30));
-
-        SmartDashboard.putData(new ArcadeDriveCommand());
+      try {
+        scanner = new Scanner(new BufferedReader(new FileReader("robot.txt")));
+        String in = scanner.nextLine();
+        whichRobot = in.equals("1") ? WhichRobot.ROBOT_1 : WhichRobot.ROBOT_2;
+      } catch (FileNotFoundException | NumberFormatException e) {
+        whichRobot = WhichRobot.ROBOT_1;
+      } finally {
+        if (scanner != null) scanner.close();
+      }
     }
 
-    /**
-     * Called when the robot first enters disabled (i.e. the
-     * robot has just left auto, teleop, or robotInit).
-     */
-    @Override
-    public void disabledInit() {}
+    return whichRobot;
+  }
 
-    /**
-     * Called periodically while the robot is disabled.
-     */
-    @Override
-    public void disabledPeriodic() {
-        Scheduler.getInstance().run();
-    }
+  /**
+   * This method is called when the robot is first started up. This method is run before it is
+   * marked as ready in FMS. Use this to initialize things like gyros and encoders.
+   */
+  @Override
+  public void robotInit() {
+    visionSubsystem = new Vision(); // init subsystem here to avoid NetworkTables init exception
 
-    /**
-     * Called when the robot first enters auto.
-     */
-    @Override
-    public void autonomousInit() {
-        if (autoCommand != null) autoCommand.start();
-    }
+    oi = new OI();
 
-    /**
-     * Called periodically during auto.
-     */
-    @Override
-    public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-    }
+    VersionInformation vi = new VersionInformation();
+    SmartDashboard.putString("Version", vi.getVersion());
+    SmartDashboard.putString("Git-Author", vi.getAuthor());
 
-    /**
-     * Called when the robot first enters teleop.
-     */
-    @Override
-    public void teleopInit() {
-        // This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        if (autoCommand != null) autoCommand.cancel();
-    }
+    SmartDashboard.putData(Scheduler.getInstance());
 
-    /**
-     * Called periodically during teleop.
-     */
-    @Override
-    public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Gyro Angle", driveBase.getNormalizedAngle());
-        SmartDashboard.putNumber("Left Enc", driveBase.getLeftSpeed());
-        SmartDashboard.putNumber("Right Enc", driveBase.getRightSpeed());
-    }
+    SmartDashboard.putData(new ArcadeDriveCommand());
+  }
 
-    /**
-     * Called when the robot first enters test mode.
-     */
-    @Override
-    public void testInit() {}
+  /**
+   * Called when the robot first enters disabled (i.e. the robot has just left auto, teleop, or
+   * robotInit).
+   */
+  @Override
+  public void disabledInit() {
+  }
 
-    /**
-     * Called periodically during test mode.
-     */
-    @Override
-    public void testPeriodic() {
-        LiveWindow.run();
-    }
+  /**
+   * Called periodically while the robot is disabled.
+   */
+  @Override
+  public void disabledPeriodic() {
+    Scheduler.getInstance().run();
+  }
+
+  /**
+   * Called when the robot first enters auto.
+   */
+  @Override
+  public void autonomousInit() {
+    if (autoCommand != null) autoCommand.start();
+  }
+
+  /**
+   * Called periodically during auto.
+   */
+  @Override
+  public void autonomousPeriodic() {
+    Scheduler.getInstance().run();
+  }
+
+  /**
+   * Called when the robot first enters teleop.
+   */
+  @Override
+  public void teleopInit() {
+    // This makes sure that the autonomous stops running when
+    // teleop starts running. If you want the autonomous to
+    // continue until interrupted by another command, remove
+    // this line or comment it out.
+    if (autoCommand != null) autoCommand.cancel();
+  }
+
+  /**
+   * Called periodically during teleop.
+   */
+  @Override
+  public void teleopPeriodic() {
+    Scheduler.getInstance().run();
+    SmartDashboard.putNumber("Gyro Angle", driveBase.getNormalizedAngle());
+    SmartDashboard.putNumber("Left Enc", driveBase.getLeftSpeed());
+    SmartDashboard.putNumber("Right Enc", driveBase.getRightSpeed());
+  }
+
+  /**
+   * Called when the robot first enters test mode.
+   */
+  @Override
+  public void testInit() {
+  }
+
+  /**
+   * Called periodically during test mode.
+   */
+  @Override
+  public void testPeriodic() {
+    LiveWindow.run();
+  }
+
+  public enum WhichRobot {ROBOT_1, ROBOT_2}
 }
