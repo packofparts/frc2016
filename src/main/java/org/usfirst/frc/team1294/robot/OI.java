@@ -8,8 +8,6 @@ import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
 import org.usfirst.frc.team1294.robot.triggers.LeftTriggerPressedTrigger;
 import org.usfirst.frc.team1294.robot.triggers.RightTriggerPressedTrigger;
-import org.usfirst.frc.team1294.robot.commands.WallFollowing;
-import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
