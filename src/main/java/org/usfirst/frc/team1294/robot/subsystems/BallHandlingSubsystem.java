@@ -2,7 +2,6 @@ package org.usfirst.frc.team1294.robot.subsystems;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -14,15 +13,15 @@ public class BallHandlingSubsystem extends Subsystem {
 
   private CANTalon talonCatapult;
   private CANTalon talonBallIntake;
+  private CANTalon talonCatapultGear;
   private DigitalInput gearLimitSwitch;
-  private Relay gearRelay;
 
   // TODO: Get proper id numbers
   // TODO: Move ids to RobotMap
   public BallHandlingSubsystem() {
     talonCatapult = new CANTalon(0xFFFFFFFF);
     talonBallIntake = new CANTalon(0x000000000);
-    gearRelay = new Relay(0x0F0F0F0F);
+    talonCatapultGear = new CANTalon(0x0F0F0F0F);
     gearLimitSwitch = new DigitalInput(0xF0F0F0F0);
   }
 
@@ -47,8 +46,12 @@ public class BallHandlingSubsystem extends Subsystem {
     else talonBallIntake.set(0);
   }
 
-  public void setGear(Relay.Value value) {
-    gearRelay.set(value);
+  public void setGear(double speed) {
+    talonCatapultGear.set(speed);
+  }
+
+  public void stopGear() {
+    talonCatapultGear.set(0);
   }
 
   public boolean isCatapultLimitSwitchClosed() {
