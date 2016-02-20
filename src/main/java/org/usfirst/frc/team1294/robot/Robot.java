@@ -54,7 +54,7 @@ public class Robot extends IterativeRobot {
       Scanner scanner = null;
 
       try {
-        scanner = new Scanner(new BufferedReader(new FileReader("robot.txt")));
+        scanner = new Scanner(new BufferedReader(new FileReader(WHICH_ROBOT_FILE_NAME)));
         String in = scanner.nextLine();
         whichRobot = in.equals("2") ? WhichRobot.ROBOT_2 : WhichRobot.ROBOT_1;
       } catch (FileNotFoundException | NumberFormatException e) {
