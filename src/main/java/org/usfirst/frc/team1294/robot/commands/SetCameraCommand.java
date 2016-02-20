@@ -16,14 +16,14 @@ public class SetCameraCommand extends Command {
 
   public SetCameraCommand(CameraSubsystem.Camera camera) {
     super("Sets camera to " + camera.toString());
-    requires(Robot.CAMERA_SUBSYSTEM);
+    requires(Robot.cameraSubsystem);
     this.camera = camera;
   }
 
   @Override
   protected void initialize() {
     if (!(Robot.driveBase.getLeftSpeed() > 100 || Robot.driveBase.getRightSpeed() > 100))
-      Robot.CAMERA_SUBSYSTEM.startStream(camera); // plz no kill robot due to voltage spike
+      Robot.cameraSubsystem.startStream(camera); // plz no kill robot due to voltage spike
   }
 
   @Override

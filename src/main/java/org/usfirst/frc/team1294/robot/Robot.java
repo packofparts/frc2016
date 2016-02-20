@@ -3,6 +3,9 @@ package org.usfirst.frc.team1294.robot;
 import org.usfirst.frc.team1294.robot.commands.ArcadeDriveCommand;
 import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.BallHandlingSubsystem;
+import org.usfirst.frc.team1294.robot.commands.AutonomousEasyDefense;
+import org.usfirst.frc.team1294.robot.commands.AutonomousReachDefense;
+import org.usfirst.frc.team1294.robot.commands.DefensePosition;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 import org.usfirst.frc.team1294.robot.subsystems.Vision;
@@ -17,6 +20,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -24,16 +28,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * times.
  */
 public class Robot extends IterativeRobot {
-  public static final DriveBase driveBase = new DriveBase();
-  public static final CameraSubsystem CAMERA_SUBSYSTEM = new CameraSubsystem();
-  public static final ArmSubsystem armSubsystem = new ArmSubsystem();
-  public static final BallHandlingSubsystem ballHandleSubsystem = new BallHandlingSubsystem();
+    public static DriveBase driveBase;
+    public static CameraSubsystem cameraSubsystem;
+    public static OI oi;
+    private SendableChooser autoChooser;
+    public Vision visionSubsystem;
+  public static CameraSubsystem CAMERA_SUBSYSTEM = new CameraSubsystem();
+  public static ArmSubsystem armSubsystem = new ArmSubsystem();
+  public static BallHandlingSubsystem ballHandleSubsystem = new BallHandlingSubsystem();
   private static final String WHICH_ROBOT_FILE_NAME = "robot.txt";
-  public static Vision visionSubsystem;
-  public static OI oi;
   private static Command autoCommand;
   private static WhichRobot whichRobot = null;
-  
+
   // TODO: Refactor into its own utility class?
   /**
    * Returns which robot the code is currently running on. This is determined by a file on the
@@ -68,8 +74,10 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void robotInit() {
-    visionSubsystem = new Vision(); // init subsystem here to avoid NetworkTables init exception
 
+    visionSubsystem = new Vision();
+    driveBase = new DriveBase();
+    cameraSubsystem = new CameraSubsystem();
     oi = new OI();
 
     VersionInformation vi = new VersionInformation();
@@ -79,7 +87,20 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putData(Scheduler.getInstance());
 
     SmartDashboard.putData(new ArcadeDriveCommand());
-  }
+
+        SmartDashboard.putData(Scheduler.getInstance());
+
+     // SendableChooser for Autonomous Commands
+        autoChooser = new SendableChooser();
+        autoChooser.addDefault("Reach Defense", new AutonomousReachDefense());
+        autoChooser.addObject("Position 1 Low Bar", new AutonomousEasyDefense(DefensePosition.ONE));
+        autoChooser.addObject("Position 2 Easy", new AutonomousEasyDefense(DefensePosition.TWO));
+        autoChooser.addObject("Position 3 Easy", new AutonomousEasyDefense(DefensePosition.THREE));
+        autoChooser.addObject("Position 4 Easy", new AutonomousEasyDefense(DefensePosition.FOUR));
+        autoChooser.addObject("Position 5 Easy", new AutonomousEasyDefense(DefensePosition.FIVE));
+        // TODO if we have the hardware, add choosers for positions 2 - 5 for Sally Port, DrawBridge, Cheval de Frise, Portcullis
+        SmartDashboard.putData("Auto chooser", autoChooser);
+    }
 
   /**
    * Called when the robot first enters disabled (i.e. the robot has just left auto, teleop, or
@@ -97,13 +118,14 @@ public class Robot extends IterativeRobot {
     Scheduler.getInstance().run();
   }
 
-  /**
-   * Called when the robot first enters auto.
-   */
-  @Override
-  public void autonomousInit() {
-    if (autoCommand != null) autoCommand.start();
-  }
+    /**
+     * Called when the robot first enters auto.
+     */
+    @Override
+    public void autonomousInit() {
+    	autoCommand = (Command)autoChooser.getSelected();
+        if (autoCommand != null) autoCommand.start();
+    }
 
   /**
    * Called periodically during auto.
