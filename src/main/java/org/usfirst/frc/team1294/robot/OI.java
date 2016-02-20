@@ -43,6 +43,7 @@ public class OI {
 	Trigger leftPressed = new LeftTriggerPressedTrigger();
 	Trigger rightPressed = new RightTriggerPressedTrigger();
 	Button mechRightButton = new JoystickButton(mechStickOne, 6);
+	Button startButton = new JoystickButton(mechStickOne, 7);
 
 	// Button button = new JoystickButton(stick, buttonNumber);
 
@@ -67,6 +68,7 @@ public class OI {
 		mechButtonA.whenPressed(new LaunchBallCommand());
 		mechRightButton.toggleWhenPressed(new TurnTowardsVisionTarget());  // allow PID command to be
 		// canceled by pressing button again if needed
+		startButton.whenPressed(new ToggleOpenLoopModeCommand());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
