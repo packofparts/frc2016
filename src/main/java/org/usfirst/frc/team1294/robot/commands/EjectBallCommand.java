@@ -19,7 +19,7 @@ public class EjectBallCommand extends Command {
 
   @Override
   protected void execute() {
-    Robot.ballHandleSubsystem.setIntake(-Robot.oi.getMechStickOne().getRawAxis(3));
+    Robot.ballHandleSubsystem.setIntake(-Robot.oi.getMechStickOne().getRawAxis(2));
   }
 
   @Override
