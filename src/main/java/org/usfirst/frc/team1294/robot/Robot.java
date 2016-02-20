@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1294.robot;
 
 import org.usfirst.frc.team1294.robot.commands.ArcadeDriveCommand;
+import org.usfirst.frc.team1294.robot.commands.SwitchToClosedLoopMode;
+import org.usfirst.frc.team1294.robot.commands.SwitchToOpenLoopMode;
 import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.BallHandlingSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
@@ -41,6 +43,9 @@ public class Robot extends IterativeRobot {
         VersionInformation vi = new VersionInformation();
         SmartDashboard.putString("Version", vi.getVersion());
         SmartDashboard.putString("Git-Author", vi.getAuthor());
+
+      SmartDashboard.putData(new SwitchToClosedLoopMode());
+      SmartDashboard.putData(new SwitchToOpenLoopMode());
 
 //        LiveWindow.addSensor(Vision.class.getSimpleName(), Vision.class.getSimpleName(), vision);
         SmartDashboard.putData(Scheduler.getInstance());
@@ -124,6 +129,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Gyro Angle", driveBase.getNormalizedAngle());
         SmartDashboard.putNumber("Left Enc", driveBase.getLeftSpeed());
         SmartDashboard.putNumber("Right Enc", driveBase.getRightSpeed());
+      SmartDashboard.putBoolean("Is Closed Loop", driveBase.isClosedLoopMode());
     }
 
     /**

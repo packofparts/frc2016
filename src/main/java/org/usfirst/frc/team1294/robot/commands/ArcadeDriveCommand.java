@@ -24,7 +24,7 @@ public class ArcadeDriveCommand extends Command {
 
     if (Robot.CAMERA_SUBSYSTEM.getCurrentCamera() == CameraSubsystem.Camera.BACK) {
       forwards *= -1;
-      turn *= -1;
+//      turn *= -1;
     }
 
     Robot.driveBase.arcadeDrive(forwards, turn);
