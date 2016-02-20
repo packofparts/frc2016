@@ -49,6 +49,7 @@ public class Robot extends IterativeRobot {
    * @return the robot that the code is currently running on.
    */
   public static WhichRobot getWhichRobot() {
+    // TODO: Refactor into its own utility class?
     if (whichRobot == null) {
       Scanner scanner = null;
 
@@ -157,8 +158,6 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putNumber("Left Enc", driveBase.getLeftSpeed());
     SmartDashboard.putNumber("Right Enc", driveBase.getRightSpeed());
   }
-
-  // TODO: Refactor into its own utility class?
 
   /**
    * Called when the robot first enters test mode.
