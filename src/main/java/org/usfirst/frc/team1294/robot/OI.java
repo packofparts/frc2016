@@ -48,7 +48,8 @@ public class OI {
 		turnToTargetButton.whenPressed(new TurnTowardsVisionTarget());
 		notSmartDashboard.whenPressed(new TurnToBearing(-30));
 		
-		cam1.whenActive(new DrivePid(10, -1));
+		cam1.whenPressed(new DrivePid(-1));
+		cam2.whenPressed(new TurnToBearing(10));
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of

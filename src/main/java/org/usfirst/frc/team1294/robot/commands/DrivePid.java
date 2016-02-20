@@ -12,15 +12,19 @@ public class DrivePid extends Command {
 
 	private static final double MAX_MOTOR_SPEED = 0.6;
 	
-	private static final double HEADING_PID_TOLERANCE = 1;
-	private static final double HEADING_PID_P = 0.15;
-	private static final double HEADING_PID_I = 0.05;
-	private static final double HEADING_PID_D = 0.07;
+	private static final double HEADING_PID_TOLERANCE = 2;
+//	private static final double HEADING_PID_P = 0.15;
+//	private static final double HEADING_PID_I = 0.05;
+//	private static final double HEADING_PID_D = 0.07;
+	
+	private static final double HEADING_PID_P = 0.08;
+	private static final double HEADING_PID_I = 0.01;
+	private static final double HEADING_PID_D = 0.1;
 	
 	private static final double DISTANCE_PID_TOLERANCE = 1;
-	private static final double DISTANCE_PID_P = 0.10;
-	private static final double DISTANCE_PID_I = 0.00;
-	private static final double DISTANCE_PID_D = 0.00;
+	private static final double DISTANCE_PID_P = .5;
+	private static final double DISTANCE_PID_I = 1;
+	private static final double DISTANCE_PID_D = 10;
 	
 	protected double heading;
 	protected boolean driveCurrentHeading = false;
@@ -54,7 +58,7 @@ public class DrivePid extends Command {
 		headingController.setInputRange(0, 360);
 		headingController.setContinuous();
 		headingController.setOutputRange(-MAX_MOTOR_SPEED, MAX_MOTOR_SPEED);
-		headingController.setPercentTolerance(HEADING_PID_TOLERANCE);
+		headingController.setAbsoluteTolerance(HEADING_PID_TOLERANCE);
 	}
 	
 	@Override
@@ -74,7 +78,13 @@ public class DrivePid extends Command {
 
 	@Override
 	protected void execute() {
-		System.out.println("disiredPosition: " + position + " currentPosition:" + Robot.driveBase.getAveragePosition() + " commandedSpeed:" + commandedSpeed + " commandedTurn:" + commandedTurn + " distanceControllerError:" + distanceController.getError());
+//		System.out.println("disiredPosition: " + position + " currentPosition:" 
+//			+ Robot.driveBase.getAveragePosition() 
+//			+ " commandedSpeed:" + commandedSpeed 
+//			+ " commandedTurn:" + commandedTurn 
+//			+ " distanceControllerError:" + distanceController.getError()
+//			+ " headingControllerError:" + headingController.getError());
+		System.out.println(" distanceControllerError:" + distanceController.getError() + " distance" + Robot.driveBase.getAveragePosition());
 		Robot.driveBase.arcadeDrive(commandedSpeed, commandedTurn);
 	}
 
