@@ -8,16 +8,13 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author Austin Jenchi (timtim17)
  */
 public abstract class DriveGearCommand extends Command {
-  private double speed;
-
-  public DriveGearCommand(double speed) {
+  public DriveGearCommand() {
     requires(Robot.ballHandleSubsystem);
-    this.speed = speed;
   }
 
   @Override
   protected void initialize() {
-    Robot.ballHandleSubsystem.setGear(speed);
+    Robot.ballHandleSubsystem.setGear(getSpeed());
   }
 
   @Override
@@ -34,4 +31,6 @@ public abstract class DriveGearCommand extends Command {
   protected void interrupted() {
     end();
   }
+
+  public abstract double getSpeed();
 }
