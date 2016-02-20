@@ -30,7 +30,7 @@ public class DriveBase extends Subsystem {
 		leftFrontTalon = new CANTalon(RobotMap.leftFrontTalon);
 		leftFrontTalon.setInverted(true); // Inverts the direction of the motor direction. Only works in vbus mode
 		leftFrontTalon.reverseOutput(false); // flips the sign of the throttle values going into the motor on the talon in closed loop modes
-		leftFrontTalon.reverseSensor(false); // flips the sign of the sensor values going into the talon in closed loop modes
+		leftFrontTalon.reverseSensor(true); // flips the sign of the sensor values going into the talon in closed loop modes
 
 		leftBackTalon = new CANTalon(RobotMap.leftBackTalon);
 		leftBackTalon.setInverted(false);
@@ -41,7 +41,7 @@ public class DriveBase extends Subsystem {
 		rightFrontTalon = new CANTalon(RobotMap.rightFrontTalon);
 		rightFrontTalon.setInverted(true);
 		rightFrontTalon.reverseOutput(false);
-		rightFrontTalon.reverseSensor(false);
+		rightFrontTalon.reverseSensor(true);
 		
 		rightBackTalon = new CANTalon(RobotMap.rightBackTalon);
 		rightBackTalon.setInverted(false);
