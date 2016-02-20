@@ -11,7 +11,13 @@ public class RobotMap {
 	public static int leftBackTalon = 1;
 	public static int rightFrontTalon = 3;
 	public static int rightBackTalon = 4;
-	public static double distanceScaler = 5300;
 	public static int lowerArmTalon = 5;
 	public static int upperArmTalon = 6;
+	private static double distanceScaler = 5300;
+	private static double distanceScaler2 = 3533.33;
+
+	public double getDistanceScaler() {
+		if (Robot.getWhichRobot() == Robot.WhichRobot.ROBOT_1) return distanceScaler;
+		else return distanceScaler2;
+	}
 }

@@ -58,11 +58,13 @@ public class Robot extends IterativeRobot {
         whichRobot = in.equals("2") ? WhichRobot.ROBOT_2 : WhichRobot.ROBOT_1;
       } catch (FileNotFoundException | NumberFormatException e) {
         whichRobot = WhichRobot.ROBOT_1;
+        System.out.println("AN ERROR WAS MADE");
       } finally {
         if (scanner != null) scanner.close();
       }
     }
 
+    System.out.println("THE ROBOT IS: ROBOT " + whichRobot);
     return whichRobot;
   }
 
@@ -156,14 +158,14 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putNumber("Right Enc", driveBase.getRightSpeed());
   }
 
+  // TODO: Refactor into its own utility class?
+
   /**
    * Called when the robot first enters test mode.
    */
   @Override
   public void testInit() {
   }
-
-  // TODO: Refactor into its own utility class?
 
   /**
    * Called periodically during test mode.
