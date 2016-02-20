@@ -1,40 +1,13 @@
 package org.usfirst.frc.team1294.robot.commands;
 
-import org.usfirst.frc.team1294.robot.Robot;
-
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * @author Austin Jenchi (timtim17)
  */
-public class ResetCatapultCommand extends Command {
+public class ResetCatapultCommand extends CommandGroup {
   public ResetCatapultCommand() {
-    requires(Robot.ballHandleSubsystem);
-  }
-
-  @Override
-  protected void initialize() {
-    Robot.ballHandleSubsystem.backwardsCatapult();
-  }
-
-  @Override
-  protected void execute() {
-
-  }
-
-  @Override
-  protected boolean isFinished() {
-    return Robot.ballHandleSubsystem.isCatapultLimitSwitchClosed();
-  }
-
-  @Override
-  protected void end() {
-    Robot.ballHandleSubsystem.intakeSolenoid(false);
-    Robot.ballHandleSubsystem.stopCatapult();
-  }
-
-  @Override
-  protected void interrupted() {
-    end();
+    addSequential(new DriveGearToRestPositionCommand());
+    addSequential(new DriveCatapultToRestPositionCommand());
   }
 }
