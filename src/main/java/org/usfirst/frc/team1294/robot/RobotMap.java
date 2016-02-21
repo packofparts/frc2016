@@ -16,7 +16,7 @@ public class RobotMap {
 	private static double distanceScaler = 5300;
 	private static double distanceScaler2 = 3533.33;
 
-	public double getDistanceScaler() {
+	public static double getDistanceScaler() {
 		if (Robot.getWhichRobot() == Robot.WhichRobot.ROBOT_1) return distanceScaler;
 		else return distanceScaler2;
 	}
