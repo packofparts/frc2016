@@ -16,23 +16,21 @@ public class BallHandlingSubsystem extends Subsystem {
   private CANTalon talonCatapultGear;
   private DigitalInput gearLimitSwitch;
 
-  // TODO: Get proper id numbers
-  // TODO: Move ids to RobotMap
   public BallHandlingSubsystem() {
-    talonCatapult = new CANTalon(0xFFFFFFFF);
-    talonBallIntake = new CANTalon(0x000000000);
-    talonCatapultGear = new CANTalon(0x0F0F0F0F);
-    gearLimitSwitch = new DigitalInput(0xF0F0F0F0);
+    talonCatapult = new CANTalon(RobotMap.catapultTalon);
+    talonBallIntake = new CANTalon(RobotMap.intakeTalon);
+    talonCatapultGear = new CANTalon(RobotMap.catapultGearTalon);
+    gearLimitSwitch = new DigitalInput(RobotMap.gearLimitSwitch);
   }
 
   // TODO: delete this? not sure if we need this
   @Deprecated
   public void forwardsCatatpult() {
-    talonCatapult.set(RobotMap.CATAPULT_SPEED);
+    talonCatapult.set(RobotMap.catapultSpeed);
   }
 
   public void backwardsCatapult() {
-    talonCatapult.set(-RobotMap.CATAPULT_SPEED);
+    talonCatapult.set(-RobotMap.catapultSpeed);
   }
 
   /**
@@ -41,8 +39,8 @@ public class BallHandlingSubsystem extends Subsystem {
    */
   @Deprecated
   public void setIntakeDirection(IntakeDirection direction) {
-    if (direction == IntakeDirection.IN) talonBallIntake.set(RobotMap.INTAKE_SPEED);
-    else if (direction == IntakeDirection.OUT) talonBallIntake.set(-RobotMap.INTAKE_SPEED);
+    if (direction == IntakeDirection.IN) talonBallIntake.set(RobotMap.intakeSpeed);
+    else if (direction == IntakeDirection.OUT) talonBallIntake.set(-RobotMap.intakeSpeed);
     else talonBallIntake.set(0);
   }
 
