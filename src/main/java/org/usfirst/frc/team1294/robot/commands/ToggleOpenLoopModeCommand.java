@@ -7,33 +7,35 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * @author Austin Jenchi (timtim17)
  */
-public class EjectBallCommand extends Command {
-  public EjectBallCommand() {
-    requires(Robot.ballHandleSubsystem);
+public class ToggleOpenLoopModeCommand extends Command {
+  public ToggleOpenLoopModeCommand() {
+    requires(Robot.driveBase);
   }
 
   @Override
   protected void initialize() {
-
+    if (Robot.driveBase.isClosedLoopMode())
+      Robot.driveBase.setTalonsToOpenLoop();
+    else Robot.driveBase.setTalonsToClosedLoopSpeed();
   }
 
   @Override
   protected void execute() {
-    Robot.ballHandleSubsystem.setIntake(-Robot.oi.getMechStickOne().getRawAxis(2));
+
   }
 
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   @Override
   protected void end() {
-    Robot.ballHandleSubsystem.stopIntake();
+
   }
 
   @Override
   protected void interrupted() {
-    end();
+
   }
 }

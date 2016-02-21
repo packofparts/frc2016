@@ -3,7 +3,7 @@ package org.usfirst.frc.team1294.robot.subsystems;
 import org.usfirst.frc.team1294.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -13,12 +13,16 @@ public class BallHandlingSubsystem extends Subsystem {
 
   private CANTalon talonCatapult;
   private CANTalon talonBallIntake;
-  private Relay catapultSolenoid;
+  private CANTalon talonCatapultGear;
+  private DigitalInput gearLimitSwitch;
 
+  // TODO: Get proper id numbers
+  // TODO: Move ids to RobotMap
   public BallHandlingSubsystem() {
     talonCatapult = new CANTalon(0xFFFFFFFF);
     talonBallIntake = new CANTalon(0x000000000);
-    catapultSolenoid = new Relay(0x0F0F0F0F);
+    talonCatapultGear = new CANTalon(0x0F0F0F0F);
+    gearLimitSwitch = new DigitalInput(0xF0F0F0F0);
   }
 
   // TODO: delete this? not sure if we need this
@@ -42,13 +46,20 @@ public class BallHandlingSubsystem extends Subsystem {
     else talonBallIntake.set(0);
   }
 
-  public void intakeSolenoid(boolean on) {
-    if (on) catapultSolenoid.set(Relay.Value.kOn);
-    else catapultSolenoid.set(Relay.Value.kOff);
+  public void setGear(double speed) {
+    talonCatapultGear.set(speed);
+  }
+
+  public void stopGear() {
+    talonCatapultGear.set(0);
   }
 
   public boolean isCatapultLimitSwitchClosed() {
     return talonCatapult.isRevLimitSwitchClosed();
+  }
+
+  public boolean isGearLimitSwitchClosed() {
+    return gearLimitSwitch.get();
   }
 
   @Override

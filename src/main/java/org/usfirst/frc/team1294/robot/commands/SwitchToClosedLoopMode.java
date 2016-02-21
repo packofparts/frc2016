@@ -7,18 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * @author Austin Jenchi (timtim17)
  */
-public class SetSolenoidCommand extends Command {
-  private boolean on;
+public class SwitchToClosedLoopMode extends Command {
+  public SwitchToClosedLoopMode() {
+    super("Switch to OPEN LOOP");
 
-  public SetSolenoidCommand(boolean on) {
-    this.on = on;
-
-    requires(Robot.ballHandleSubsystem);
+    requires(Robot.driveBase);
   }
 
   @Override
   protected void initialize() {
-    Robot.ballHandleSubsystem.intakeSolenoid(on);
+    Robot.driveBase.setTalonsToClosedLoopSpeed();
   }
 
   @Override

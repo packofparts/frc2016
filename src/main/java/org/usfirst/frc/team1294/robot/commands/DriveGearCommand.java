@@ -7,33 +7,30 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * @author Austin Jenchi (timtim17)
  */
-public class EjectBallCommand extends Command {
-  public EjectBallCommand() {
+public abstract class DriveGearCommand extends Command {
+  public DriveGearCommand() {
     requires(Robot.ballHandleSubsystem);
   }
 
   @Override
   protected void initialize() {
-
+    Robot.ballHandleSubsystem.setGear(getSpeed());
   }
 
   @Override
   protected void execute() {
-    Robot.ballHandleSubsystem.setIntake(-Robot.oi.getMechStickOne().getRawAxis(2));
-  }
-
-  @Override
-  protected boolean isFinished() {
-    return false;
+    // nothing to do
   }
 
   @Override
   protected void end() {
-    Robot.ballHandleSubsystem.stopIntake();
+    Robot.ballHandleSubsystem.stopGear();
   }
 
   @Override
   protected void interrupted() {
     end();
   }
+
+  public abstract double getSpeed();
 }

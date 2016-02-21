@@ -25,6 +25,7 @@ public class DriveBase extends Subsystem {
 	private AnalogInput ultrasonic;
 	private AnalogInput ultrasonic2;
 	private AnalogInput ultrasonic3;
+	private boolean isClosedLoopMode;
 
 	public DriveBase() {
 		leftFrontTalon = new CANTalon(RobotMap.leftFrontTalon);
@@ -48,7 +49,6 @@ public class DriveBase extends Subsystem {
 		rightBackTalon.reverseOutput(false);
 		rightBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
 		rightBackTalon.set(rightFrontTalon.getDeviceID());
-
 
 		drive = new RobotDrive(leftFrontTalon, rightFrontTalon);
 		
@@ -101,6 +101,8 @@ public class DriveBase extends Subsystem {
 		rightFrontTalon.setD(0);
 		
 		drive.setMaxOutput(2000);
+
+		isClosedLoopMode = true;
 	}
 
 	public void setTalonsToOpenLoop() {
@@ -110,7 +112,8 @@ public class DriveBase extends Subsystem {
 		leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		
 		drive.setMaxOutput(1);
-		
+
+		isClosedLoopMode = false;
 	}
 
 	public void stop() {
@@ -162,5 +165,9 @@ public class DriveBase extends Subsystem {
 	public double getUltrasonicDistanceRight(){
 		double voltage = ultrasonic3.getVoltage();
 		return (voltage *(512.0/5.0));
+	}
+
+	public boolean isClosedLoopMode() {
+		return isClosedLoopMode;
 	}
 }

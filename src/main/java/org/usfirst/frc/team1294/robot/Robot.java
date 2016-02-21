@@ -4,6 +4,8 @@ import org.usfirst.frc.team1294.robot.commands.ArcadeDriveCommand;
 import org.usfirst.frc.team1294.robot.commands.AutonomousEasyDefense;
 import org.usfirst.frc.team1294.robot.commands.AutonomousReachDefense;
 import org.usfirst.frc.team1294.robot.commands.DefensePosition;
+import org.usfirst.frc.team1294.robot.commands.SwitchToClosedLoopMode;
+import org.usfirst.frc.team1294.robot.commands.SwitchToOpenLoopMode;
 import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.BallHandlingSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
@@ -85,7 +87,21 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putString("Version", vi.getVersion());
     SmartDashboard.putString("Git-Author", vi.getAuthor());
 
-    SmartDashboard.putData(Scheduler.getInstance());
+      SmartDashboard.putData(new SwitchToClosedLoopMode());
+      SmartDashboard.putData(new SwitchToOpenLoopMode());
+
+//        LiveWindow.addSensor(Vision.class.getSimpleName(), Vision.class.getSimpleName(), vision);
+        SmartDashboard.putData(Scheduler.getInstance());
+        
+        // turn to heading in place
+//        SmartDashboard.putData(new DrivePid(0));
+//        SmartDashboard.putData(new DrivePid(90));
+//        SmartDashboard.putData(new DrivePid(180));
+//        SmartDashboard.putData(new DrivePid(270));
+//
+//        // drive current heading for one meter
+//        SmartDashboard.putData(new DrivePid(-0.5, 1));
+//        SmartDashboard.putData(new DrivePid(0.5, 1));
 
     SmartDashboard.putData(new ArcadeDriveCommand());
 
@@ -148,16 +164,17 @@ public class Robot extends IterativeRobot {
     if (autoCommand != null) autoCommand.cancel();
   }
 
-  /**
-   * Called periodically during teleop.
-   */
-  @Override
-  public void teleopPeriodic() {
-    Scheduler.getInstance().run();
-    SmartDashboard.putNumber("Gyro Angle", driveBase.getNormalizedAngle());
-    SmartDashboard.putNumber("Left Enc", driveBase.getLeftSpeed());
-    SmartDashboard.putNumber("Right Enc", driveBase.getRightSpeed());
-  }
+    /**
+     * Called periodically during teleop.
+     */
+    @Override
+    public void teleopPeriodic() {
+        Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Gyro Angle", driveBase.getNormalizedAngle());
+        SmartDashboard.putNumber("Left Enc", driveBase.getLeftSpeed());
+        SmartDashboard.putNumber("Right Enc", driveBase.getRightSpeed());
+      SmartDashboard.putBoolean("Is Closed Loop", driveBase.isClosedLoopMode());
+    }
 
   /**
    * Called when the robot first enters test mode.
