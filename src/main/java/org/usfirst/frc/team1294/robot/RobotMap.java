@@ -13,6 +13,8 @@ public class RobotMap {
 	public static int rightBackTalon = 4;
 	public static int lowerArmTalon = 5;
 	public static int upperArmTalon = 6;
+	public static String driveCamera = "cam2";
+	public static String targetCamera = "cam3";
 	private static double distanceScaler = 5300;
 	private static double distanceScaler2 = 3533.33;
 

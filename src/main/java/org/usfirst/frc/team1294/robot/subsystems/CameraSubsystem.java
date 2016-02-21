@@ -3,6 +3,7 @@ package org.usfirst.frc.team1294.robot.subsystems;
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
 
+import org.usfirst.frc.team1294.robot.RobotMap;
 import org.usfirst.frc.team1294.robot.commands.StreamCameraCommand;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -59,8 +60,8 @@ public class CameraSubsystem extends Subsystem {
   public static void initCameras() {
     if (initCameras) return;
 
-    driveCamera = new USBCamera("cam0");
-    targetCamera = new USBCamera("cam1");
+    driveCamera = new USBCamera(RobotMap.driveCamera);
+    targetCamera = new USBCamera(RobotMap.targetCamera);
 //    piCamera = new USBCamera("cam2");
 
     initCameras = true;
