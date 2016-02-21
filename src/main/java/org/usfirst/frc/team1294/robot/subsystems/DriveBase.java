@@ -137,11 +137,11 @@ public class DriveBase extends Subsystem {
 	}
 
 	public double getLeftPosition() {
-		return leftFrontTalon.getEncPosition() / RobotMap.distanceScaler;
+		return leftFrontTalon.getEncPosition() / RobotMap.getDistanceScaler();
 	}
 
 	public double getRightPosition() {
-		return rightFrontTalon.getEncPosition() / RobotMap.distanceScaler;
+		return rightFrontTalon.getEncPosition() / RobotMap.getDistanceScaler();
 	}
 
 	public double getLeftSpeed() {
