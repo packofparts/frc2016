@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1294.robot.subsystems;
 
+import org.usfirst.frc.team1294.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -8,8 +10,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Austin Jenchi (timtim17)
  */
 public class BallHandlingSubsystem extends Subsystem {
-  private static final int CATAPULT_SPEED = 1;
-  private static final int INTAKE_SPEED = 1;
 
   private CANTalon talonCatapult;
   private CANTalon talonBallIntake;
@@ -24,11 +24,11 @@ public class BallHandlingSubsystem extends Subsystem {
   // TODO: delete this? not sure if we need this
   @Deprecated
   public void forwardsCatatpult() {
-    talonCatapult.set(CATAPULT_SPEED);
+    talonCatapult.set(RobotMap.CATAPULT_SPEED);
   }
 
   public void backwardsCatapult() {
-    talonCatapult.set(-CATAPULT_SPEED);
+    talonCatapult.set(-RobotMap.CATAPULT_SPEED);
   }
 
   /**
@@ -37,8 +37,8 @@ public class BallHandlingSubsystem extends Subsystem {
    */
   @Deprecated
   public void setIntakeDirection(IntakeDirection direction) {
-    if (direction == IntakeDirection.IN) talonBallIntake.set(INTAKE_SPEED);
-    else if (direction == IntakeDirection.OUT) talonBallIntake.set(-INTAKE_SPEED);
+    if (direction == IntakeDirection.IN) talonBallIntake.set(RobotMap.INTAKE_SPEED);
+    else if (direction == IntakeDirection.OUT) talonBallIntake.set(-RobotMap.INTAKE_SPEED);
     else talonBallIntake.set(0);
   }
 
