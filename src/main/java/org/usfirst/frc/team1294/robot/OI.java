@@ -5,6 +5,7 @@ import org.usfirst.frc.team1294.robot.commands.IntakeBallCommand;
 import org.usfirst.frc.team1294.robot.commands.LaunchBallCommand;
 import org.usfirst.frc.team1294.robot.commands.MoveUpperArmMotor;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
+import org.usfirst.frc.team1294.robot.commands.ToggleOpenLoopModeCommand;
 import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
 import org.usfirst.frc.team1294.robot.triggers.LeftTriggerPressedTrigger;
 import org.usfirst.frc.team1294.robot.triggers.RightTriggerPressedTrigger;
