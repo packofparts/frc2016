@@ -13,11 +13,6 @@ import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
 import org.usfirst.frc.team1294.robot.subsystems.Vision;
 import org.usfirst.frc.team1294.robot.utilities.VersionInformation;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Scanner;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -30,7 +25,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * times.
  */
 public class Robot extends IterativeRobot {
-  private static final String WHICH_ROBOT_FILE_NAME = "robot.txt";
   public static DriveBase driveBase;
   public static CameraSubsystem cameraSubsystem;
   public static OI oi;
@@ -38,38 +32,7 @@ public class Robot extends IterativeRobot {
   public static ArmSubsystem armSubsystem = new ArmSubsystem();
   public static BallHandlingSubsystem ballHandleSubsystem = new BallHandlingSubsystem();
   private static Command autoCommand;
-  private static WhichRobot whichRobot = null;
   private SendableChooser autoChooser;
-
-  /**
-   * Returns which robot the code is currently running on. This is determined by a file on the
-   * roboRIO that contains either a "1" or a "2". This can be used to set constants or run code
-   * that works on one robot or the other. If the file can't be found, it defaults to robot #1.
-   *
-   * <p>This value can be used by comparing it to a value in the enum {@link WhichRobot}.</p>
-   *
-   * @return the robot that the code is currently running on.
-   */
-  public static WhichRobot getWhichRobot() {
-    // TODO: Refactor into its own utility class?
-    if (whichRobot == null) {
-      Scanner scanner = null;
-
-      try {
-        scanner = new Scanner(new BufferedReader(new FileReader(WHICH_ROBOT_FILE_NAME)));
-        String in = scanner.nextLine();
-        whichRobot = in.equals("2") ? WhichRobot.ROBOT_2 : WhichRobot.ROBOT_1;
-      } catch (FileNotFoundException | NumberFormatException e) {
-        whichRobot = WhichRobot.ROBOT_1;
-        System.out.println("AN ERROR WAS MADE");
-      } finally {
-        if (scanner != null) scanner.close();
-      }
-    }
-
-    System.out.println("THE ROBOT IS: ROBOT " + whichRobot);
-    return whichRobot;
-  }
 
   /**
    * This method is called when the robot is first started up. This method is run before it is
@@ -191,5 +154,4 @@ public class Robot extends IterativeRobot {
     LiveWindow.run();
   }
 
-  public enum WhichRobot {ROBOT_1, ROBOT_2}
 }

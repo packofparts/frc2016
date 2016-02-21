@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.utilities.RobotDetector;
+
 /**
  * Constants should be defined here, such as CANTalon ids.
  * <p>
@@ -26,7 +28,7 @@ public class RobotMap {
 	public static int gearLimitSwitch = 1;
 
 	public static double getDistanceScaler() {
-		if (Robot.getWhichRobot() == Robot.WhichRobot.ROBOT_1) return distanceScaler;
+		if (RobotDetector.getWhichRobot() == RobotDetector.WhichRobot.ROBOT_1) return distanceScaler;
 		else return distanceScaler2;
 	}
 }
