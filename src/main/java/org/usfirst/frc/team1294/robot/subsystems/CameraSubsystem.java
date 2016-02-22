@@ -73,7 +73,7 @@ public class CameraSubsystem extends Subsystem {
    * @see #startStream(Camera)
    */
   public void startStream() {
-    startStream(Camera.FRONT);
+    startStream(Camera.BACK);
   }
 
   /**

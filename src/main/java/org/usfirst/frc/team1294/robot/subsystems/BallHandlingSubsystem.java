@@ -11,26 +11,26 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class BallHandlingSubsystem extends Subsystem {
 
-  private CANTalon talonCatapult;
+  //private CANTalon talonCatapult;
   private CANTalon talonBallIntake;
-  private CANTalon talonCatapultGear;
-  private DigitalInput gearLimitSwitch;
+  //private CANTalon talonCatapultGear;
+  //private DigitalInput gearLimitSwitch;
 
   public BallHandlingSubsystem() {
-    talonCatapult = new CANTalon(RobotMap.catapultTalon);
+    //talonCatapult = new CANTalon(RobotMap.catapultTalon);
     talonBallIntake = new CANTalon(RobotMap.intakeTalon);
-    talonCatapultGear = new CANTalon(RobotMap.catapultGearTalon);
-    gearLimitSwitch = new DigitalInput(RobotMap.gearLimitSwitch);
+    //talonCatapultGear = new CANTalon(RobotMap.catapultGearTalon);
+    //gearLimitSwitch = new DigitalInput(RobotMap.gearLimitSwitch);
   }
 
   // TODO: delete this? not sure if we need this
   @Deprecated
   public void forwardsCatatpult() {
-    talonCatapult.set(RobotMap.catapultSpeed);
+    //talonCatapult.set(RobotMap.catapultSpeed);
   }
 
   public void backwardsCatapult() {
-    talonCatapult.set(-RobotMap.catapultSpeed);
+    //talonCatapult.set(-RobotMap.catapultSpeed);
   }
 
   /**
@@ -45,20 +45,20 @@ public class BallHandlingSubsystem extends Subsystem {
   }
 
   public void setGear(double speed) {
-    talonCatapultGear.set(speed);
+    //talonCatapultGear.set(speed);
   }
 
   public void stopGear() {
-    talonCatapultGear.set(0);
+    //talonCatapultGear.set(0);
   }
 
-  public boolean isCatapultLimitSwitchClosed() {
-    return talonCatapult.isRevLimitSwitchClosed();
-  }
+//  public boolean isCatapultLimitSwitchClosed() {
+//    //return talonCatapult.isRevLimitSwitchClosed();
+//  }
 
-  public boolean isGearLimitSwitchClosed() {
-    return gearLimitSwitch.get();
-  }
+//  public boolean isGearLimitSwitchClosed() {
+//    return gearLimitSwitch.get();
+//  }
 
   @Override
   protected void initDefaultCommand() {
@@ -66,7 +66,7 @@ public class BallHandlingSubsystem extends Subsystem {
   }
 
   public void stopCatapult() {
-    talonCatapult.set(0);
+    //talonCatapult.set(0);
   }
 
   public void setIntake(double intake) {

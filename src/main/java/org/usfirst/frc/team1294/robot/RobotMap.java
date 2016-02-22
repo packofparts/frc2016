@@ -9,10 +9,10 @@ import org.usfirst.frc.team1294.robot.utilities.RobotDetector;
  * and either {@code int} or {@code double}.
  */
 public class RobotMap {
-	public static final int leftFrontTalon = 2;
-	public static final int leftBackTalon = 1;
-	public static final int rightFrontTalon = 3;
-	public static final int rightBackTalon = 4;
+	public static final int leftFrontTalon = 4;
+	public static final int leftBackTalon = 3;
+	public static final int rightFrontTalon = 7;
+	public static final int rightBackTalon = 8;
 	public static final int lowerArmTalon = 5;
 	public static final int upperArmTalon = 6;
 	public static final String driveCamera = "cam2";
@@ -23,8 +23,8 @@ public class RobotMap {
 	private static final double distanceScaler2 = 3533.33;
 	// TODO: Get proper id numbers
 	public static int catapultTalon = 5;
-	public static int intakeTalon = 6;
-	public static int catapultGearTalon = 7;
+	public static int intakeTalon = 1;
+	//public static int catapultGearTalon = 7;
 	public static int gearLimitSwitch = 1;
 
 	public static double getDistanceScaler() {
