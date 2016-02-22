@@ -64,11 +64,20 @@ public class CameraSubsystem extends Subsystem {
     targetCamera = new USBCamera(RobotMap.targetCamera);
 //    piCamera = new USBCamera("cam2");
 
+    driveCamera.setExposureHoldCurrent();
+    targetCamera.setExposureHoldCurrent();
+
+    driveCamera.setWhiteBalanceHoldCurrent();
+    driveCamera.setWhiteBalanceHoldCurrent();
+
     initCameras = true;
+
+    driveCamera.startCapture();
+    targetCamera.startCapture();
   }
 
   /**
-   * Starts the stream with the default camera ({@code "cam0"}).
+   * Starts the stream with the default camera.
    *
    * @see #startStream(Camera)
    */
@@ -77,28 +86,26 @@ public class CameraSubsystem extends Subsystem {
   }
 
   /**
-   * Starts the stream with the passed in camera name.
+   * Starts the stream with the passed in camera.
    *
-   * <p>Camera names can be found on webdash ({@code roboRIO-TEAM-frc.local}).</p>
-   *
-   * @param camera The name of the camera to stream.
+   * @param camera The camera to stream.
    */
   public void startStream(final Camera camera) {
     currentCamera = camera;
-    switch (camera) {
-      case FRONT:
-        driveCamera.startCapture();
-        targetCamera.stopCapture();
-//        piCamera.stopCapture();
-        break;
-      case BACK:
-        driveCamera.stopCapture();
-        targetCamera.startCapture();
-//        piCamera.stopCapture();
-        break;
-      case PI:
-        throw new IllegalStateException("Pi camera not implemented");
-    }
+//    switch (camera) {
+//      case FRONT:
+//        driveCamera.startCapture();
+//        targetCamera.stopCapture();
+////        piCamera.stopCapture();
+//        break;
+//      case BACK:
+//        driveCamera.stopCapture();
+//        targetCamera.startCapture();
+////        piCamera.stopCapture();
+//        break;
+//      case PI:
+//        throw new IllegalStateException("Pi camera not implemented");
+//    }
   }
 
   public void stream() {
