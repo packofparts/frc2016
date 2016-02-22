@@ -2,8 +2,8 @@ package org.usfirst.frc.team1294.robot;
 
 import org.usfirst.frc.team1294.robot.commands.EjectBallCommand;
 import org.usfirst.frc.team1294.robot.commands.IntakeBallCommand;
-import org.usfirst.frc.team1294.robot.commands.LaunchBallCommand;
-import org.usfirst.frc.team1294.robot.commands.MoveUpperArmMotor;
+//import org.usfirst.frc.team1294.robot.commands.LaunchBallCommand;
+//import org.usfirst.frc.team1294.robot.commands.MoveUpperArmMotor;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.ToggleOpenLoopModeCommand;
 import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
@@ -64,13 +64,15 @@ public class OI {
 		//turnToTargetButton.whenPressed(new TurnTowardsVisionTarget());
 		//notSmartDashboard.whenPressed(new TurnToBearing(-30));
 
-		mechButtonX.toggleWhenPressed(new MoveUpperArmMotor());
-		leftPressed.whileActive(new EjectBallCommand());
-		rightPressed.whileActive(new IntakeBallCommand());
-		mechButtonA.whenPressed(new LaunchBallCommand());
-		mechRightButton.toggleWhenPressed(new TurnTowardsVisionTarget());  // allow PID command to be
+		//mechButtonX.toggleWhenPressed(new MoveUpperArmMotor());
+		//leftPressed.whileActive(new EjectBallCommand());
+		//rightPressed.whileActive(new IntakeBallCommand());
+//		mechButtonA.whenPressed(new LaunchBallCommand());
+		//mechRightButton.toggleWhenPressed(new TurnTowardsVisionTarget());  // allow PID command to be
 		// canceled by pressing button again if needed
-		startButton.whenPressed(new ToggleOpenLoopModeCommand());
+		//startButton.whenPressed(new ToggleOpenLoopModeCommand());
+		mechButtonA.whileHeld(new IntakeBallCommand());
+		mechButtonX.whileHeld(new EjectBallCommand());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of

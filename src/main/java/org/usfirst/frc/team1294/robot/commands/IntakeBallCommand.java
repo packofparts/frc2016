@@ -19,7 +19,7 @@ public class IntakeBallCommand extends Command {
 
   @Override
   protected void execute() {
-    Robot.ballHandleSubsystem.setIntake(Robot.oi.getMechStickOne().getRawAxis(3));
+    Robot.ballHandleSubsystem.setIntake(0.5);//Robot.oi.getMechStickOne().getRawAxis(3));
   }
 
   @Override
