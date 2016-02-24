@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1294.robot;
 
 import org.usfirst.frc.team1294.robot.commands.ArcadeDriveCommand;
+import org.usfirst.frc.team1294.robot.commands.AutonomousDriveToLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousEasyDefense;
 import org.usfirst.frc.team1294.robot.commands.AutonomousReachDefense;
 import org.usfirst.frc.team1294.robot.commands.DefensePosition;
@@ -78,6 +79,11 @@ public class Robot extends IterativeRobot {
     autoChooser.addObject("Position 3 Easy", new AutonomousEasyDefense(DefensePosition.THREE));
     autoChooser.addObject("Position 4 Easy", new AutonomousEasyDefense(DefensePosition.FOUR));
     autoChooser.addObject("Position 5 Easy", new AutonomousEasyDefense(DefensePosition.FIVE));
+    autoChooser.addObject("Postion 1 Easy Low Goal", new AutonomousDriveToLowGoal(DefensePosition.ONE));
+    autoChooser.addObject("Postion 2 Easy Low Goal", new AutonomousDriveToLowGoal(DefensePosition.TWO));
+    autoChooser.addObject("Postion 3 Easy Low Goal", new AutonomousDriveToLowGoal(DefensePosition.THREE));
+    autoChooser.addObject("Postion 4 Easy Low Goal", new AutonomousDriveToLowGoal(DefensePosition.FOUR));
+    autoChooser.addObject("Postion 5 Easy Low Goal", new AutonomousDriveToLowGoal(DefensePosition.FIVE));
     // TODO if we have the hardware, add choosers for positions 2 - 5 for Sally Port, DrawBridge, Cheval de Frise, Portcullis
     SmartDashboard.putData("Auto chooser", autoChooser);
   }
