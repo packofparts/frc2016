@@ -9,18 +9,24 @@ public class AutonomousDriveToLowGoal extends CommandGroup{
 		addSequential(new AutonomousEasyDefense(position));
 		if(position.distanceToWall > 0){
 			addSequential(new TurnToBearing(90));
-			addSequential(new DriveStraightDistance(SPEED, 9.875));
+			addSequential(new DriveStraightDistance(SPEED, position.distanceToWall));
+			addSequential(new TurnToBearing(0));
+			addSequential(new DriveStraightDistance(SPEED, 4));
+			addSequential(new TurnToBearing(300));
 			
 		}
 		else if(position.distanceToWall < 0){
 			addSequential(new TurnToBearing(270));
-			addSequential(new DriveStraightDistance(SPEED, 9.875));
+			addSequential(new DriveStraightDistance(SPEED, position.distanceToWall*-1));
+			addSequential(new TurnToBearing(0));
+			addSequential(new DriveStraightDistance(SPEED, 4));
 			addSequential(new TurnToBearing(30));
 		}
 		else{
-			addSequential(new DriveStraightDistance(SPEED, 9.875));
+			addSequential(new DriveStraightDistance(SPEED, 4));
 			addSequential(new TurnToBearing(30));
 		}
+		addSequential(new TimedEjectBall(30));
 	}
 
 }
