@@ -1,9 +1,9 @@
 package org.usfirst.frc.team1294.robot.subsystems;
 
 import org.usfirst.frc.team1294.robot.RobotMap;
+import org.usfirst.frc.team1294.robot.commands.BallIntakeCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -62,7 +62,7 @@ public class BallHandlingSubsystem extends Subsystem {
 
   @Override
   protected void initDefaultCommand() {
-//    setDefaultCommand(Command);
+    setDefaultCommand(new BallIntakeCommand());
   }
 
   public void stopCatapult() {

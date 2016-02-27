@@ -3,13 +3,11 @@ package org.usfirst.frc.team1294.robot;
 import org.usfirst.frc.team1294.robot.commands.EjectBallCommand;
 import org.usfirst.frc.team1294.robot.commands.IntakeBallCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
-import org.usfirst.frc.team1294.robot.triggers.LeftTriggerPressedTrigger;
-import org.usfirst.frc.team1294.robot.triggers.RightTriggerPressedTrigger;
+import org.usfirst.frc.team1294.robot.commands.ToggleOpenLoopModeCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.Trigger;
 
 //import org.usfirst.frc.team1294.robot.commands.LaunchBallCommand;
 //import org.usfirst.frc.team1294.robot.commands.MoveUpperArmMotor;
@@ -40,8 +38,6 @@ public class OI {
 	Joystick mechStickOne = new Joystick(1);
 	Button mechButtonX = new JoystickButton(mechStickOne, 3);
 	Button mechButtonA = new JoystickButton(mechStickOne, 1);
-	Trigger leftPressed = new LeftTriggerPressedTrigger();
-	Trigger rightPressed = new RightTriggerPressedTrigger();
 	Button mechRightButton = new JoystickButton(mechStickOne, 6);
 	Button startButton = new JoystickButton(mechStickOne, 7);
 
@@ -64,12 +60,10 @@ public class OI {
 		//notSmartDashboard.whenPressed(new TurnToBearing(-30));
 
 		//mechButtonX.toggleWhenPressed(new MoveUpperArmMotor());
-		leftPressed.whileActive(new EjectBallCommand());
-		rightPressed.whileActive(new IntakeBallCommand());
 //		mechButtonA.whenPressed(new LaunchBallCommand());
 		//mechRightButton.toggleWhenPressed(new TurnTowardsVisionTarget());  // allow PID command to be
 		// canceled by pressing button again if needed
-		//startButton.whenPressed(new ToggleOpenLoopModeCommand());
+		startButton.whenPressed(new ToggleOpenLoopModeCommand());
 		mechButtonA.whileHeld(new IntakeBallCommand());
 		mechButtonX.whileHeld(new EjectBallCommand());
 	}
