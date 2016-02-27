@@ -2,8 +2,10 @@ package org.usfirst.frc.team1294.robot.subsystems;
 
 import org.usfirst.frc.team1294.robot.RobotMap;
 import org.usfirst.frc.team1294.robot.commands.ArcadeDriveCommand;
+import org.usfirst.frc.team1294.robot.utilities.RobotDetector;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -60,7 +62,10 @@ public class DriveBase extends Subsystem {
     	ultrasonic2 = ultrasonicSensor2;
     	AnalogInput ultrasonicSensor3 = new AnalogInput(3);
     	ultrasonic3 = ultrasonicSensor3;
-		gyro = new ADXRS450_Gyro();
+
+		if (RobotDetector.getWhichRobot() == RobotDetector.WhichRobot.ROBOT_1)
+			gyro = new ADXRS450_Gyro();
+		else gyro = new AnalogGyro(0);
 
 		/*
 		 * LiveWindow.addSensor(this.getName(), "AnalogGyro", (AnalogGyro)

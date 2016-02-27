@@ -29,7 +29,7 @@ public class CameraSubsystem extends Subsystem {
 //  private static NIVision.Rect BORDER_BOTTOM = new NIVision.Rect(0, HEIGHT - BORDER_SIZE, WIDTH, BORDER_SIZE);
 //  private static NIVision.Rect BORDER_RIGHT = new NIVision.Rect(WIDTH - BORDER_SIZE, 0, BORDER_SIZE, HEIGHT);
   private static CameraServer cameraServer = CameraServer.getInstance();
-  private static USBCamera driveCamera, targetCamera, piCamera;
+  private static USBCamera frontCamera, backCamera, piCamera;
   private static boolean initCameras = false;
 
   private Camera currentCamera;
@@ -60,40 +60,47 @@ public class CameraSubsystem extends Subsystem {
   public static void initCameras() {
     if (initCameras) return;
 
-    driveCamera = new USBCamera(RobotMap.driveCamera);
-    targetCamera = new USBCamera(RobotMap.targetCamera);
+    frontCamera = new USBCamera(RobotMap.getFrontCameraId());
+    backCamera = new USBCamera(RobotMap.getBackCameraId());
 //    piCamera = new USBCamera("cam2");
 
+    frontCamera.setExposureHoldCurrent();
+    backCamera.setExposureHoldCurrent();
+
+    frontCamera.setWhiteBalanceHoldCurrent();
+    frontCamera.setWhiteBalanceHoldCurrent();
+
     initCameras = true;
+
+//    frontCamera.startCapture();
+//    backCamera.startCapture();
   }
 
   /**
-   * Starts the stream with the default camera ({@code "cam0"}).
+   * Starts the stream with the default camera.
    *
    * @see #startStream(Camera)
    */
   public void startStream() {
-    startStream(Camera.BACK);
+    startStream(Camera.FRONT);
   }
 
   /**
-   * Starts the stream with the passed in camera name.
+   * Starts the stream with the passed in camera.
    *
-   * <p>Camera names can be found on webdash ({@code roboRIO-TEAM-frc.local}).</p>
-   *
-   * @param camera The name of the camera to stream.
+   * @param camera The camera to stream.
    */
   public void startStream(final Camera camera) {
     currentCamera = camera;
     switch (camera) {
       case FRONT:
-        driveCamera.startCapture();
-        targetCamera.stopCapture();
+        frontCamera.startCapture();
+        backCamera.stopCapture();
 //        piCamera.stopCapture();
         break;
       case BACK:
-        driveCamera.stopCapture();
-        targetCamera.startCapture();
+        frontCamera.stopCapture();
+        backCamera.startCapture();
 //        piCamera.stopCapture();
         break;
       case PI:
@@ -109,10 +116,10 @@ public class CameraSubsystem extends Subsystem {
 
     switch (currentCamera) {
       case FRONT:
-        driveCamera.getImage(frame);
+        frontCamera.getImage(frame);
         break;
       case BACK:
-        targetCamera.getImage(frame);
+        backCamera.getImage(frame);
         // TODO: Borders and text
 //        drawBorder(RED);
         break;
