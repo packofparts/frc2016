@@ -80,6 +80,7 @@ public class Robot extends IterativeRobot {
     autoChooser.addObject("Position 5 Easy", new AutonomousEasyDefense(DefensePosition.FIVE));
     autoChooser.addObject("Position 1 Score Low Goal", new ScoreLowGoalAutonomous(DefensePosition.ONE));
     autoChooser.addObject("Position 2 Score Low Goal", new ScoreLowGoalAutonomous(DefensePosition.TWO));
+
     // TODO if we have the hardware, add choosers for positions 2 - 5 for Sally Port, DrawBridge, Cheval de Frise, Portcullis
     SmartDashboard.putData("Auto chooser", autoChooser);
   }

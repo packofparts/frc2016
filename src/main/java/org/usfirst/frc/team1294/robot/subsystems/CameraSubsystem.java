@@ -5,10 +5,8 @@ import com.ni.vision.NIVision.Image;
 
 import org.usfirst.frc.team1294.robot.RobotMap;
 import org.usfirst.frc.team1294.robot.commands.StreamCameraCommand;
-import org.usfirst.frc.team1294.robot.utilities.RobotDetector;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.USBCamera;
@@ -66,19 +64,17 @@ public class CameraSubsystem extends Subsystem {
     backCamera = new USBCamera(RobotMap.getBackCameraId());
 //    piCamera = new USBCamera("cam2");
 
-    Timer.delay(1); // allow camera to auto tune exposure
-
-    frontCamera.setExposureHoldCurrent();
-    backCamera.setExposureHoldCurrent();
-
-    frontCamera.setWhiteBalanceHoldCurrent();
-    frontCamera.setWhiteBalanceHoldCurrent();
+//    frontCamera.setExposureHoldCurrent();
+//    backCamera.setExposureHoldCurrent();
+//
+//    frontCamera.setWhiteBalanceHoldCurrent();
+//    frontCamera.setWhiteBalanceHoldCurrent();
 
     initCameras = true;
-    if (RobotDetector.getWhichRobot() == RobotDetector.WhichRobot.ROBOT_1) {
-      frontCamera.startCapture();
-      backCamera.startCapture();
-    }
+
+    frontCamera.startCapture();
+//    frontCamera.stopCapture();
+//    backCamera.startCapture();
   }
 
   /**
@@ -97,29 +93,23 @@ public class CameraSubsystem extends Subsystem {
    */
   public void startStream(final Camera camera) {
     currentCamera = camera;
-    if (RobotDetector.getWhichRobot() == RobotDetector.WhichRobot.ROBOT_2) {
+    try {
       switch (camera) {
         case FRONT:
-          frontCamera.openCamera();
-          frontCamera.startCapture();
-
           backCamera.stopCapture();
-          backCamera.closeCamera();
-
+          frontCamera.startCapture();
           //        piCamera.stopCapture();
           break;
         case BACK:
           frontCamera.stopCapture();
-          frontCamera.closeCamera();
-
-          backCamera.openCamera();
           backCamera.startCapture();
-
           //        piCamera.stopCapture();
           break;
         case PI:
           throw new IllegalStateException("Pi camera not implemented");
       }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
@@ -128,18 +118,21 @@ public class CameraSubsystem extends Subsystem {
       initCameras();
       startStream();
     }
-
-    switch (currentCamera) {
-      case FRONT:
-        frontCamera.getImage(frame);
-        break;
-      case BACK:
-        backCamera.getImage(frame);
-        // TODO: Borders and text
-//        drawBorder(RED);
-        break;
-      case PI:
-        throw new IllegalStateException("Pi camera not implemented");
+    try {
+      switch (currentCamera) {
+        case FRONT:
+          frontCamera.getImage(frame);
+          break;
+        case BACK:
+          backCamera.getImage(frame);
+          // TODO: Borders and text
+          //        drawBorder(RED);
+          break;
+        case PI:
+          throw new IllegalStateException("Pi camera not implemented");
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
     SmartDashboard.putBoolean("REVERSE", currentCamera == Camera.BACK);
