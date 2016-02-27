@@ -6,7 +6,7 @@ package org.usfirst.frc.team1294.robot.commands;
  * Rock Wall, Rough Terrain
  */
 public class AutonomousEasyDefense extends AutonomousReachDefense {
-  protected static final double DISTANCE_TO_DEFEAT_DEFENSE = 1.2192; // TODO, how far to drive to defeat the defense
+  protected static final double DISTANCE_TO_DEFEAT_DEFENSE = 3.4063; // TODO, how far to drive to defeat the defense
 
   public AutonomousEasyDefense(DefensePosition position) {
     super();
