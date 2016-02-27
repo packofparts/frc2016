@@ -1,17 +1,18 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
-import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
+import org.usfirst.frc.team1294.robot.commands.DriveAtFullPowerCommand;
+import org.usfirst.frc.team1294.robot.commands.EjectBallCommand;
+import org.usfirst.frc.team1294.robot.commands.IntakeBallCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
-import org.usfirst.frc.team1294.robot.commands.TurnToBearing;
-import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
-import org.usfirst.frc.team1294.robot.commands.WallFollowing;
-import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
-import org.usfirst.frc.team1294.robot.subsystems.Vision;
+import org.usfirst.frc.team1294.robot.commands.ToggleOpenLoopModeCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
+//import org.usfirst.frc.team1294.robot.commands.LaunchBallCommand;
+//import org.usfirst.frc.team1294.robot.commands.MoveUpperArmMotor;
+
 
 public class OI {
 	//// CREATING BUTTONS
@@ -22,14 +23,24 @@ public class OI {
 	Button leftButton1 = new JoystickButton(stickLeft, 7);
 	Button leftButton6 = new JoystickButton(stickLeft, 6);
 	Button leftButton10 = new JoystickButton(stickLeft, 10);
-	Joystick stickRight = new Joystick(1);
-	Button cam1 = new JoystickButton(stickLeft, 2);
-	Button cam2 = new JoystickButton(stickLeft, 4);
+	//Joystick stickRight = new Joystick(1);
+	//Button cam1 = new JoystickButton(stickLeft, 2);
+	//Button cam2 = new JoystickButton(stickLeft, 4);
 	Button switchCam = new JoystickButton(stickLeft, 3);
-	Button otherSwitchCam = new JoystickButton(stickRight, 3);
-	Joystick stickTheThird = new Joystick(2);
-	Button turnToTargetButton = new JoystickButton(stickTheThird, 3);
-	Button notSmartDashboard = new JoystickButton(stickTheThird, 8);
+	//Button otherSwitchCam = new JoystickButton(stickRight, 3);
+	//Joystick stickTheThird = new Joystick(2);
+	//Button turnToTargetButton = new JoystickButton(stickTheThird, 3);
+	//Button notSmartDashboard = new JoystickButton(stickTheThird, 8);
+	Joystick mechStickOne = new Joystick(1);
+	Button mechButtonX = new JoystickButton(mechStickOne, 3);
+	Button mechButtonA = new JoystickButton(mechStickOne, 1);
+	Button startButton = new JoystickButton(mechStickOne, 7);
+	
+	Button mechButtonLB = new JoystickButton(mechStickOne, 5);
+	Button mechButtonRB = new JoystickButton(mechStickOne, 6);
+
+	Button left11 = new JoystickButton(stickLeft, 11);
+	
 
 	// Button button = new JoystickButton(stick, buttonNumber);
 
@@ -37,18 +48,27 @@ public class OI {
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
 
-	// TODO: Get rid of this parameter (CommandBase)
-	public OI(Vision visionSubsystem) {
+	public OI() {
 //		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
-		leftButton6.toggleWhenPressed(new WallFollowing());
-		leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
+		//leftButton6.toggleWhenPressed(new WallFollowing());
+		//leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
 		//stickLeft.
-		cam1.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
-		cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
+		//cam1.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
+		//cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 		switchCam.whenPressed(new SwitchCameraCommand());
-		otherSwitchCam.whenPressed(new SwitchCameraCommand());
-		turnToTargetButton.whenPressed(new TurnTowardsVisionTarget(visionSubsystem));
-		notSmartDashboard.whenPressed(new TurnToBearing(-30));
+		//otherSwitchCam.whenPressed(new SwitchCameraCommand());
+		//turnToTargetButton.whenPressed(new TurnTowardsVisionTarget());
+		//notSmartDashboard.whenPressed(new TurnToBearing(-30));
+
+		//mechButtonX.toggleWhenPressed(new MoveUpperArmMotor());
+//		mechButtonA.whenPressed(new LaunchBallCommand());
+		//mechRightButton.toggleWhenPressed(new TurnTowardsVisionTarget());  // allow PID command to be
+		// canceled by pressing button again if needed
+
+		mechButtonRB.whileHeld(new IntakeBallCommand());
+		mechButtonLB.whileHeld(new EjectBallCommand());
+		startButton.whenPressed(new ToggleOpenLoopModeCommand());
+		left11.whileHeld(new DriveAtFullPowerCommand());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
@@ -70,7 +90,15 @@ public class OI {
 		return stickLeft;
 	}
 
-	public Joystick getStickRight() {
+	/*public Joystick getStickRight() {
 		return stickRight;
+	}*/
+	public Joystick getMechStickOne(){
+		return mechStickOne;
+	}
+
+	public Joystick getStickRight() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
