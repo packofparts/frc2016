@@ -72,8 +72,8 @@ public class CameraSubsystem extends Subsystem {
 
     initCameras = true;
 
-    frontCamera.startCapture();
-    backCamera.startCapture();
+//    frontCamera.startCapture();
+//    backCamera.startCapture();
   }
 
   /**
@@ -82,7 +82,7 @@ public class CameraSubsystem extends Subsystem {
    * @see #startStream(Camera)
    */
   public void startStream() {
-    startStream(Camera.BACK);
+    startStream(Camera.FRONT);
   }
 
   /**
@@ -92,20 +92,20 @@ public class CameraSubsystem extends Subsystem {
    */
   public void startStream(final Camera camera) {
     currentCamera = camera;
-//    switch (camera) {
-//      case FRONT:
-//        frontCamera.startCapture();
-//        backCamera.stopCapture();
-////        piCamera.stopCapture();
-//        break;
-//      case BACK:
-//        frontCamera.stopCapture();
-//        backCamera.startCapture();
-////        piCamera.stopCapture();
-//        break;
-//      case PI:
-//        throw new IllegalStateException("Pi camera not implemented");
-//    }
+    switch (camera) {
+      case FRONT:
+        frontCamera.startCapture();
+        backCamera.stopCapture();
+//        piCamera.stopCapture();
+        break;
+      case BACK:
+        frontCamera.stopCapture();
+        backCamera.startCapture();
+//        piCamera.stopCapture();
+        break;
+      case PI:
+        throw new IllegalStateException("Pi camera not implemented");
+    }
   }
 
   public void stream() {

@@ -65,7 +65,7 @@ public class DriveBase extends Subsystem {
 
 		if (RobotDetector.getWhichRobot() == RobotDetector.WhichRobot.ROBOT_1)
 			gyro = new ADXRS450_Gyro();
-		else gyro = new AnalogGyro(1);
+		else gyro = new AnalogGyro(0);
 
 		/*
 		 * LiveWindow.addSensor(this.getName(), "AnalogGyro", (AnalogGyro)
