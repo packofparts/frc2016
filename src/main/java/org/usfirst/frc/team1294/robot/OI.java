@@ -13,11 +13,6 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
-//import org.usfirst.frc.team1294.robot.commands.SetCameraCommand;
-//import org.usfirst.frc.team1294.robot.commands.SquareAutonomousCommand;
-//import org.usfirst.frc.team1294.robot.commands.TurnToBearing;
-//import org.usfirst.frc.team1294.robot.commands.WallFollowing;
-//import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 
 public class OI {
 	//// CREATING BUTTONS
@@ -39,8 +34,12 @@ public class OI {
 	Joystick mechStickOne = new Joystick(1);
 	Button mechButtonX = new JoystickButton(mechStickOne, 3);
 	Button mechButtonA = new JoystickButton(mechStickOne, 1);
-	Button mechRightButton = new JoystickButton(mechStickOne, 6);
+	
 	Button startButton = new JoystickButton(mechStickOne, 7);
+	
+	Button mechButtonLB = new JoystickButton(mechStickOne, 5);
+	Button mechButtonRB = new JoystickButton(mechStickOne, 6);
+	
 
 	// Button button = new JoystickButton(stick, buttonNumber);
 
@@ -67,8 +66,8 @@ public class OI {
 		//mechRightButton.toggleWhenPressed(new TurnTowardsVisionTarget());  // allow PID command to be
 		// canceled by pressing button again if needed
 		//startButton.whenPressed(new ToggleOpenLoopModeCommand());
-		mechButtonA.whileHeld(new IntakeBallCommand());
-		mechButtonX.whileHeld(new EjectBallCommand());
+		mechButtonRB.whileHeld(new IntakeBallCommand());
+		mechButtonLB.whileHeld(new EjectBallCommand());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
