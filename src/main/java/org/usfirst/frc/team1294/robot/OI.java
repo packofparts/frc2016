@@ -7,8 +7,6 @@ import org.usfirst.frc.team1294.robot.commands.IntakeBallCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.ToggleOpenLoopModeCommand;
 import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
-import org.usfirst.frc.team1294.robot.triggers.LeftTriggerPressedTrigger;
-import org.usfirst.frc.team1294.robot.triggers.RightTriggerPressedTrigger;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -41,8 +39,6 @@ public class OI {
 	Joystick mechStickOne = new Joystick(1);
 	Button mechButtonX = new JoystickButton(mechStickOne, 3);
 	Button mechButtonA = new JoystickButton(mechStickOne, 1);
-	Trigger leftPressed = new LeftTriggerPressedTrigger();
-	Trigger rightPressed = new RightTriggerPressedTrigger();
 	Button mechRightButton = new JoystickButton(mechStickOne, 6);
 	Button startButton = new JoystickButton(mechStickOne, 7);
 
