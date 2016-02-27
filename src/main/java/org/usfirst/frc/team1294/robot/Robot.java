@@ -1,10 +1,7 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.commands.ArcadeDriveCommand;
-import org.usfirst.frc.team1294.robot.commands.AutonomousEasyDefense;
 import org.usfirst.frc.team1294.robot.commands.AutonomousReachDefense;
-import org.usfirst.frc.team1294.robot.commands.DefensePosition;
-import org.usfirst.frc.team1294.robot.commands.ScoreLowGoalAutonomous;
+import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
 import org.usfirst.frc.team1294.robot.commands.SwitchToClosedLoopMode;
 import org.usfirst.frc.team1294.robot.commands.SwitchToOpenLoopMode;
 import org.usfirst.frc.team1294.robot.subsystems.BallHandlingSubsystem;
@@ -53,35 +50,14 @@ public class Robot extends IterativeRobot {
       SmartDashboard.putData(new SwitchToClosedLoopMode());
       SmartDashboard.putData(new SwitchToOpenLoopMode());
 
-//        LiveWindow.addSensor(Vision.class.getSimpleName(), Vision.class.getSimpleName(), vision);
-        SmartDashboard.putData(Scheduler.getInstance());
-        
-        // turn to heading in place
-//        SmartDashboard.putData(new DrivePid(0));
-//        SmartDashboard.putData(new DrivePid(90));
-//        SmartDashboard.putData(new DrivePid(180));
-//        SmartDashboard.putData(new DrivePid(270));
-//
-//        // drive current heading for one meter
-//        SmartDashboard.putData(new DrivePid(-0.5, 1));
-//        SmartDashboard.putData(new DrivePid(0.5, 1));
 
-    SmartDashboard.putData(new ArcadeDriveCommand());
 
     SmartDashboard.putData(Scheduler.getInstance());
 
     // SendableChooser for Autonomous Commands
     autoChooser = new SendableChooser();
-    autoChooser.addDefault("Reach Defense", new AutonomousReachDefense());
-    autoChooser.addObject("Position 1 Low Bar", new AutonomousEasyDefense(DefensePosition.ONE));
-    autoChooser.addObject("Position 2 Easy", new AutonomousEasyDefense(DefensePosition.TWO));
-    autoChooser.addObject("Position 3 Easy", new AutonomousEasyDefense(DefensePosition.THREE));
-    autoChooser.addObject("Position 4 Easy", new AutonomousEasyDefense(DefensePosition.FOUR));
-    autoChooser.addObject("Position 5 Easy", new AutonomousEasyDefense(DefensePosition.FIVE));
-    autoChooser.addObject("Position 1 Score Low Goal", new ScoreLowGoalAutonomous(DefensePosition.ONE));
-    autoChooser.addObject("Position 2 Score Low Goal", new ScoreLowGoalAutonomous(DefensePosition.TWO));
-
-    // TODO if we have the hardware, add choosers for positions 2 - 5 for Sally Port, DrawBridge, Cheval de Frise, Portcullis
+    autoChooser.addObject("Reach Defense", new AutonomousReachDefense());
+    autoChooser.addDefault("Defeat Defense", new DriveStraightDistance(-0.5, 3.5));
     SmartDashboard.putData("Auto chooser", autoChooser);
   }
 

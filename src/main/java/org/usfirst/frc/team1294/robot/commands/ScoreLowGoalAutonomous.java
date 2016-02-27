@@ -9,7 +9,7 @@ public class ScoreLowGoalAutonomous extends CommandGroup {
   protected static final double SPEED = -0.5;
 
   public ScoreLowGoalAutonomous(DefensePosition position) {
-    addSequential(new AutonomousEasyDefense(position));
+//    addSequential(new AutonomousEasyDefense(position));
     addSequential(new DriveStraightDistance(SPEED, position.distanceToWall));
     addSequential(new TurnToBearing(210));
     addSequential(new DriveStraightDistance(SPEED, position.distanceAfterTurn));
