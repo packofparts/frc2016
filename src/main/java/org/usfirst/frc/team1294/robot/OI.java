@@ -1,10 +1,11 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.DriveAtFullPowerCommand;
 import org.usfirst.frc.team1294.robot.commands.EjectBallCommand;
 import org.usfirst.frc.team1294.robot.commands.IntakeBallCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.ToggleOpenLoopModeCommand;
-import edu.wpi.first.wpilibj.GenericHID;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -37,6 +38,8 @@ public class OI {
 	
 	Button mechButtonLB = new JoystickButton(mechStickOne, 5);
 	Button mechButtonRB = new JoystickButton(mechStickOne, 6);
+
+	Button left11 = new JoystickButton(stickLeft, 11);
 	
 
 	// Button button = new JoystickButton(stick, buttonNumber);
@@ -65,6 +68,7 @@ public class OI {
 		mechButtonRB.whileHeld(new IntakeBallCommand());
 		mechButtonLB.whileHeld(new EjectBallCommand());
 		startButton.whenPressed(new ToggleOpenLoopModeCommand());
+		left11.whileHeld(new DriveAtFullPowerCommand());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of

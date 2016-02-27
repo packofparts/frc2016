@@ -7,36 +7,33 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * @author Austin Jenchi (timtim17)
  */
-public class ToggleOpenLoopModeCommand extends Command {
-  public ToggleOpenLoopModeCommand() {
-    requires(Robot.driveBase);
+public class DriveAtFullPowerCommand extends Command {
+  public DriveAtFullPowerCommand() {
+    requires(Robot.ballHandleSubsystem);
   }
 
   @Override
   protected void initialize() {
-    if (Robot.driveBase.isClosedLoopMode())
-      Robot.driveBase.setTalonsToOpenLoop();
-    else Robot.driveBase.setTalonsToClosedLoopSpeed();
-    System.out.println("TOGGLED");
+
   }
 
   @Override
   protected void execute() {
-
+    Robot.driveBase.tankDrive(1, 1);
   }
 
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   @Override
   protected void end() {
-
+    Robot.driveBase.stop();
   }
 
   @Override
   protected void interrupted() {
-
+    Robot.driveBase.stop();
   }
 }

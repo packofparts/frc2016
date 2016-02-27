@@ -3,6 +3,7 @@ package org.usfirst.frc.team1294.robot.commands;
 import org.usfirst.frc.team1294.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BallHandlingCommand extends Command {
 
@@ -21,6 +22,7 @@ public class BallHandlingCommand extends Command {
 		double right = Robot.oi.getMechStickOne().getRawAxis(3);
 		double left = Robot.oi.getMechStickOne().getRawAxis(2);
 		double output = right - left;
+		SmartDashboard.putNumber("Ball Intake Output", output);
 		
 		Robot.ballHandleSubsystem.setIntake(output);
 	}
