@@ -8,6 +8,7 @@ import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.ToggleOpenLoopModeCommand;
 import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -94,5 +95,10 @@ public class OI {
 	}*/
 	public Joystick getMechStickOne(){
 		return mechStickOne;
+	}
+
+	public Joystick getStickRight() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

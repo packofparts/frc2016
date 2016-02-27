@@ -1,7 +1,7 @@
 //package org.usfirst.frc.team1294.robot.subsystems;
 //
 //import org.usfirst.frc.team1294.robot.RobotMap;
-//import org.usfirst.frc.team1294.robot.commands.MoveUpperArmMotor;
+//import org.usfirst.frc.team1294.robot.commands.ArmCommand;
 //
 //import edu.wpi.first.wpilibj.CANTalon;
 //import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -28,13 +28,15 @@
 //	@Override
 //	protected void initDefaultCommand() {
 //		// TODO Auto-generated method stub
-//		setDefaultCommand(new MoveUpperArmMotor());
+//		setDefaultCommand(new ArmCommand());
 //	}
-//	public void moveLowerMotor(Joystick one){
-//		lowerArmTalon.set(one.getRawAxis(1)*0.5);
+//	public void moveLowerMotor(double value){
+//		//lowerArmTalon.set(one.getRawAxis(1)*0.5);
+//		lowerArmTalon.set(value);
 //	}
-//	public void moveUpperMotor(Joystick one){
-//		upperArmTalon.set(one.getRawAxis(1)*0.05);
+//	public void moveUpperMotor(double value){
+//		//upperArmTalon.set(one.getRawAxis(1)*0.05);
+//		upperArmTalon.set(value);
 //	}
 //
 //}
