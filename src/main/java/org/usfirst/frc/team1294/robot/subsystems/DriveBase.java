@@ -1,9 +1,11 @@
 package org.usfirst.frc.team1294.robot.subsystems;
 
 import org.usfirst.frc.team1294.robot.RobotMap;
-import org.usfirst.frc.team1294.robot.commands.TankDriveWithJoystick;
+import org.usfirst.frc.team1294.robot.commands.ArcadeDriveCommand;
+import org.usfirst.frc.team1294.robot.utilities.RobotDetector;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -25,6 +27,7 @@ public class DriveBase extends Subsystem {
 	private AnalogInput ultrasonic;
 	private AnalogInput ultrasonic2;
 	private AnalogInput ultrasonic3;
+	private boolean isClosedLoopMode;
 
 	public DriveBase() {
 		leftFrontTalon = new CANTalon(RobotMap.leftFrontTalon);
@@ -49,7 +52,6 @@ public class DriveBase extends Subsystem {
 		rightBackTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
 		rightBackTalon.set(rightFrontTalon.getDeviceID());
 
-
 		drive = new RobotDrive(leftFrontTalon, rightFrontTalon);
 		
 
@@ -60,7 +62,10 @@ public class DriveBase extends Subsystem {
     	ultrasonic2 = ultrasonicSensor2;
     	AnalogInput ultrasonicSensor3 = new AnalogInput(3);
     	ultrasonic3 = ultrasonicSensor3;
-		gyro = new ADXRS450_Gyro();
+
+		if (RobotDetector.getWhichRobot() == RobotDetector.WhichRobot.ROBOT_1)
+			gyro = new ADXRS450_Gyro();
+		else gyro = new AnalogGyro(0);
 
 		/*
 		 * LiveWindow.addSensor(this.getName(), "AnalogGyro", (AnalogGyro)
@@ -73,7 +78,8 @@ public class DriveBase extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new TankDriveWithJoystick());
+		//setDefaultCommand(new TankDriveWithJoystick());
+		setDefaultCommand(new ArcadeDriveCommand());
 	}
 
 	public void tankDrive(Joystick left, Joystick right) {
@@ -100,6 +106,8 @@ public class DriveBase extends Subsystem {
 		rightFrontTalon.setD(0);
 		
 		drive.setMaxOutput(2000);
+
+		isClosedLoopMode = true;
 	}
 
 	public void setTalonsToOpenLoop() {
@@ -109,7 +117,8 @@ public class DriveBase extends Subsystem {
 		leftFrontTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		
 		drive.setMaxOutput(1);
-		
+
+		isClosedLoopMode = false;
 	}
 
 	public void stop() {
@@ -136,11 +145,11 @@ public class DriveBase extends Subsystem {
 	}
 
 	public double getLeftPosition() {
-		return leftFrontTalon.getEncPosition() / RobotMap.distanceScaler;
+		return leftFrontTalon.getEncPosition() / RobotMap.getDistanceScaler();
 	}
 
 	public double getRightPosition() {
-		return rightFrontTalon.getEncPosition() / RobotMap.distanceScaler;
+		return rightFrontTalon.getEncPosition() / RobotMap.getDistanceScaler();
 	}
 
 	public double getLeftSpeed() {
@@ -161,5 +170,9 @@ public class DriveBase extends Subsystem {
 	public double getUltrasonicDistanceRight(){
 		double voltage = ultrasonic3.getVoltage();
 		return (voltage *(512.0/5.0));
+	}
+
+	public boolean isClosedLoopMode() {
+		return isClosedLoopMode;
 	}
 }

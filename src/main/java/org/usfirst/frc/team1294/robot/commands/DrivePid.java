@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DrivePid extends PIDCommand {
 
-	private static final double PID_TOLERANCE = 1;
+	private static final double PID_TOLERANCE = 3;
 	private static final double PID_P = 0.15;
 	private static final double PID_I = 0.02;
 	private static final double PID_D = 0.09;
@@ -22,6 +22,8 @@ public class DrivePid extends PIDCommand {
 	private double distance;
 	private double leftEncoderStart;
 	private double rightEncoderStart;
+
+	private boolean hasDrivenFarEnough;
 	
 	public DrivePid(double heading) {
 		this(String.format("Turn to a heading of %f", heading), heading, 0, 0);
@@ -54,6 +56,8 @@ public class DrivePid extends PIDCommand {
 
 	@Override
 	protected void initialize() {
+		hasDrivenFarEnough = false;
+
 		if (driveCurrentHeading) {
 			// use current heading
 			this.setSetpoint(driveBase.getNormalizedAngle());
@@ -105,26 +109,23 @@ public class DrivePid extends PIDCommand {
 				Math.abs(driveBase.getLeftPosition() - leftEncoderStart) + 
 				Math.abs(driveBase.getRightPosition() - rightEncoderStart)) / 2;
 
-//		System.out.println(distanceDriven + " " + distance);
-		boolean hasDrivenFarEnough = false;
-		
-		if (distanceDriven < distance) {
-			//return false;
-		} else {
+		if (distanceDriven >= distance) {
 			this.desiredSpeed = 0; // TODO: do this slower
 			hasDrivenFarEnough = true;
 		}
 
-		boolean isPointingRightDirection = false;
-		// return false if robot is not pointing the correct direction
-		if (Math.abs(driveBase.getNormalizedAngle() - this.heading) > PID_TOLERANCE) {
-			//return false;
-		} else {
-			isPointingRightDirection = true;
-		}
-		
-		
-		return hasDrivenFarEnough && isPointingRightDirection;
+//		boolean isPointingRightDirection = false;
+//		// return false if robot is not pointing the correct direction
+//		SmartDashboard.putNumber("diff", Math.abs(driveBase.getNormalizedAngle() - this.heading));
+//		if (Math.abs(driveBase.getNormalizedAngle() - this.heading) > PID_TOLERANCE) {
+//
+//			//return false;
+//		} else {
+//			isPointingRightDirection = true;
+//		}
+
+
+		return hasDrivenFarEnough && this.getPIDController().onTarget();
 	}
 
 	@Override
