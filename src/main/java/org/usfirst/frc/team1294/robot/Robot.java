@@ -4,6 +4,7 @@ import org.usfirst.frc.team1294.robot.commands.AutonomousReachDefense;
 import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
 import org.usfirst.frc.team1294.robot.commands.SwitchToClosedLoopMode;
 import org.usfirst.frc.team1294.robot.commands.SwitchToOpenLoopMode;
+import org.usfirst.frc.team1294.robot.commands.TurnAroundAuto;
 import org.usfirst.frc.team1294.robot.subsystems.BallHandlingSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
@@ -57,7 +58,7 @@ public class Robot extends IterativeRobot {
     // SendableChooser for Autonomous Commands
     autoChooser = new SendableChooser();
     autoChooser.addDefault("Defeat Defense", new DriveStraightDistance(-0.6, 3.5));
-//    autoChooser.addDefault("Test Defense", new TurnAroundAuto());
+    autoChooser.addObject("Test low bar auto", new TurnAroundAuto());
     autoChooser.addObject("Reach Defense", new AutonomousReachDefense());
     SmartDashboard.putData("Auton Chooser", autoChooser);
   }
