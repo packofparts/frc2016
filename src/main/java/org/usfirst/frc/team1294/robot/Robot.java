@@ -56,9 +56,10 @@ public class Robot extends IterativeRobot {
 
     // SendableChooser for Autonomous Commands
     autoChooser = new SendableChooser();
-    autoChooser.addObject("Reach Defense", new AutonomousReachDefense());
     autoChooser.addDefault("Defeat Defense", new DriveStraightDistance(-0.5, 3.5));
-    SmartDashboard.putData("Auto chooser", autoChooser);
+//    autoChooser.addDefault("Test Defense", new TurnAroundAuto());
+    autoChooser.addObject("Reach Defense", new AutonomousReachDefense());
+    SmartDashboard.putData("Auton Chooser", autoChooser);
   }
 
   /**
