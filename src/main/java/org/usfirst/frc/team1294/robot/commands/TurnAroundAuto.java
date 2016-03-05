@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class TurnAroundAuto extends CommandGroup {
   public TurnAroundAuto() {
-    addSequential(new DriveStraightDistance(-0.5, 3.5));
+    addSequential(new DriveStraightDistance(-0.6, 4.5));
     addSequential(new TurnToHeading(235));
 //    addSequential(new DriveStraightDistance(0.5, 1));
   }
