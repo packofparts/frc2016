@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.AutonomousDefeatDefense;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionFiveLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionOneLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionTwoLowGoal;
@@ -28,7 +29,6 @@ public class Robot extends IterativeRobot {
   public static CameraSubsystem cameraSubsystem;
   public static OI oi;
   public static Vision visionSubsystem;
-  //public static ArmSubsystem armSubsystem = new ArmSubsystem();
   public static BallHandlingSubsystem ballHandleSubsystem;
   private static Command autoCommand;
   private SendableChooser autoChooser;
@@ -58,7 +58,7 @@ public class Robot extends IterativeRobot {
 
     // SendableChooser for Autonomous Commands
     autoChooser = new SendableChooser();
-    autoChooser.addDefault("Defeat Defense", new DriveStraightDistance(-0.6, 4.5));
+    autoChooser.addDefault("Defeat Defense", new AutonomousDefeatDefense());
     autoChooser.addObject("Low Goal Position 1", new AutonomousPositionOneLowGoal());
     autoChooser.addObject("Low Goal Position 2", new AutonomousPositionTwoLowGoal());
     autoChooser.addObject("Low Goal Position 5", new AutonomousPositionFiveLowGoal());
