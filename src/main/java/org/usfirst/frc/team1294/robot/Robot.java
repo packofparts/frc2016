@@ -1,5 +1,8 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.AutonomousPositionFiveLowGoal;
+import org.usfirst.frc.team1294.robot.commands.AutonomousPositionOneLowGoal;
+import org.usfirst.frc.team1294.robot.commands.AutonomousPositionTwoLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousReachDefense;
 import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
 import org.usfirst.frc.team1294.robot.commands.SwitchToClosedLoopMode;
@@ -57,9 +60,10 @@ public class Robot extends IterativeRobot {
 
     // SendableChooser for Autonomous Commands
     autoChooser = new SendableChooser();
-    autoChooser.addObject("Defeat Defense", new DriveStraightDistance(-0.6, 4.5));
-    autoChooser.addDefault("Test low bar auto", new TurnAroundAuto());
-    autoChooser.addObject("Reach Defense", new AutonomousReachDefense());
+    autoChooser.addDefault("Defeat Defense", new DriveStraightDistance(-0.6, 4.5));
+    autoChooser.addObject("Low Goal Position 1", new AutonomousPositionOneLowGoal());
+    autoChooser.addObject("Low Goal Position 2", new AutonomousPositionTwoLowGoal());
+    autoChooser.addObject("Low Goal Position 5", new AutonomousPositionFiveLowGoal());
     SmartDashboard.putData("Auton Chooser", autoChooser);
   }
 
