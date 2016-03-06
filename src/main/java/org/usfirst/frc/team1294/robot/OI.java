@@ -4,6 +4,7 @@ import org.usfirst.frc.team1294.robot.commands.EjectBallCommand;
 import org.usfirst.frc.team1294.robot.commands.IntakeBallCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.ToggleOpenLoopModeCommand;
+import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -31,8 +32,10 @@ public class OI {
 	//Button turnToTargetButton = new JoystickButton(stickTheThird, 3);
 	//Button notSmartDashboard = new JoystickButton(stickTheThird, 8);
 	Joystick mechStickOne = new Joystick(1);
-	Button mechButtonX = new JoystickButton(mechStickOne, 3);
 	Button mechButtonA = new JoystickButton(mechStickOne, 1);
+	Button mechButtonB = new JoystickButton(mechStickOne, 2);
+	Button mechButtonX = new JoystickButton(mechStickOne, 3);
+	Button mechButtonY = new JoystickButton(mechStickOne, 4);
 	Button startButton = new JoystickButton(mechStickOne, 7);
 	
 	Button mechButtonLB = new JoystickButton(mechStickOne, 5);
@@ -48,26 +51,13 @@ public class OI {
 	// commands the same as any other Button.
 
 	public OI() {
-//		leftButton1.toggleWhenPressed(new DriveStraightDistance(1, 0.5));
-		//leftButton6.toggleWhenPressed(new WallFollowing());
-		//leftButton10.toggleWhenPressed(new SquareAutonomousCommand());
-		//stickLeft.
-		//cam1.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.FRONT));
-		//cam2.whenPressed(new SetCameraCommand(CameraSubsystem.Camera.BACK));
 		switchCam.whenPressed(new SwitchCameraCommand());
-		//otherSwitchCam.whenPressed(new SwitchCameraCommand());
-		//turnToTargetButton.whenPressed(new TurnTowardsVisionTarget());
-		//notSmartDashboard.whenPressed(new TurnToBearing(-30));
 
-		//mechButtonX.toggleWhenPressed(new MoveUpperArmMotor());
-//		mechButtonA.whenPressed(new LaunchBallCommand());
-		//mechRightButton.toggleWhenPressed(new TurnTowardsVisionTarget());  // allow PID command to be
-		// canceled by pressing button again if needed
 
 		mechButtonRB.whileHeld(new IntakeBallCommand());
 		mechButtonLB.whileHeld(new EjectBallCommand());
 		startButton.whenPressed(new ToggleOpenLoopModeCommand());
-//		left11.whileHeld(new DriveAtFullPowerCommand());
+		mechButtonA.whenPressed(new TurnTowardsVisionTarget());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
