@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1294.robot.commands;
 
-public class AutonomousPositionFiveLowGoal {
+import edu.wpi.first.wpilibj.command.CommandGroup;
+
+public class AutonomousPositionFiveLowGoal extends CommandGroup {
 
 	public AutonomousPositionFiveLowGoal() {
 		
