@@ -21,8 +21,7 @@ public class AutonomousPositionFiveLowGoal extends CommandGroup {
 		addSequential(new DriveStraightDistance(0.8, 1)); // TODO: measure this distance
 		
 		// shoot the ball
-		addSequential(new EjectBallCommand());
-		addSequential(new WaitCommand(1));
+		addSequential(new TimedEjectBall(1));
 	}
 	
 }
