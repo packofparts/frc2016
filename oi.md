@@ -8,8 +8,6 @@
 
 ## GAME MECH
 
-- Launch Catapult
-  - (A) Button (1)
 - Doors
   - Door Opener
   - Door Closer
@@ -19,7 +17,7 @@
 - Ball Out
   - Left Trigger (2)
 - Auto-Aim™ ©2016
-  - Right Bumper (6)
+  - (A) button (1)
 
 ## Notes
 
