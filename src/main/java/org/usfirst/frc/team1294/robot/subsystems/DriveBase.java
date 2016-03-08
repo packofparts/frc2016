@@ -63,9 +63,9 @@ public class DriveBase extends Subsystem {
     	AnalogInput ultrasonicSensor3 = new AnalogInput(3);
     	ultrasonic3 = ultrasonicSensor3;
 
-		if (RobotDetector.getWhichRobot() == RobotDetector.WhichRobot.ROBOT_1)
+		//if (RobotDetector.getWhichRobot() == RobotDetector.WhichRobot.ROBOT_1)
 			gyro = new ADXRS450_Gyro();
-		else gyro = new AnalogGyro(0);
+		//else gyro = new AnalogGyro(0);
 
 		/*
 		 * LiveWindow.addSensor(this.getName(), "AnalogGyro", (AnalogGyro)
