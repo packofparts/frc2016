@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class AutonomousPositionFiveLowGoal extends CommandGroup {
 
 	public AutonomousPositionFiveLowGoal() {
+		addSequential(new ResetGyro());
+		
 		// drive straight forward until at aiming point
 		addSequential(new DriveStraightDistance(-0.7, 6)); // TODO: measure this distance
 		

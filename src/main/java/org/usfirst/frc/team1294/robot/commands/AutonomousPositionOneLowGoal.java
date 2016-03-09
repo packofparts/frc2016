@@ -18,12 +18,9 @@ public class AutonomousPositionOneLowGoal extends CommandGroup {
 		// turn so that back end is pointing roughly at target
 		addSequential(new TurnToHeading(250)); // TODO: validate this angle
 		
-		// aim at the goal
+		// aim at the goal, drive forward, aim at the goal, drive forward
 		addSequential(new TurnTowardsVisionTarget());
-		
-		// drive until at goal shooting distance
-		addSequential(new DriveStraightDistance(0.7, 1)); // TODO: measure this distance
-		
+		addSequential(new DriveStraightDistance(0.7, 1));
 		addSequential(new TurnTowardsVisionTarget());
 		addSequential(new DriveStraightDistance(0.7, 2));
 		

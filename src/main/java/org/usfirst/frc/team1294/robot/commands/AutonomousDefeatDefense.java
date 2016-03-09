@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousDefeatDefense extends CommandGroup {
 	
 	public AutonomousDefeatDefense() {
+		addSequential(new ResetGyro());
 		addSequential(new DriveStraightDistance(-0.6, 5));
 	}
 	
