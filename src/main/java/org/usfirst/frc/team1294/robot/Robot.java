@@ -4,9 +4,9 @@ import org.usfirst.frc.team1294.robot.commands.AutonomousDefeatDefense;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionFiveLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionOneLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionTwoLowGoal;
-import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
 import org.usfirst.frc.team1294.robot.commands.SwitchToClosedLoopMode;
 import org.usfirst.frc.team1294.robot.commands.SwitchToOpenLoopMode;
+import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.BallHandlingSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
@@ -30,6 +30,7 @@ public class Robot extends IterativeRobot {
   public static OI oi;
   public static Vision visionSubsystem;
   public static BallHandlingSubsystem ballHandleSubsystem;
+  public static ArmSubsystem armSubsystem;
   private static Command autoCommand;
   private SendableChooser autoChooser;
 
@@ -43,6 +44,7 @@ public class Robot extends IterativeRobot {
     visionSubsystem = new Vision();
     driveBase = new DriveBase();
     cameraSubsystem = new CameraSubsystem();
+    armSubsystem = new ArmSubsystem();
     oi = new OI();
 
     VersionInformation vi = new VersionInformation();
