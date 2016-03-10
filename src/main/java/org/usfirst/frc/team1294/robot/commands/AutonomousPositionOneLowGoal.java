@@ -20,8 +20,8 @@ public class AutonomousPositionOneLowGoal extends CommandGroup {
 		addSequential(new DriveStraightDistance(0.8, 2.5));
 		
 		// aim at the goal, drive forward, aim at the goal, drive forward
-		addSequential(new WaitCommand(1.5));
-		addSequential(new TurnTowardsVisionTarget());
+		//
+		//addSequential(new TurnTowardsVisionTarget());
 		addSequential(new DriveStraightDistance(0.8, 1));
 		//addSequential(new TurnTowardsVisionTarget());
 		//addSequential(new DriveStraightDistance(0.8, 1.25));
