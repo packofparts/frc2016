@@ -17,12 +17,12 @@ public class TimedEjectBall extends Command {
   @Override
   protected void initialize() {
     setTimeout(timeout);
-    Robot.ballHandleSubsystem.setIntake(-1);
+    
   }
 
   @Override
   protected void execute() {
-
+	  Robot.ballHandleSubsystem.setIntake(-1);
   }
 
   @Override

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DrivePid extends PIDCommand {
 
 	private static final double PID_TOLERANCE = 3;
-	private static final double PID_P = 0.15;
+	private static final double PID_P = 0.10;
 	private static final double PID_I = 0.02;
 	private static final double PID_D = 0.09;
 	
@@ -69,7 +69,7 @@ public class DrivePid extends PIDCommand {
 		this.desiredSpeed = speed;
 		
 		this.getPIDController().setInputRange(0, 360);
-		this.getPIDController().setOutputRange(-0.6, 0.6);
+		this.getPIDController().setOutputRange(-0.5, 0.5);
 		this.getPIDController().setContinuous();
 		//this.getPIDController().setPercentTolerance(PID_TOLERANCE);
 		this.getPIDController().setAbsoluteTolerance(PID_TOLERANCE);
