@@ -7,6 +7,7 @@ import org.usfirst.frc.team1294.robot.RobotMap;
 import org.usfirst.frc.team1294.robot.commands.StreamCameraCommand;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.USBCamera;
@@ -60,21 +61,25 @@ public class CameraSubsystem extends Subsystem {
   public static void initCameras() {
     if (initCameras) return;
 
-    frontCamera = new USBCamera(RobotMap.getFrontCameraId());
-    backCamera = new USBCamera(RobotMap.getBackCameraId());
-//    piCamera = new USBCamera("cam2");
+    try {
+      frontCamera = new USBCamera(RobotMap.getFrontCameraId());
+      backCamera = new USBCamera(RobotMap.getBackCameraId());
+      //    piCamera = new USBCamera("cam2");
 
-//    frontCamera.setExposureHoldCurrent();
-//    backCamera.setExposureHoldCurrent();
-//
-//    frontCamera.setWhiteBalanceHoldCurrent();
-//    frontCamera.setWhiteBalanceHoldCurrent();
+      //    frontCamera.setExposureHoldCurrent();
+      //    backCamera.setExposureHoldCurrent();
+      //
+      //    frontCamera.setWhiteBalanceHoldCurrent();
+      //    frontCamera.setWhiteBalanceHoldCurrent();
 
-    initCameras = true;
+      initCameras = true;
 
-    frontCamera.startCapture();
-//    frontCamera.stopCapture();
-//    backCamera.startCapture();
+      frontCamera.startCapture();
+      //    frontCamera.stopCapture();
+      //    backCamera.startCapture();
+    } catch (Exception e) {
+      DriverStation.reportWarning("Camera error. Are the cameras plugged in?", false);
+    }
   }
 
   /**
@@ -108,9 +113,14 @@ public class CameraSubsystem extends Subsystem {
         case PI:
           throw new IllegalStateException("Pi camera not implemented");
       }
+    } catch (IllegalStateException e) {
+      // pi camera exception
+      DriverStation.reportError("Code tried to switch to a camera that doesn't exist. (pi camera)", false);
     } catch (Exception e) {
-      e.printStackTrace();
+      DriverStation.reportWarning("Can't switch to camera " + camera, false);
     }
+
+    SmartDashboard.putBoolean("REVERSE", currentCamera == Camera.BACK);
   }
 
   public void stream() {
@@ -132,10 +142,9 @@ public class CameraSubsystem extends Subsystem {
           throw new IllegalStateException("Pi camera not implemented");
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      // An error has occurred, don't break the robot
+      // Don't print an exception, because that would spam every 1/30 seconds
     }
-
-    SmartDashboard.putBoolean("REVERSE", currentCamera == Camera.BACK);
 
     cameraServer.setImage(frame);
   }
