@@ -69,7 +69,7 @@ public class DrivePid extends PIDCommand {
 		this.desiredSpeed = speed;
 		
 		this.getPIDController().setInputRange(0, 360);
-		this.getPIDController().setOutputRange(-0.4, 0.4);
+		this.getPIDController().setOutputRange(-0.6, 0.6);
 		this.getPIDController().setContinuous();
 		//this.getPIDController().setPercentTolerance(PID_TOLERANCE);
 		this.getPIDController().setAbsoluteTolerance(PID_TOLERANCE);

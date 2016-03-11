@@ -20,7 +20,7 @@ public class ArcadeDriveCommand extends Command {
   @Override
   protected void execute() {
     double forwards = expo(Robot.oi.getStickLeft().getY(), 1.25);
-    double turn = expo(Robot.oi.getStickLeft().getX(), 1.75) / 2;
+    double turn = expo(Robot.oi.getStickLeft().getX(), 1.75) * 0.75;
 
     if (Robot.cameraSubsystem.getCurrentCamera() == CameraSubsystem.Camera.BACK) {
       forwards *= -1;

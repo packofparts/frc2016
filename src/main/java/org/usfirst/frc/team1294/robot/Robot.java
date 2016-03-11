@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1294.robot;
 
 import org.usfirst.frc.team1294.robot.commands.AutonomousDefeatDefense;
+import org.usfirst.frc.team1294.robot.commands.AutonomousDoNothing;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionFiveLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionOneLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionTwoLowGoal;
@@ -64,6 +65,7 @@ public class Robot extends IterativeRobot {
     autoChooser.addObject("Low Goal Position 1", new AutonomousPositionOneLowGoal());
     autoChooser.addObject("Low Goal Position 2", new AutonomousPositionTwoLowGoal());
     autoChooser.addObject("Low Goal Position 5", new AutonomousPositionFiveLowGoal());
+    autoChooser.addDefault("Do Nothing", new AutonomousDoNothing());
     SmartDashboard.putData("Auton Chooser", autoChooser);
   }
 
