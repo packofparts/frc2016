@@ -5,6 +5,7 @@ import org.usfirst.frc.team1294.robot.commands.AutonomousDoNothing;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionFiveLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionOneLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionTwoLowGoal;
+import org.usfirst.frc.team1294.robot.commands.DriveArmBackwardCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchToClosedLoopMode;
 import org.usfirst.frc.team1294.robot.commands.SwitchToOpenLoopMode;
 import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
@@ -90,6 +91,8 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void autonomousInit() {
+    new DriveArmBackwardCommand().start();
+
     autoCommand = (Command) autoChooser.getSelected();
     if (autoCommand != null) autoCommand.start();
   }
