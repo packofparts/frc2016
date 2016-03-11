@@ -1,11 +1,13 @@
 package org.usfirst.frc.team1294.robot;
 
+import org.usfirst.frc.team1294.robot.commands.DriveArmBackwardCommand;
+import org.usfirst.frc.team1294.robot.commands.DriveArmForwardCommand;
 import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
 import org.usfirst.frc.team1294.robot.commands.EjectBallCommand;
 import org.usfirst.frc.team1294.robot.commands.IntakeBallCommand;
+import org.usfirst.frc.team1294.robot.commands.StopArmCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.ToggleOpenLoopModeCommand;
-import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -59,6 +61,10 @@ public class OI {
 		mechButtonLB.whileHeld(new EjectBallCommand());
 		startButton.whenPressed(new ToggleOpenLoopModeCommand());
 		mechButtonA.whenPressed(new DriveStraightDistance(0.5, 1));
+		// mechButtonA.whenPressed(new TurnTowardsVisionTarget());
+		mechButtonX.whenPressed(new DriveArmBackwardCommand());
+		mechButtonY.whenPressed(new DriveArmForwardCommand());
+		mechButtonB.whenPressed(new StopArmCommand());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
