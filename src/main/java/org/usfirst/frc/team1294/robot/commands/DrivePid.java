@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DrivePid extends PIDCommand {
 
 	private static final double PID_TOLERANCE = 3;
-	private static final double PID_P = 0.12;
-	private static final double PID_I = 0.06;
+	private static final double PID_P = 0.10;
+	private static final double PID_I = 0.05;
 	private static final double PID_D = 0.09;
 	
 	protected DriveBase driveBase;
