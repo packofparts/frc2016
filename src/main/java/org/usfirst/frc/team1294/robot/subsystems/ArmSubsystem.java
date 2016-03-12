@@ -15,6 +15,10 @@ public class ArmSubsystem extends Subsystem {
 
   private CANTalon talon;
 
+  public ArmSubsystem() {
+    talon = new CANTalon(9);
+  }
+
   public void forwards() {
     talon.set(SPEED);
   }
