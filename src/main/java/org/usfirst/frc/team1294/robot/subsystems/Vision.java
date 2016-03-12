@@ -26,10 +26,10 @@ public class Vision extends Subsystem implements LiveWindowSendable, ITableListe
 	
 	private static final int DEFAULT_THRESHOLD_HIGH_L = 255;
 	private static final int DEFAULT_THRESHOLD_HIGH_S = 255;
-	private static final int DEFAULT_THRESHOLD_HIGH_H = 40;
-	private static final int DEFAULT_THRESHOLD_LOW_L = 40;
-	private static final int DEFAULT_THRESHOLD_LOW_S = 60;
-	private static final int DEFAULT_THRESHOLD_LOW_H = 20;
+	private static final int DEFAULT_THRESHOLD_HIGH_H = 104;
+	private static final int DEFAULT_THRESHOLD_LOW_L = 32;
+	private static final int DEFAULT_THRESHOLD_LOW_S = 122;
+	private static final int DEFAULT_THRESHOLD_LOW_H = 32;
 	private static final int DEFAULT_QUALITY = 10;
 	private static final int DEFAULT_FPS = 5;
 	private static final boolean DEFAULT_TARGET_ACQUIRED = false;

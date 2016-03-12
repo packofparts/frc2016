@@ -19,6 +19,8 @@ public class TurnTowardsVisionTarget extends TurnToBearing {
 		if (Robot.visionSubsystem.getTimeSinceLastUpdate() <= MAX_AGE_OF_VISION_DATA && Robot.visionSubsystem.isTargetAcquired()) {
 			bearing = (Robot.visionSubsystem.getTargetX() - WIDTH / 2) * DEGREES_PER_PIXEL;
 			System.out.println("targetX " + Robot.visionSubsystem.getTargetX() + " bearing " + bearing);
+		} else {
+			System.out.println("Did not see the target");
 		}
 		super.initialize();
 	}
