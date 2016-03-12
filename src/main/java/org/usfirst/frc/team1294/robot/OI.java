@@ -8,6 +8,7 @@ import org.usfirst.frc.team1294.robot.commands.IntakeBallCommand;
 import org.usfirst.frc.team1294.robot.commands.StopArmCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team1294.robot.commands.ToggleOpenLoopModeCommand;
+import org.usfirst.frc.team1294.robot.commands.TurnTowardsVisionTarget;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -60,8 +61,8 @@ public class OI {
 		mechButtonRB.whileHeld(new IntakeBallCommand());
 		mechButtonLB.whileHeld(new EjectBallCommand());
 		startButton.whenPressed(new ToggleOpenLoopModeCommand());
-		mechButtonA.whenPressed(new DriveStraightDistance(0.5, 1));
-		// mechButtonA.whenPressed(new TurnTowardsVisionTarget());
+		//mechButtonA.whenPressed(new DriveStraightDistance(0.5, 1));
+		mechButtonA.whenPressed(new TurnTowardsVisionTarget());
 		mechButtonX.whenPressed(new DriveArmBackwardCommand());
 		mechButtonY.whenPressed(new DriveArmForwardCommand());
 		mechButtonB.whenPressed(new StopArmCommand());

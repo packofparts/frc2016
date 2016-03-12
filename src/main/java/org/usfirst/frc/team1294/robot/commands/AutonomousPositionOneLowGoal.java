@@ -10,7 +10,7 @@ public class AutonomousPositionOneLowGoal extends CommandGroup {
 		addSequential(new WaitCommand(0.5));
 		
 		// drive straight forward until defense is defeated
-		addSequential(new DriveStraightDistance(-0.8, 6.9)); 
+		addSequential(new DriveStraightDistance(-0.8, 7)); 
 		
 		// turn so that back end is pointing roughly at target
 		addSequential(new TurnToHeading(255)); // TODO: validate this angle
