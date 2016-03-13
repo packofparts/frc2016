@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1294.robot.subsystems;
 
 import org.usfirst.frc.team1294.robot.RobotMap;
+import org.usfirst.frc.team1294.robot.commands.DriveArmWithJoystickCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -23,13 +24,13 @@ public class ArmSubsystem extends Subsystem {
     SmartDashboard.putNumber("arm speed", SPEED);
   }
 
+  private static void updateSpeed() {
+    SPEED = SmartDashboard.getNumber("arm speed", 0.5);
+  }
+
   public void forwards() {
     updateSpeed();
     talon.set(SPEED);
-  }
-
-  private static void updateSpeed() {
-    SPEED = SmartDashboard.getNumber("arm speed", 0.5);
   }
 
   public void backwards() {
@@ -39,6 +40,10 @@ public class ArmSubsystem extends Subsystem {
 
   public void stop() {
     talon.set(0);
+  }
+
+  public void setTalon(double input) {
+    talon.set(input);
   }
 
   public boolean isForwardsLimitSwitchClosed() {
@@ -51,6 +56,6 @@ public class ArmSubsystem extends Subsystem {
 
   @Override
   protected void initDefaultCommand() {
-    // setDefaultCommand();
+    setDefaultCommand(new DriveArmWithJoystickCommand());
   }
 }
