@@ -63,8 +63,8 @@ public class OI {
 		startButton.whenPressed(new ToggleOpenLoopModeCommand());
 		//mechButtonA.whenPressed(new DriveStraightDistance(0.5, 1));
 		mechButtonA.whenPressed(new TurnTowardsVisionTarget());
-		mechButtonX.whenPressed(new DriveArmBackwardCommand());
-		mechButtonY.whenPressed(new DriveArmForwardCommand());
+		mechButtonY.whenPressed(new DriveArmBackwardCommand());
+		mechButtonX.whenPressed(new DriveArmForwardCommand());
 		mechButtonB.whenPressed(new StopArmCommand());
 	}
 	//// TRIGGERING COMMANDS WITH BUTTONS

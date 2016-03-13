@@ -1,11 +1,13 @@
 package org.usfirst.frc.team1294.robot;
 
 import org.usfirst.frc.team1294.robot.commands.AutonomousDefeatDefense;
+import org.usfirst.frc.team1294.robot.commands.AutonomousDefeatDefensePos1;
 import org.usfirst.frc.team1294.robot.commands.AutonomousDoNothing;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionFiveLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionOneLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionTwoLowGoal;
 import org.usfirst.frc.team1294.robot.commands.DriveArmBackwardCommand;
+import org.usfirst.frc.team1294.robot.commands.DriveArmForwardCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchToClosedLoopMode;
 import org.usfirst.frc.team1294.robot.commands.SwitchToOpenLoopMode;
 import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
@@ -63,6 +65,7 @@ public class Robot extends IterativeRobot {
     // SendableChooser for Autonomous Commands
     autoChooser = new SendableChooser();
     autoChooser.addDefault("Defeat Defense", new AutonomousDefeatDefense());
+    autoChooser.addDefault("Defeat Defense Position 1", new AutonomousDefeatDefensePos1());
     autoChooser.addObject("Low Goal Position 1", new AutonomousPositionOneLowGoal());
     autoChooser.addObject("Low Goal Position 2", new AutonomousPositionTwoLowGoal());
     autoChooser.addObject("Low Goal Position 5", new AutonomousPositionFiveLowGoal());
@@ -91,8 +94,6 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void autonomousInit() {
-    new DriveArmBackwardCommand().start();
-
     autoCommand = (Command) autoChooser.getSelected();
     if (autoCommand != null) autoCommand.start();
   }
