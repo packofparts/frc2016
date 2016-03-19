@@ -7,12 +7,12 @@ public class AutonomousPositionOneLowGoal extends CommandGroup {
 
 	public AutonomousPositionOneLowGoal() {
 		addSequential(new ResetGyro());
-		addParallel(new DriveArmForwardCommand());
+		addParallel(new DriveArmBackwardCommand());
 		addSequential(new WaitCommand(0.5));
 		
 		// drive straight forward until defense is defeated
 		addSequential(new DriveStraightDistance(-0.8, 6.20));
-		addParallel(new DriveArmBackwardCommand());
+		addParallel(new DriveArmForwardCommand());
 		addSequential(new DriveStraightDistance(-0.8, 1));
 		
 		// turn so that back end is pointing roughly at target

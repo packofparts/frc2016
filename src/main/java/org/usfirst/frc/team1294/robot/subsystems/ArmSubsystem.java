@@ -14,7 +14,7 @@ public class ArmSubsystem extends Subsystem {
    * A constant used as the {@code x} value to timeout the command, per the proposal.
    */
   public static final double TIMEOUT = 5;
-  private static final double SPEED = 0.5;
+  private static final double SPEED = 0.25;
 
   private CANTalon talon;
 

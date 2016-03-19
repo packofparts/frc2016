@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutonomousDefeatDefensePos1 extends CommandGroup {
   public AutonomousDefeatDefensePos1() {
-    addParallel(new DriveArmForwardCommand());
+//    addParallel(new DriveArmForwardCommand());
+    addSequential(new DriveArmBackwardCommand());
     addSequential(new AutonomousDefeatDefense());
   }
 }

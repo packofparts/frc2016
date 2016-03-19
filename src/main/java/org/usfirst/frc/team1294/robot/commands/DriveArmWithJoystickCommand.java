@@ -19,7 +19,7 @@ public class DriveArmWithJoystickCommand extends Command {
 
   @Override
   protected void execute() {
-    Robot.armSubsystem.setTalon(Robot.oi.getMechStickOne().getRawAxis(1));
+    Robot.armSubsystem.setTalon(Robot.oi.getMechStickOne().getRawAxis(1) * 0.25);
   }
 
   @Override

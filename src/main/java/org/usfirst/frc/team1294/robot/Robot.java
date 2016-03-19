@@ -6,8 +6,6 @@ import org.usfirst.frc.team1294.robot.commands.AutonomousDoNothing;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionFiveLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionOneLowGoal;
 import org.usfirst.frc.team1294.robot.commands.AutonomousPositionTwoLowGoal;
-import org.usfirst.frc.team1294.robot.commands.DriveArmBackwardCommand;
-import org.usfirst.frc.team1294.robot.commands.DriveArmForwardCommand;
 import org.usfirst.frc.team1294.robot.commands.SwitchToClosedLoopMode;
 import org.usfirst.frc.team1294.robot.commands.SwitchToOpenLoopMode;
 import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
@@ -64,12 +62,12 @@ public class Robot extends IterativeRobot {
 
     // SendableChooser for Autonomous Commands
     autoChooser = new SendableChooser();
-    autoChooser.addDefault("Defeat Defense", new AutonomousDefeatDefense());
+    autoChooser.addObject("Defeat Defense", new AutonomousDefeatDefense());
     autoChooser.addDefault("Defeat Defense Position 1", new AutonomousDefeatDefensePos1());
     autoChooser.addObject("Low Goal Position 1", new AutonomousPositionOneLowGoal());
     autoChooser.addObject("Low Goal Position 2", new AutonomousPositionTwoLowGoal());
     autoChooser.addObject("Low Goal Position 5", new AutonomousPositionFiveLowGoal());
-    autoChooser.addDefault("Do Nothing", new AutonomousDoNothing());
+    autoChooser.addObject("Do Nothing", new AutonomousDoNothing());
     SmartDashboard.putData("Auton Chooser", autoChooser);
   }
 
@@ -95,7 +93,12 @@ public class Robot extends IterativeRobot {
   @Override
   public void autonomousInit() {
     autoCommand = (Command) autoChooser.getSelected();
-    if (autoCommand != null) autoCommand.start();
+    if (autoCommand != null) {
+      autoCommand.start();
+      SmartDashboard.putString("AUTO COMMAND: ", autoCommand.toString());
+    } else {
+      SmartDashboard.putString("AUTO COMMAND: ", "ERROR");
+    }
   }
 
   /**
