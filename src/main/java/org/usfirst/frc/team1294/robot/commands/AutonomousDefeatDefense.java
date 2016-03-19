@@ -6,7 +6,7 @@ public class AutonomousDefeatDefense extends CommandGroup {
 	
 	public AutonomousDefeatDefense() {
 		addSequential(new ResetGyro());
-		addSequential(new DriveStraightDistance(-0.6, 5));
+		addSequential(new DriveStraightDistance(-0.8, 5));
 	}
 	
 }

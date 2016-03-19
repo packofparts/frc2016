@@ -62,8 +62,8 @@ public class Robot extends IterativeRobot {
 
     // SendableChooser for Autonomous Commands
     autoChooser = new SendableChooser();
-    autoChooser.addObject("Defeat Defense", new AutonomousDefeatDefense());
-    autoChooser.addDefault("Defeat Defense Position 1", new AutonomousDefeatDefensePos1());
+    autoChooser.addDefault("Defeat Defense", new AutonomousDefeatDefense());
+    autoChooser.addObject("Defeat Defense Position 1", new AutonomousDefeatDefensePos1());
     autoChooser.addObject("Low Goal Position 1", new AutonomousPositionOneLowGoal());
     autoChooser.addObject("Low Goal Position 2", new AutonomousPositionTwoLowGoal());
     autoChooser.addObject("Low Goal Position 5", new AutonomousPositionFiveLowGoal());
