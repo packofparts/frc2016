@@ -23,7 +23,7 @@ public class RobotMap {
 	private static final String frontCamera2 = "cam1";
 	private static final String backCamera2 = "cam0";
 	private static final double distanceScaler = 5300;
-	private static final double distanceScaler2 = 3533.33;
+	private static final double distanceScaler2 = 3560;
 	
 	public static double getDistanceScaler() {
 		if (RobotDetector.getWhichRobot() == RobotDetector.WhichRobot.ROBOT_1) return distanceScaler;

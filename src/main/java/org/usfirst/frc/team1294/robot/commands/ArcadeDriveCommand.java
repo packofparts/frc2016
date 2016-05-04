@@ -20,11 +20,10 @@ public class ArcadeDriveCommand extends Command {
   @Override
   protected void execute() {
     double forwards = expo(Robot.oi.getStickLeft().getY(), 1.25);
-    double turn = expo(Robot.oi.getStickLeft().getX(), 1.75);
+    double turn = expo(Robot.oi.getStickLeft().getX(), 1.75) * 0.75;
 
     if (Robot.cameraSubsystem.getCurrentCamera() == CameraSubsystem.Camera.BACK) {
       forwards *= -1;
-//      turn *= -1;
     }
 
     Robot.driveBase.arcadeDrive(forwards, turn);

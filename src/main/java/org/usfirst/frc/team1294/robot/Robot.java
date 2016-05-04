@@ -1,9 +1,14 @@
 package org.usfirst.frc.team1294.robot;
 
-import org.usfirst.frc.team1294.robot.commands.AutonomousReachDefense;
-import org.usfirst.frc.team1294.robot.commands.DriveStraightDistance;
+import org.usfirst.frc.team1294.robot.commands.AutonomousDefeatDefense;
+import org.usfirst.frc.team1294.robot.commands.AutonomousDefeatDefensePos1;
+import org.usfirst.frc.team1294.robot.commands.AutonomousDoNothing;
+import org.usfirst.frc.team1294.robot.commands.AutonomousPositionFiveLowGoal;
+import org.usfirst.frc.team1294.robot.commands.AutonomousPositionOneLowGoal;
+import org.usfirst.frc.team1294.robot.commands.AutonomousPositionTwoLowGoal;
 import org.usfirst.frc.team1294.robot.commands.SwitchToClosedLoopMode;
 import org.usfirst.frc.team1294.robot.commands.SwitchToOpenLoopMode;
+import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.BallHandlingSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveBase;
@@ -26,8 +31,8 @@ public class Robot extends IterativeRobot {
   public static CameraSubsystem cameraSubsystem;
   public static OI oi;
   public static Vision visionSubsystem;
-  //public static ArmSubsystem armSubsystem = new ArmSubsystem();
   public static BallHandlingSubsystem ballHandleSubsystem;
+  public static ArmSubsystem armSubsystem;
   private static Command autoCommand;
   private SendableChooser autoChooser;
 
@@ -41,6 +46,7 @@ public class Robot extends IterativeRobot {
     visionSubsystem = new Vision();
     driveBase = new DriveBase();
     cameraSubsystem = new CameraSubsystem();
+    armSubsystem = new ArmSubsystem();
     oi = new OI();
 
     VersionInformation vi = new VersionInformation();
@@ -56,9 +62,13 @@ public class Robot extends IterativeRobot {
 
     // SendableChooser for Autonomous Commands
     autoChooser = new SendableChooser();
-    autoChooser.addObject("Reach Defense", new AutonomousReachDefense());
-    autoChooser.addDefault("Defeat Defense", new DriveStraightDistance(-0.5, 3.5));
-    SmartDashboard.putData("Auto chooser", autoChooser);
+    autoChooser.addDefault("Defeat Defense", new AutonomousDefeatDefense());
+    autoChooser.addObject("Defeat Defense Position 1", new AutonomousDefeatDefensePos1());
+    autoChooser.addObject("Low Goal Position 1", new AutonomousPositionOneLowGoal());
+    autoChooser.addObject("Low Goal Position 2", new AutonomousPositionTwoLowGoal());
+    autoChooser.addObject("Low Goal Position 5", new AutonomousPositionFiveLowGoal());
+    autoChooser.addObject("Do Nothing", new AutonomousDoNothing());
+    SmartDashboard.putData("Auton Chooser", autoChooser);
   }
 
   /**
@@ -83,7 +93,12 @@ public class Robot extends IterativeRobot {
   @Override
   public void autonomousInit() {
     autoCommand = (Command) autoChooser.getSelected();
-    if (autoCommand != null) autoCommand.start();
+    if (autoCommand != null) {
+      autoCommand.start();
+      SmartDashboard.putString("AUTO COMMAND: ", autoCommand.toString());
+    } else {
+      SmartDashboard.putString("AUTO COMMAND: ", "ERROR");
+    }
   }
 
   /**

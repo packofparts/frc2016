@@ -48,7 +48,7 @@ public class RobotDetector {
       }
     }
 
-    System.out.println("THE ROBOT IS: ROBOT " + whichRobot);
+    //System.out.println("THE ROBOT IS: ROBOT " + whichRobot);
     return whichRobot;
   }
 

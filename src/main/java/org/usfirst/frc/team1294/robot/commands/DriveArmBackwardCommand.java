@@ -1,42 +1,41 @@
 package org.usfirst.frc.team1294.robot.commands;
 
 import org.usfirst.frc.team1294.robot.Robot;
+import org.usfirst.frc.team1294.robot.subsystems.ArmSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * @author Austin Jenchi (timtim17)
  */
-public class TimedEjectBall extends Command {
-  private double timeout;
-
-  public TimedEjectBall(double time) {
-    timeout = time;
+public class DriveArmBackwardCommand extends Command {
+  public DriveArmBackwardCommand() {
+    requires(Robot.armSubsystem);
   }
 
   @Override
   protected void initialize() {
-    setTimeout(timeout);
-    
+    Robot.armSubsystem.backwards();
+    setTimeout(ArmSubsystem.TIMEOUT);
   }
 
   @Override
   protected void execute() {
-	  Robot.ballHandleSubsystem.setIntake(-1);
+    // do nothing
   }
 
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return Robot.armSubsystem.isBackwardsLimitSwitchClosed() || isTimedOut();
   }
 
   @Override
   protected void end() {
-    Robot.ballHandleSubsystem.stopIntake();
+    Robot.armSubsystem.stop();
   }
 
   @Override
   protected void interrupted() {
-    Robot.ballHandleSubsystem.stopIntake();
+    end();
   }
 }

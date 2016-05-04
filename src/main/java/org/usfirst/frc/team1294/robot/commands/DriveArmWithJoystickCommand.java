@@ -7,30 +7,33 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * @author Austin Jenchi (timtim17)
  */
-public abstract class DriveGearCommand extends Command {
-  public DriveGearCommand() {
-    requires(Robot.ballHandleSubsystem);
+public class DriveArmWithJoystickCommand extends Command {
+  public DriveArmWithJoystickCommand() {
+    requires(Robot.armSubsystem);
   }
 
   @Override
   protected void initialize() {
-    Robot.ballHandleSubsystem.setGear(getSpeed());
+
   }
 
   @Override
   protected void execute() {
-    // nothing to do
+    Robot.armSubsystem.setTalon(Robot.oi.getMechStickOne().getRawAxis(1) * 0.25);
+  }
+
+  @Override
+  protected boolean isFinished() {
+    return false;
   }
 
   @Override
   protected void end() {
-    Robot.ballHandleSubsystem.stopGear();
+    Robot.armSubsystem.stop();
   }
 
   @Override
   protected void interrupted() {
     end();
   }
-
-  public abstract double getSpeed();
 }

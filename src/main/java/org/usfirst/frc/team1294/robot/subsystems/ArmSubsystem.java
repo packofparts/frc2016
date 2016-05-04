@@ -1,42 +1,53 @@
-//package org.usfirst.frc.team1294.robot.subsystems;
-//
-//import org.usfirst.frc.team1294.robot.RobotMap;
-//import org.usfirst.frc.team1294.robot.commands.ArmCommand;
-//
-//import edu.wpi.first.wpilibj.CANTalon;
-//import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
-//import edu.wpi.first.wpilibj.Joystick;
-//import edu.wpi.first.wpilibj.command.Subsystem;
-//
-//public class ArmSubsystem extends Subsystem{
-//	public CANTalon lowerArmTalon;
-//	public CANTalon upperArmTalon;
-//	//private AnalogInput linear;
-//
-//	public ArmSubsystem() {
-//		// TODO Auto-generated constructor stub
-//		lowerArmTalon = new CANTalon(RobotMap.lowerArmTalon);
-//		upperArmTalon = new CANTalon(RobotMap.upperArmTalon);
-//		//AnalogInput linearPotentiometer = new AnalogInput(4);
-//		//linear = linearPotentiometer;
-//		lowerArmTalon.setFeedbackDevice(FeedbackDevice.AnalogPot);
-//		lowerArmTalon.changeControlMode(CANTalon.TalonControlMode.Position);
-//		upperArmTalon.setInverted(true);
-//		lowerArmTalon.setInverted(true);
-//	}
-//
-//	@Override
-//	protected void initDefaultCommand() {
-//		// TODO Auto-generated method stub
-//		setDefaultCommand(new ArmCommand());
-//	}
-//	public void moveLowerMotor(double value){
-//		//lowerArmTalon.set(one.getRawAxis(1)*0.5);
-//		lowerArmTalon.set(value);
-//	}
-//	public void moveUpperMotor(double value){
-//		//upperArmTalon.set(one.getRawAxis(1)*0.05);
-//		upperArmTalon.set(value);
-//	}
-//
-//}
+package org.usfirst.frc.team1294.robot.subsystems;
+
+import org.usfirst.frc.team1294.robot.RobotMap;
+import org.usfirst.frc.team1294.robot.commands.DriveArmWithJoystickCommand;
+
+import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
+/**
+ * @author Austin Jenchi (timtim17)
+ */
+public class ArmSubsystem extends Subsystem {
+  /**
+   * A constant used as the {@code x} value to timeout the command, per the proposal.
+   */
+  public static final double TIMEOUT = 5;
+  private static final double SPEED = 0.25;
+
+  private CANTalon talon;
+
+  public ArmSubsystem() {
+    talon = new CANTalon(RobotMap.spareTalon);
+  }
+
+  public void forwards() {
+    talon.set(SPEED);
+  }
+
+  public void backwards() {
+    talon.set(-SPEED);
+  }
+
+  public void stop() {
+    talon.set(0);
+  }
+
+  public void setTalon(double input) {
+    talon.set(input);
+  }
+
+  public boolean isForwardsLimitSwitchClosed() {
+    return talon.isFwdLimitSwitchClosed();
+  }
+
+  public boolean isBackwardsLimitSwitchClosed() {
+    return talon.isRevLimitSwitchClosed();
+  }
+
+  @Override
+  protected void initDefaultCommand() {
+    setDefaultCommand(new DriveArmWithJoystickCommand());
+  }
+}
